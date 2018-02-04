@@ -47,7 +47,7 @@ public class Board {
 		MainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		MainFrame.add(SplitMainPanel);
 		
-		ImageLabel.setIcon(new ImageIcon("CluedoImage.jpg")); //has to be image_label
+		ImageLabel.setIcon(new ImageIcon("Board.jpg")); //has to be image_label
 		
 		TopPanel.setTopComponent(ImageLabel);
 		
@@ -93,6 +93,7 @@ public class Board {
 		
 		//Creating a character list//
 				List<Cluedo_Character> Character_list = new ArrayList<Cluedo_Character>();
+				List<Cluedo_Weapons>  WeaponList = new ArrayList<Cluedo_Weapons>();
 				
 				
 				//only way i could think of, not a definate part of the code, let me know what you think//
@@ -110,6 +111,48 @@ public class Board {
 				Character_list.add(Mrs_White);
 				Character_list.add(Mrs_Peacock);
 				Character_list.add(Prof_Plum);
+				
+				
+				//creating the weapons//
+				Cluedo_Weapons CandleStick = new Cluedo_Weapons("CandleStick","CandleStick.jpg");
+				Cluedo_Weapons Knife = new Cluedo_Weapons("Knife","Knife.jpg");
+				Cluedo_Weapons Revolver = new Cluedo_Weapons("Revolver","Revolver.jpeg");
+				Cluedo_Weapons Rope = new Cluedo_Weapons("Rope","rope.jpeg");
+				Cluedo_Weapons Wrench = new Cluedo_Weapons("Wrench","Wrench.jpeg");
+				Cluedo_Weapons leadPipe = new Cluedo_Weapons("Lead Pipe","leadpipe.png");
+				
+				WeaponList.add(CandleStick);
+				WeaponList.add(Knife);
+				WeaponList.add(Revolver);
+				WeaponList.add(Rope);
+				WeaponList.add(Wrench);
+				WeaponList.add(leadPipe);
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				
 				//printing out the characters to the text area//
@@ -131,6 +174,31 @@ public class Board {
 				});
 				
 		
+				
+				
+				
+				textArea.append("Here is a list of Weapons!\n");//this is how we put infor onto the text area//
+				
+				for(int i = 0;i<WeaponList.size();i++) {
+					textArea.append(WeaponList.get(i).toString());
+					textArea.append("\n");
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 		//GridLayout//
 				
 		//Dice Roll//
@@ -144,5 +212,7 @@ public class Board {
 	}
 	
 }
+	
+
 	
 
