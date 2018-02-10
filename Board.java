@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -26,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultCaret;
 
 
 
@@ -95,6 +97,7 @@ public class Board {
 		
 		textArea.setFont(font);
 		textArea.setEditable(false);
+		
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		TopPanel.setBottomComponent(scrollPane);
 		
@@ -177,9 +180,34 @@ public class Board {
 						String input_text = TextField.getText();
 						textArea.append("\n\nYou entered:\n");
 						textArea.append(input_text);
+						textArea.setCaretPosition(textArea.getDocument().getLength());
+						TextField.setText("");
 					}
 				});
 				
+				TextField.addKeyListener(new KeyListener() {
+					public void keyReleased(KeyEvent ke) {
+						if(ke.getKeyCode()==KeyEvent.VK_ENTER) {
+							String input_text = TextField.getText();
+							textArea.append("\n\nYou entered:\n");
+							textArea.append(input_text);
+							textArea.setCaretPosition(textArea.getDocument().getLength());
+							TextField.setText("");
+						}
+					}
+
+					@Override
+					public void keyPressed(KeyEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void keyTyped(KeyEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 		
 				
 				
@@ -220,3 +248,4 @@ public class Board {
 	
 }
 	
+
