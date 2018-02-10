@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -36,7 +39,7 @@ import javax.swing.JTextField;
 
 
 
-public class main_2 {
+public class Board {
 	
 	
 	
@@ -65,7 +68,53 @@ public class main_2 {
 		SplitMainPanel.setRightComponent(BottomPanel);  // sets position of contents of the bottom half of the frame
 		Container content = grid.getContentPane();
 		TopPanel.setMinimumSize(minimumSize);
-		TopPanel.setTopComponent(content);
+		
+		
+		BoardPanel imagePane = new BoardPanel();
+		imagePane.setSize(600,600);
+		
+//		JLayeredPane  Layers = new JLayeredPane();
+//		Layers.setPreferredSize(new Dimension(600, 600));
+//		
+//		Layers.add(content,JLayeredPane.DEFAULT_LAYER);
+//	
+//		Layers.setLayer(imagePane,JLayeredPane.PALETTE_LAYER);//THIS IS THE LAYER THE IMAGE SITS ON//
+		
+		
+		
+		TopPanel.setTopComponent(imagePane);
+	 	imagePane.addMouseListener(new MouseListener(){
+    		public void mouseClicked(MouseEvent e) {
+    			double x = e.getX();
+    	         double y = e.getY();
+    	         System.out.println(x+","+y);
+    		}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+    		
+    	});
 		
 		//JLabel kitchen = new JLabel();
 		//kitchen.setIcon(new ImageIcon("cluedo board.jpg"));
@@ -164,7 +213,7 @@ public class main_2 {
 				TextField.setText("");
 			}
 		});
-		
+		//this listener reads in the text inputed by the player and performs the tasks//
 		TextField.addKeyListener(new KeyListener() {
 			public void keyReleased(KeyEvent ke) {
 				if(ke.getKeyCode()==KeyEvent.VK_ENTER) {
@@ -173,6 +222,19 @@ public class main_2 {
 					textArea.append(input_text);
 					textArea.setCaretPosition(textArea.getDocument().getLength());
 					TextField.setText("");
+					
+					if(input_text.equalsIgnoreCase("up")) {
+						
+					}
+					if(input_text.equalsIgnoreCase("down")) {
+						
+					}
+					if(input_text.equalsIgnoreCase("left")) {
+						
+					}
+					if(input_text.equalsIgnoreCase("right")) {
+						
+					}
 				}
 			}
 
