@@ -10,6 +10,7 @@ import java.awt.TexturePaint;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -142,6 +143,8 @@ public class main_2 {
 		JButton roll_button = new JButton("Roll Those Dice!");
 		dice_roll.add(roll_button);
 		
+		
+		//Here are the action listeners//
 		roll_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent f) {
 				Random DiceRoll1 = new Random();
@@ -151,6 +154,43 @@ public class main_2 {
 				textArea.append("a " + NumberOfDice1 +" and a " +NumberOfDice2 +" !" + "\n");
 				textArea.append("You can move " + (NumberOfDice1+NumberOfDice2) + " spaces!");
 			}
+		});
+		Submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String input_text = TextField.getText();
+				textArea.append("\n\nYou entered:\n");
+				textArea.append(input_text);
+				textArea.setCaretPosition(textArea.getDocument().getLength());
+				TextField.setText("");
+			}
+		});
+		
+		TextField.addKeyListener(new KeyListener() {
+			public void keyReleased(KeyEvent ke) {
+				if(ke.getKeyCode()==KeyEvent.VK_ENTER) {
+					String input_text = TextField.getText();
+					textArea.append("\n\nYou entered:\n");
+					textArea.append(input_text);
+					textArea.setCaretPosition(textArea.getDocument().getLength());
+					TextField.setText("");
+				}
+			}
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+		
+
+		
 		});
 		
 		textArea.setFont(font);
