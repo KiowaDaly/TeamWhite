@@ -39,7 +39,7 @@ import javax.swing.JTextField;
 
 
 
-public class Board {
+public class MainFile {
 	
 	
 	
@@ -48,7 +48,9 @@ public class Board {
 		
 		
 		Font font = new Font("Myriad Black", Font.BOLD, 20); //Cluedo font with bold writing to make everything easier to read
-		
+		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
+		int width=(int) screen.getWidth();
+		int height=(int) screen.getHeight();
 		JFrame MainFrame = new JFrame("Cluedo by KRM");//creating the main frame with a title//
 		JSplitPane SplitMainPanel=new JSplitPane(); //this allows us to splice the frame into smaller bits//
 		//JLabel ImageLabel = new JLabel();
@@ -57,18 +59,21 @@ public class Board {
 		JTabbedPane BottomPanel =new JTabbedPane();
 		//BottomPanel.setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
 		JTextArea textArea=new JTextArea("Output Console:");
+		//MainFrame.setSize(width, height);
 		MainFrame.setLayout(new BorderLayout());
+		
+		MainFrame.setPreferredSize(new Dimension(width,height));
 		MainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//MainFrame.setPreferredSize(new Dimension((int)FRAME_WIDTH,(int)FRAME_HEIGHT));
 		MainFrame.add(SplitMainPanel);
-		GridLayoutManager grid = new GridLayoutManager();
+		//GridLayoutManager grid = new GridLayoutManager();
 		
 		SplitMainPanel.setOrientation(JSplitPane.VERTICAL_SPLIT);//splits the screen length ways
 		SplitMainPanel.setLeftComponent(TopPanel); // sets the contents of the top half of the frame
 		SplitMainPanel.setRightComponent(BottomPanel);  // sets position of contents of the bottom half of the frame
-		Container content = grid.getContentPane();
-		TopPanel.setMinimumSize(minimumSize);
-		
+		//SplitMainPanel.setDividerLocation(500);
+		//Container content = grid.getContentPane();
+		//TopPanel.setMinimumSize(minimumSize);
+		TopPanel.setMinimumSize(screen);
 		
 		BoardPanel imagePane = new BoardPanel();
 		imagePane.setSize(600,600);
@@ -123,13 +128,18 @@ public class Board {
 		
 		//first panel
 		JPanel input_console = new JPanel();
+		JLabel commands = new JLabel();
+		
 		BottomPanel.addTab("Input Console", input_console);
 		JTextField TextField = new JTextField(70); // makes the text field a little big bigger, however need to fix since it is not working at the moment
 		input_console.add(TextField);
-		JButton Submit = new JButton("Submit");
-		input_console.add(Submit);
-		input_console.setFont(font);
-		Submit.setFont(font);
+		commands.setText("Enter U, D ,L ,R to move your character ");
+		
+		input_console.add(commands);
+//		JButton Submit = new JButton("Submit");
+//		input_console.add(Submit);
+//		input_console.setFont(font);
+//		Submit.setFont(font);
 		
 		//second panel
 		JPanel characters = new JPanel();
@@ -156,6 +166,8 @@ public class Board {
 			character_names.append(Character_list.get(i).toString());
 			character_names.append("\t\t");
 		}
+		//In the above code we create a new panel for our tabbed panes, it generates an array list that holds character objects to be used in a later assignment.//
+		//we then print these to a textfield called character name//
 		
 		
 		//third panel
@@ -204,15 +216,7 @@ public class Board {
 				textArea.append("You can move " + (NumberOfDice1+NumberOfDice2) + " spaces!");
 			}
 		});
-		Submit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String input_text = TextField.getText();
-				textArea.append("\n\nYou entered:\n");
-				textArea.append(input_text);
-				textArea.setCaretPosition(textArea.getDocument().getLength());
-				TextField.setText("");
-			}
-		});
+	
 		//this listener reads in the text inputed by the player and performs the tasks//
 		TextField.addKeyListener(new KeyListener() {
 			public void keyReleased(KeyEvent ke) {
@@ -222,22 +226,23 @@ public class Board {
 					textArea.append(input_text);
 					textArea.setCaretPosition(textArea.getDocument().getLength());
 					TextField.setText("");
+					//we copy the text entered into the textbox when the user presses enter and print it onto the output console//
 					
-					if(input_text.equalsIgnoreCase("up")) {
-						
+					if(input_text.equalsIgnoreCase("U")) {
+						imagePane.move("U");
 					}
-					if(input_text.equalsIgnoreCase("down")) {
-						
+					if(input_text.equalsIgnoreCase("D")) {
+						imagePane.move("D");
 					}
-					if(input_text.equalsIgnoreCase("left")) {
-						
+					if(input_text.equalsIgnoreCase("l")) {
+						imagePane.move("l");
 					}
-					if(input_text.equalsIgnoreCase("right")) {
-						
+					if(input_text.equalsIgnoreCase("r")) {
+						imagePane.move("r");
 					}
 				}
 			}
-
+			//the tow methods below had to be implemented to remove errors, right now they serve no prupose//
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				// TODO Auto-generated method stub
@@ -255,6 +260,11 @@ public class Board {
 		
 		});
 		
+		
+		
+		
+		
+		//setting the output console to be on the right side of the screen(
 		textArea.setFont(font);
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
@@ -263,6 +273,11 @@ public class Board {
 		MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		MainFrame.pack();
 		MainFrame.setVisible(true);
+		//adding divider location to TopPanel to make the division still
+		TopPanel.setDividerLocation(600);
+		//adding divider location to the SplitMainPanel to make the division still
+		SplitMainPanel.setDividerLocation(600);
+		
 	}
 	
 }
