@@ -125,42 +125,63 @@ public class BoardPanel extends JPanel {
 			{ 'U', 'R', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D',
 					'D', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D',
 					'D', } };
-
+	//this method can be implemented//
+	
+	
 	// method to move the tokens
-	public void move() {
-		while (true) {
-			for (int i = 0; i < NO_OF_MOVES; i++) {
-
-				for (int j = 0; j < 6; j++) {
-
-					// checks if the move is left, right, up or down and
-					// increments the coordinates accordingly
-					if (MOVE_PLAYERS[j][i] == 'L') {
-						Xcoordinates[j] -= ONE_MOVE_DISTANCE;
-					} else if (MOVE_PLAYERS[j][i] == 'R') {
-						Xcoordinates[j] += ONE_MOVE_DISTANCE;
-					} else if (MOVE_PLAYERS[j][i] == 'U') {
-						Ycoordinates[j] -= ONE_MOVE_DISTANCE;
-					} else if (MOVE_PLAYERS[j][i] == 'D') {
-						Ycoordinates[j] += ONE_MOVE_DISTANCE;
-					}
-				}
-				//Sleep for a while 
-				try {
-					Thread.sleep(200);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				//refresh the panel
-				refresh();
-			}
+	public void move(String input) {
+//		while (true) {
+//			for (int i = 0; i < NO_OF_MOVES; i++) {
+//
+//				for (int j = 0; j < 6; j++) {
+//
+//					// checks if the move is left, right, up or down and
+//					// increments the coordinates accordingly
+//					if (MOVE_PLAYERS[j][i] == 'L') {
+//						Xcoordinates[j] -= ONE_MOVE_DISTANCE;
+//					} else if (MOVE_PLAYERS[j][i] == 'R') {
+//						Xcoordinates[j] += ONE_MOVE_DISTANCE;
+//					} else if (MOVE_PLAYERS[j][i] == 'U') {
+//						Ycoordinates[j] -= ONE_MOVE_DISTANCE;
+//					} else if (MOVE_PLAYERS[j][i] == 'D') {
+//						Ycoordinates[j] += ONE_MOVE_DISTANCE;
+//					}
+//				}
+//				
+//				//Sleep for a while 
+//				try {
+//					Thread.sleep(200);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				//refresh the panel
+//				refresh();
+//			}
+		
+		if (input.equalsIgnoreCase("L")) {
+			Xcoordinates[0] -= ONE_MOVE_DISTANCE;
+			
+		} else if (input.equalsIgnoreCase("R")) {
+			Xcoordinates[0] += ONE_MOVE_DISTANCE;
+		
+		} else if (input.equalsIgnoreCase("U")) {
+			Ycoordinates[0] -= ONE_MOVE_DISTANCE;
+			
+		} else if (input.equalsIgnoreCase("D")) {
+			Ycoordinates[0] += ONE_MOVE_DISTANCE;
+			
+		}
+		refresh();
+		
+		
+		
+		
 			//setting back the coordinates to initial values
-			for (int i = 0; i < 6; i++) {
-				Xcoordinates[i] = Xcoordinates2[i];
-				Ycoordinates[i] = Ycoordinates2[i];
-			}
+//			for (int i = 0; i < 6; i++) {
+//				Xcoordinates[i] = Xcoordinates2[i];
+//				Ycoordinates[i] = Ycoordinates2[i];
+//			}
 		}
 
 	}
-}
