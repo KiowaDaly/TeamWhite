@@ -48,7 +48,9 @@ public class Board {
 		
 		
 		Font font = new Font("Myriad Black", Font.BOLD, 20); //Cluedo font with bold writing to make everything easier to read
-		
+		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
+		int width=(int) screen.getWidth();
+		int height=(int) screen.getHeight();
 		JFrame MainFrame = new JFrame("Cluedo by KRM");//creating the main frame with a title//
 		JSplitPane SplitMainPanel=new JSplitPane(); //this allows us to splice the frame into smaller bits//
 		//JLabel ImageLabel = new JLabel();
@@ -57,18 +59,21 @@ public class Board {
 		JTabbedPane BottomPanel =new JTabbedPane();
 		//BottomPanel.setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
 		JTextArea textArea=new JTextArea("Output Console:");
+		//MainFrame.setSize(width, height);
 		MainFrame.setLayout(new BorderLayout());
+		
+		MainFrame.setPreferredSize(new Dimension(width,height));
 		MainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//MainFrame.setPreferredSize(new Dimension((int)FRAME_WIDTH,(int)FRAME_HEIGHT));
 		MainFrame.add(SplitMainPanel);
-		GridLayoutManager grid = new GridLayoutManager();
+		//GridLayoutManager grid = new GridLayoutManager();
 		
 		SplitMainPanel.setOrientation(JSplitPane.VERTICAL_SPLIT);//splits the screen length ways
 		SplitMainPanel.setLeftComponent(TopPanel); // sets the contents of the top half of the frame
 		SplitMainPanel.setRightComponent(BottomPanel);  // sets position of contents of the bottom half of the frame
-		Container content = grid.getContentPane();
-		TopPanel.setMinimumSize(minimumSize);
-		
+		//SplitMainPanel.setDividerLocation(500);
+		//Container content = grid.getContentPane();
+		//TopPanel.setMinimumSize(minimumSize);
+		TopPanel.setMinimumSize(screen);
 		
 		BoardPanel imagePane = new BoardPanel();
 		imagePane.setSize(600,600);
@@ -263,6 +268,11 @@ public class Board {
 		MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		MainFrame.pack();
 		MainFrame.setVisible(true);
+		//adding divider location to TopPanel to make the division still
+		TopPanel.setDividerLocation(600);
+		//adding divider location to the SplitMainPanel to make the division still
+		SplitMainPanel.setDividerLocation(600);
+		imagePane.move();
 	}
 	
 }

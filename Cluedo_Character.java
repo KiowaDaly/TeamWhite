@@ -1,4 +1,3 @@
-package cluedo;
 
 public class Cluedo_Character {
 	
