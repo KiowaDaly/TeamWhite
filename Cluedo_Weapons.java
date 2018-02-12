@@ -1,17 +1,13 @@
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
-
-public class Cluedo_Weapons {
+public class Cluedo_Weapons { //method used in storing and printing the weapon names.
 		private String Weapon;
-		private ImageIcon WeaponIcon;
 		
-		public Cluedo_Weapons(String Weapon,String Icon) {
+		
+		public Cluedo_Weapons(String Weapon,String Icon) { //constructor for the method
 			this.Weapon = Weapon;
 			
-			this.WeaponIcon = new ImageIcon(Icon);
+			
 		}
-		public String toString() {
+		public String toString() { //toString method returns weapons names held within the Weapon String variable
 			return Weapon;
 		}
 }
