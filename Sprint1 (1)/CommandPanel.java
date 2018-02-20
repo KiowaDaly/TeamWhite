@@ -40,6 +40,7 @@ public class CommandPanel extends JPanel  {
                 }
             }
             command = commandBuffer.pop();
+            command = command.replaceAll("\\s","");
         }
         return command;
     }
