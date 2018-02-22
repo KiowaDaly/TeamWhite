@@ -28,6 +28,16 @@ public class Token {
         return position;
     }
 
+    public int 	Column() {
+    	
+    	return position.getCol();
+    }
+    
+public int 	Row() {
+    	
+    	return position.getRow();
+    }
+    
     public boolean hasName(String name) {
         return this.name.toLowerCase().equals(name.toLowerCase().trim());
     }
