@@ -1,5 +1,5 @@
 public class Cluedo {
-
+//test//
     private final Tokens tokens = new Tokens();
     private final Weapons weapons = new Weapons();
     private final UI ui = new UI(tokens,weapons);
@@ -7,7 +7,7 @@ public class Cluedo {
     private void testUI() {
     	final int[] BoundaryRow =    {24,23,22,21,21,21,21,21,20,25,24,23,22,21,20,19,18,18,18,18,18,18,19,20,21,22,23,24,24,23,22,21,20,19,19,19,19,19,19,18,25,17,16,15,15,15,15,15,15,15,14,13,12,11,10,10,10,9,9,9,9,8,7,6,6,6,6,6,6,5,4,3,2,1,0,0,-1,0,1,2,2,3,4,5,6,7,7,7,7,7,7,7,7,6,5,4,3,2,2,1,0,-1,0,0,1,2,3,4,5,5,5,5,5,6,7,8,8,8,8,8,9,10,11,12,12,12,12,12,13,14,14,14,14,14,15,16,17,18,18,18,18,18,18,19,10,11,12,13,14,15,16,16,16,16,16,15,14,13,12,11,10,10,10,10};																																																					
     	final int[] BoundaryColumn = {17,17,17,17,18,19,20,21,23,16,15,14,14,14,14,14,14,13,12,11,10,9,9,9,9,9,9,8,6,6,6,6,6,6,5,4,3,2,1,0,7,-1,0,1,2,3,4,5,6,7,7,7,7,7,7,6,5,4,3,2,1,0,-1,0,1,2,3,4,5,5,5,5,5,6,7,8,9,10,10,9,8,8,8,8,8,8,9,10,11,12,13,14,15,15,15,15,15,15,14,13,13,14,15,16,17,18,18,18,19,20,21,22,23,24,23,22,21,20,19,18,18,18,18,18,19,20,21,22,23,22,21,20,19,18,17,17,17,18,19,20,21,22,23,24,10,10,10,10,10,10,10,11,12,13,14,14,14,14,14,14,14,13,12,11};																																
-    	
+    	//final String[] user_commands = {"U","D","L","R","roll","exit","enter"};
         String command;
         Token white = tokens.get("White");
         int moves = 0;
@@ -20,7 +20,7 @@ public class Cluedo {
             if(command.equalsIgnoreCase("roll")) {
             	Dice dice1 = new Dice();
             	Dice dice2 = new Dice();
-            	
+         
             	 
             	 ui.displayString("\n\nYou rolled...\n"); // the text area is edited to display text informing the player of their dice rolling outcome...
             	 ui.displayString("a " + dice1.getValue() +" and a " +dice2.getValue() +" !" + "\n"); //...the numbers that the two dice produced
@@ -64,6 +64,15 @@ public class Cluedo {
             		if(row==BoundaryRow[i] && column ==BoundaryColumn[i]) {
             			ui.displayString("This is an invalid move!!!!!!");
             			count++;
+            		}
+            		if(row==5 && column==8) {
+            			white.moveTo(new Coordinates(6,12));
+            		}
+            		if(row==9 && column==18) {
+            			white.moveTo(new Coordinates(10,21));
+            		}
+            		if(row==16 && column==17) {
+            			white.moveTo(new Coordinates(16,20));
             		}
             	}
             	
