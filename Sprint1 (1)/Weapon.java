@@ -1,7 +1,7 @@
 public class Weapon {
 
     private final String name;
-    private final Coordinates position;
+    private Coordinates position;
 
     Weapon(String name, Coordinates position) {
         this.name = name;
@@ -10,6 +10,9 @@ public class Weapon {
 
     public void moveBy(Coordinates move) {
         position.add(move);
+    }
+    public void moveTo(Coordinates position) {
+    	this.posititon = position;
     }
 
     public String getName() {
