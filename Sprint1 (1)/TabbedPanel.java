@@ -34,19 +34,17 @@ class TabbedPanel extends JTabbedPane{
 		}
 		
 		
+		JPanel weapons = new JPanel(); //Initialises a new panel...
+		addTab("Weapons", weapons); //... and adds it as a new named tab to the bottom panel.
 }
 	
 	
 	
  
 
-//	
-//	
-//	
-//	//third tab of the BottomPanel
-//	JPanel weapons = new JPanel(); //Initialises a new panel...
-//	BottomPanel.addTab("Weapons", weapons); //... and adds it as a new named tab to the bottom panel.
-//	
+
+
+
 //	//Initialises a new array list of the weapon names and assigns them a 'List' variable...
 //	List<Cluedo_Weapons>  WeaponList = new ArrayList<Cluedo_Weapons>();
 //	Cluedo_Weapons CandleStick = new Cluedo_Weapons("CandleStick","CandleStick.jpg");
