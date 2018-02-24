@@ -11,15 +11,35 @@ public class Room {
 		this.Room=ballRoom;
 	}
 	
+	
+	
+	
+	
+	public Coordinates toRoom() {
+		
+		
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public Coordinates getCoord() {
 		for(Coordinates[] tile:Room) {
 			for(Coordinates Coord:tile) {
 				column = Coord.getCol();
 			    row = Coord.getRow();
 			}
-
+	
+		
+	}
 			
-		}
+		
 		return new Coordinates(column,row);
 		
 		
