@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="gitpushing"/>
-	<classpathentry kind="src" path="GRID"/>
 	<classpathentry kind="src" path="Sprint2 source Code"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

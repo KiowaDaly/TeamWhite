@@ -12,7 +12,7 @@ public class Weapon {
         position.add(move);
     }
     public void moveTo(Coordinates position) {
-    	this.posititon = position;
+    	this.position = position;
     }
 
     public String getName() {

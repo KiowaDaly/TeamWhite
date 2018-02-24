@@ -2,7 +2,7 @@ public class Cluedo {
 //test//
     private final Tokens tokens = new Tokens();
     private final Weapons weapons = new Weapons();
-    private final Rooms CluedoRooms = new Rooms();
+//    private final Rooms CluedoRooms = new Rooms();
     private final UI ui = new UI(tokens,weapons);
 //test
     private void testUI() {
@@ -11,7 +11,7 @@ public class Cluedo {
     	//final String[] user_commands = {"U","D","L","R","roll","exit","enter"};
         String command;
         Token white = tokens.get("White");
-        Room BallRoom = CluedoRooms.get("BallRoom");
+//        Room BallRoom = CluedoRooms.get("BallRoom");
         int moves = 0;
         Weapon dagger = weapons.get("Dagger");
         do {
@@ -67,9 +67,7 @@ public class Cluedo {
             			ui.displayString("This is an invalid move!!!!!!");
             			count++;
             		}
-            	if(BallRoom.getCoord().equals(new Coordinates(8,6))) {
-            		white.moveTo(new Coordinates(11,3));
-            	}
+            	
             	}
             	
             	if(count==0) {
