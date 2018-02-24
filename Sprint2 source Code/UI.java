@@ -7,6 +7,7 @@ public class UI {
     private static final int FRAME_HEIGHT = 800;
 
     private final BoardPanel boardPanel;
+    private final TabbedPanel tabbedPanel = new TabbedPanel();
     private final InfoPanel infoPanel = new InfoPanel();
     private final CommandPanel commandPanel = new CommandPanel();
 
@@ -17,9 +18,10 @@ public class UI {
         frame.setTitle("Cluedo");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(boardPanel, BorderLayout.LINE_START);
+        frame.add(tabbedPanel, BorderLayout.CENTER);
         frame.add(infoPanel, BorderLayout.LINE_END);
         frame.add(commandPanel,BorderLayout.PAGE_END);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setVisible(true);
     }
 
