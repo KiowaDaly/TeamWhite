@@ -4,7 +4,7 @@ public class Room {
 		private Coordinates Room;
 		int row;
 		int column;
-	
+		//test
 		
 	public Room(String RoomName,Coordinates Room) {
 		this.RoomName=RoomName;
