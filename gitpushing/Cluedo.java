@@ -27,7 +27,7 @@ public class Cluedo {
             	 ui.displayString("a " + dice1.getValue() +" and a " +dice2.getValue() +" !" + "\n"); //...the numbers that the two dice produced
             	 ui.displayString("You can move " + (dice1.getValue()+dice2.getValue()) + " spaces!");
             	 moves=dice1.getValue()+dice2.getValue();
-            	 moves=1000;
+            	 
             	 
             }
             
