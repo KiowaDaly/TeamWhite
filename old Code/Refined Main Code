@@ -1,0 +1,253 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+
+
+public class main_2 {
+	
+	public static void main(String[] args){
+		
+		Font font = new Font("Myriad Black", Font.BOLD, 20); //The standard Cluedo font with bold writing to make buttons, titles etc. more legible
+		
+		
+		JFrame MainFrame = new JFrame("Cluedo by KRM");//creating the main frame for the interface...
+		MainFrame.setLayout(new BorderLayout()); //...creating a new layout for the main frame under the class "BorderLayout"
+		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize(); //...stores integer values for the width and height of the main frame
+		int width=(int) screen.getWidth(); //...acquires the values of the width and height
+		int height=(int) screen.getHeight(); 
+		MainFrame.setPreferredSize(new Dimension(width,height)); //... and sets a size for the two variables.
+		MainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); //ensures when the program is executed, the java frame's state is always on full screen
+		
+		JSplitPane SplitMainPanel=new JSplitPane(); //A method that splits a frame into panels
+		MainFrame.add(SplitMainPanel); //...our main frame then incorporates this method within its structure
+		SplitMainPanel.setOrientation(JSplitPane.VERTICAL_SPLIT);//and proceeds to split the screen length ways.
+		
+		JSplitPane TopPanel =new JSplitPane(); //The method initialises a new variable
+		SplitMainPanel.setLeftComponent(TopPanel); //... which sets the contents of the top half of the main frame
+		TopPanel.setMinimumSize(screen); //...and also sets the previous dimensions that we made for width and height to be the minimum size of the top panel.
+		
+		JTabbedPane BottomPanel =new JTabbedPane(); //The method creates a panel with several tabs, initialises a new variable...
+		SplitMainPanel.setRightComponent(BottomPanel);  //...and sets its contents to reside in the bottom half of the frame.
+		
+		BoardPanel image_pane = new BoardPanel(); //Calls upon BoardPanel class file, initialises a new variable...
+		image_pane.setSize(600,600); //... sets the variable to have a set size
+		TopPanel.setTopComponent(image_pane); //...and the top panel adds the sized board panel to its structure.
+	 	
+		image_pane.addMouseListener(new MouseListener(){ //the BoardPanel variable adds a new mouse listener...
+    		public void mouseClicked(MouseEvent e) { // detects when the mouse is clicked and names the event, e in a method...
+    			double x = e.getX(); // sets the x and y double variables to hold the X and Y coordinates...
+    	         double y = e.getY();
+    	         System.out.println(x+","+y);//and prints out these coordinates.
+    		}
+
+			//the methods that are available for any action taken on the mouse
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+    		
+    	});
+    	
+    	
+		//first tab of the BottomPanel
+		JPanel input_console = new JPanel(); //Initialises a new panel...
+		BottomPanel.addTab("Input Console", input_console); //... and adds it as a new named tab to the bottom panel.
+		
+		JTextField TextField = new JTextField(10); //Initialises a new area where text can be written...
+		input_console.add(TextField); //... and adds it to the tab.
+		
+		JLabel commands = new JLabel(); // Initialises a new label...
+		commands.setText("Press the U (up), D (down) , L (left) , "+ "R (right) keys to move your character token."
+		+ " Press 'Enter' to watch the red token move"); //...  sets some text to the label to instruct the player on how to move their token
+		input_console.add(commands); //... and adds this label to the tab.
+
+		
+		//second tab of the BottomPanel
+		JPanel characters = new JPanel(); //Initialises a new panel...
+		BottomPanel.addTab("Characters", characters); //... and adds it as a new named tab to the bottom panel. 
+		
+		//Initialises a new array list of the character's names and assigns them a 'List' variable...
+		List<Cluedo_Character> Character_list = new ArrayList<Cluedo_Character>();
+		Cluedo_Character Mr_Green = new Cluedo_Character("Mr.Green");
+		Cluedo_Character Miss_Scarlett = new Cluedo_Character("Miss Scarlett");
+		Cluedo_Character Colonel_Mustard = new Cluedo_Character("Colonel Mustard");
+		Cluedo_Character Mrs_White = new Cluedo_Character("Mrs.White");
+		Cluedo_Character Mrs_Peacock = new Cluedo_Character("Mrs_Peacock");
+		Cluedo_Character Prof_Plum = new Cluedo_Character("Professor Plum");
+		
+		//...and adds the contents of the strings of names to the ArrayList.
+		Character_list.add(Mr_Green);
+		Character_list.add(Miss_Scarlett);
+		Character_list.add(Colonel_Mustard);
+		Character_list.add(Mrs_White);
+		Character_list.add(Mrs_Peacock);
+		Character_list.add(Prof_Plum);
+		
+		JTextArea character_names = new JTextArea(); //Initialises a new area where text can be written...
+		character_names.setFont(font); //... sets the pre-determined Cluedo font...
+		characters.add(character_names); //... and adds the text area to tab panel.
+		
+		
+		character_names.append("Here is a list of characters!\n"); //Makes changes to/appends the text area...
+		for(int i = 0;i<Character_list.size();i++) {
+			character_names.append(Character_list.get(i).toString()); //... a for loop adds the ArrayList contents (the character names) to the text area...
+			character_names.append("\t\t"); //... and creates a section of space in between each name for readability.
+		}
+		
+		
+		
+		//third tab of the BottomPanel
+		JPanel weapons = new JPanel(); //Initialises a new panel...
+		BottomPanel.addTab("Weapons", weapons); //... and adds it as a new named tab to the bottom panel.
+		
+		//Initialises a new array list of the weapon names and assigns them a 'List' variable...
+		List<Cluedo_Weapons>  WeaponList = new ArrayList<Cluedo_Weapons>();
+		Cluedo_Weapons CandleStick = new Cluedo_Weapons("CandleStick","CandleStick.jpg");
+		Cluedo_Weapons Knife = new Cluedo_Weapons("Knife","Knife.jpg");
+		Cluedo_Weapons Revolver = new Cluedo_Weapons("Revolver","Revolver.jpeg");
+		Cluedo_Weapons Rope = new Cluedo_Weapons("Rope","rope.jpeg");
+		Cluedo_Weapons Wrench = new Cluedo_Weapons("Wrench","Wrench.jpeg");
+		Cluedo_Weapons leadPipe = new Cluedo_Weapons("Lead Pipe","leadpipe.png");
+		
+		//...and adds the contents of the strings of weapon names to the ArrayList.
+		WeaponList.add(CandleStick);
+		WeaponList.add(Knife);
+		WeaponList.add(Revolver);
+		WeaponList.add(Rope);
+		WeaponList.add(Wrench);
+		WeaponList.add(leadPipe);
+		
+		JTextArea weapon_names = new JTextArea(); //Initialises a new area where text can be written...
+		weapon_names.setFont(font); //... sets the weapon names to have the pre-determined Cluedo font...
+		weapons.add(weapon_names);//... and adds the text area to tab panel.
+		
+		weapon_names.append("Here is a list of Weapons!\n"); //Makes changes to/appends the text area...
+		
+		for(int i = 0;i<WeaponList.size();i++) { //... a for loop adds the ArrayList contents (the weapon names) to the text area...
+			weapon_names.append(WeaponList.get(i).toString());
+			weapon_names.append("\t\t"); //... and creates a section of space in between each name for readability.
+		}
+		
+		
+		
+		//fourth tab of the BottomPanel
+		JPanel dice_roll = new JPanel(); //Initialises a new panel...
+		BottomPanel.addTab("Dice Roll", dice_roll); //... and adds it as a new named tab to the bottom panel.
+		
+		JTextArea text_area = new JTextArea(); //Initialises a new area where text can be written.
+		text_area.setFont(font); //Sets the font of any text in text_area to have the pre made Cluedo font.
+		text_area.setEditable(false); // The text on the output console can not be edited by the player...
+		JScrollPane scrollPane = new JScrollPane(text_area); //... the player has the ability to scroll down the output console to see their dice roll, movement etc when the output does not fit the initial screen
+		TopPanel.setBottomComponent(scrollPane); //...and the scroll pane is added to the right of the top panel.
+		
+		JButton roll_button = new JButton("Roll Those Dice!"); //A new button has been generated...
+		dice_roll.add(roll_button); //...and added to the panel.
+		
+		//Action listener method has been created and filled for the new button.
+		roll_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent f) {
+				Random DiceRoll1 = new Random(); // Initialises a new variable to randomly generate a series of numbers...
+				int NumberOfDice1 = DiceRoll1.nextInt(6)+1; //...which are integers and returns an random number between 0 and 6 (since 0 isn't a dice number, we increment the random number by 1)
+				
+				int NumberOfDice2 = (DiceRoll1.nextInt(6))+1; //The second dice is programmed...
+				text_area.append("\n\nYou rolled...\n"); // the text area is edited to display text informing the player of their dice rolling outcome...
+				text_area.append("a " + NumberOfDice1 +" and a " +NumberOfDice2 +" !" + "\n"); //...the numbers that the two dice produced
+				text_area.append("You can move " + (NumberOfDice1+NumberOfDice2) + " spaces!"); //... and their sum to show the player how many spaces they can move across the board.
+			}
+		});
+	
+		//Action listener method has been created and filled for reading the text inputed by the player to perform several tasks.
+		TextField.addKeyListener(new KeyListener() {
+			public void keyReleased(KeyEvent ke) {
+				if(ke.getKeyCode()==KeyEvent.VK_ENTER) { //Condition set to true if the Key Event is the same as the key which the player pressed.
+					
+					String input_text = TextField.getText(); //The loop retrieves the text typed in the text bar (where the user types the movement u, d, l or r) and stores it within a string...
+					text_area.append("\n\nYou entered:\n"); // the text area for the output console panel is edited to contain information...
+					text_area.append(input_text); //... stored within the string which we have just created containing their u, d, l or r letter, and printed onto the console.
+					
+					text_area.setCaretPosition(text_area.getDocument().getLength()); // Sets the position of the text based on the length of the text area...
+					TextField.setText(""); //...and sets the main output console's text field to become empty.
+					
+					
+					if(input_text.equalsIgnoreCase("U")) { // If the string that the player has typed has the upper (U) or lower (u) case letter...
+						image_pane.move("U"); //... the BoardPanel token is moved up.
+					}
+					if(input_text.equalsIgnoreCase("D")) { // If the string that the player has typed has the upper (D) or lower (d) case letter...
+						image_pane.move("D"); //... the BoardPanel token is moved down.
+					}
+					if(input_text.equalsIgnoreCase("l")) { // If the string that the player has typed has the upper (L) or lower (l) case letter...
+						image_pane.move("l"); //... the BoardPanel token is moved left.
+					}
+					if(input_text.equalsIgnoreCase("r")) { // If the string that the player has typed has the upper (R) or lower (r) case letter...
+						image_pane.move("r"); //.. the BoardPanel token is moved right.
+					}
+				}
+			}
+			
+			//the methods that are available for any action taken on the keys
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+			
+		});
+		
+		
+		
+		
+		
+		
+		MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //The window closes completely when the x button is clicked.
+		MainFrame.pack(); //The frame is resized to fit the whole screen.
+		MainFrame.setVisible(true); // The frame is opaque.
+		TopPanel.setDividerLocation(600); // Sets the location of both dividers, ensures all panels are shown to their pre-determined size.
+		SplitMainPanel.setDividerLocation(600);
+		
+	}
+	
+}
+
