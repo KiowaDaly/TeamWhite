@@ -18,6 +18,7 @@ public class InfoPanel extends JPanel {
         textArea.setFont(new Font("monospaced", Font.PLAIN, FONT_SIZE));
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
+        textArea.setText("Welcome to Cluedo!");
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         setLayout(new BorderLayout());
