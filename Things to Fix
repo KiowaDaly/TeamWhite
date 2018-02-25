@@ -1,0 +1,9 @@
+Error Messages:
+When it is someone's go, don't let them type "done" until they take their turn
+When it's someone's go don't let them type "roll" again
+Make sure they insert a name. Only let them insert a string with letters. Put a minimum of 2 letters for a name
+
+Things to Fix:
+Needs to close inputDialog when user wants it to close at the starting screen, insead of other boxes popping up
+Put token and name together when prompting user for their turn, rather than just the name
+When click enter the dagger weapon keeps going right. Fix for Sprint 3
