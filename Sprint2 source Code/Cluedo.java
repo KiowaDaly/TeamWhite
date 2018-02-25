@@ -25,6 +25,10 @@ public class Cluedo {
         int moves = 0;
         Weapon dagger = weapons.get("Dagger");
         
+        //ALLOWS USER TO QUIT
+         if(command.equalsIgnoreCase("quit")) {
+        	System.exit(0);
+        }
          //START COMMAND TO BEGIN THE GAME
            if(command.equalsIgnoreCase("start") ) {
   	              	
@@ -219,6 +223,8 @@ public class Cluedo {
             dagger.moveBy(new Coordinates(+1,0));
             ui.display();
         } while (!command.equals("quit"));
+        
+        
     }
 
     public static void main(String[] args) {
