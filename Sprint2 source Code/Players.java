@@ -1,4 +1,4 @@
-
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -20,8 +20,8 @@ public class Players implements Iterable<Player>, Iterator<Player>{
 	
 	
 	
-	  public void addPlayer(String name,Token token) {
-		   people.add(new Player(name,token));
+	  public void addPlayer(String name,Token token, boolean b) {
+		   people.add(new Player(name,token, b));
 	  }
 	
 	  public boolean hasNext() {
