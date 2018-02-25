@@ -1,4 +1,6 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+
 import javax.swing.*;
 
 public class UI {
@@ -14,13 +16,14 @@ public class UI {
     UI(Tokens characters, Weapons weapons) {
         JFrame frame = new JFrame();
         boardPanel = new BoardPanel(characters, weapons);
-        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        frame.setSize(FRAME_WIDTH,FRAME_HEIGHT);
         frame.setTitle("Cluedo");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.add(boardPanel, BorderLayout.LINE_START);
+        frame.add(boardPanel, BorderLayout.WEST);
         frame.add(tabbedPanel, BorderLayout.CENTER);
-        frame.add(infoPanel, BorderLayout.LINE_END);
+        frame.add(infoPanel, BorderLayout.EAST);
         frame.add(commandPanel,BorderLayout.PAGE_END);
+        frame.setExtendedState(frame.MAXIMIZED_BOTH);
         frame.setResizable(true);
         frame.setVisible(true);
     }

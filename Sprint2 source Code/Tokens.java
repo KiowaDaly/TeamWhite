@@ -4,9 +4,9 @@ import java.util.Iterator;
 
 public class Tokens implements Iterable<Token>, Iterator<Token> {
 
-    private final HashSet<Token> suspects = new HashSet<>();
+    private final static HashSet<Token> suspects = new HashSet<>();
     private Iterator<Token> iterator;
-
+    
     Tokens() {
         suspects.add(new Token("Plum",new Color(142, 69, 133), new Coordinates(23,19)));
         suspects.add(new Token("White", Color.WHITE, new Coordinates(9,0)));
@@ -16,7 +16,7 @@ public class Tokens implements Iterable<Token>, Iterator<Token> {
         suspects.add(new Token("Peacock",Color.MAGENTA, new Coordinates(23,6)));
     }
 
-    public Token get(String name) {
+    public static Token get(String name) {
         for (Token suspect : suspects) {
             if (suspect.hasName(name)) {
                 return suspect;

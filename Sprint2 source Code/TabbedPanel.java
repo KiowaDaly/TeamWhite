@@ -12,6 +12,7 @@ class TabbedPanel extends JTabbedPane{
 	private final Weapons weapons = new Weapons();
 	private final Rooms rooms = new Rooms();
 	
+	
 	TabbedPanel(){
 		JPanel characters = new JPanel();  //Initialises a new panel...
 		addTab("Suspects", characters); //... and adds it as a new named tab to the bottom panel.
@@ -23,10 +24,12 @@ class TabbedPanel extends JTabbedPane{
 		character_names.append("Here is a list of characters!\n"); //Makes changes to/appends the text area...
 		
 		for(Token items: tokens) {
-			character_names.append(items.getName());
-			character_names.append("\t");
-		}
+			character_names.append(items.getName()+"\n");
 		
+			character_names.append("\t");
+			
+		}
+	
 		
 		JPanel weapon = new JPanel(); //Initialises a new panel...
 		addTab("Weapons", weapon); //... and adds it as a new named tab to the bottom panel.

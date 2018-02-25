@@ -5,8 +5,8 @@ import java.awt.*;
 public class InfoPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final int TEXT_AREA_HEIGHT = 40;
-    private static final int CHARACTER_WIDTH = 60;
+    private static final int TEXT_AREA_HEIGHT = 20;
+    private static final int CHARACTER_WIDTH = 20;
     private static final int FONT_SIZE = 12;
 
     private final JTextArea textArea  = new JTextArea(TEXT_AREA_HEIGHT, CHARACTER_WIDTH);
@@ -15,7 +15,8 @@ public class InfoPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(textArea);
         DefaultCaret caret = (DefaultCaret)textArea.getCaret();
         textArea.setEditable(false);
-        textArea.setFont(new Font("monospaced", Font.PLAIN, FONT_SIZE));
+      
+        textArea.setFont(new Font("Myriad Black", Font.BOLD, FONT_SIZE));
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setText("Welcome to Cluedo!");
