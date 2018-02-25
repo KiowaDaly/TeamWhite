@@ -13,14 +13,7 @@ public class Cluedo {
     private Players people = new Players();
     private UI ui;
     String[] choices = {"Green","Plum","Mustard","Peacock","White","Scarlett"};
-    String[] numPlayers = {"2","3","4","5","6"};
-
-    
-    
- 
-	
-	
-	
+    String[] numPlayers = {"2","3","4","5","6"};	
 	
     private void testUI() {
     	final int[] BoundaryRow =    {24,23,22,21,21,21,21,21,20,25,24,23,22,21,20,19,18,18,18,18,18,18,19,20,21,22,23,24,24,23,22,21,20,19,19,19,19,19,19,18,25,17,16,15,15,15,15,15,15,15,14,13,12,11,10,10,10,9,9,9,9,8,7,6,6,6,6,6,6,5,4,3,2,1,0,0,-1,0,1,2,2,3,4,5,6,7,7,7,7,7,7,7,7,6,5,4,3,2,2,1,0,-1,0,0,1,2,3,4,5,5,5,5,5,6,7,8,8,8,8,8,9,10,11,12,12,12,12,12,13,14,14,14,14,14,15,16,17,18,18,18,18,18,18,19,10,11,12,13,14,15,16,16,16,16,16,15,14,13,12,11,10,10,10,10,21};																																																					
@@ -31,44 +24,36 @@ public class Cluedo {
      	String numberOfPlayersString = null;
         String player;
         int PlayerNum=0;
-        
-    	 
-             	
-//             
-            
-        
-           
+   
         	JComboBox<String> Number = new JComboBox<String>(numPlayers);
         	JOptionPane.showMessageDialog( null, Number, "Characters", JOptionPane.QUESTION_MESSAGE);
         	numberOfPlayers = Integer.parseInt((String) Number.getSelectedItem());
         	
-             for(int i = 0; i < numberOfPlayers; i++) {
-         		//BODY
+       	        for(int i = 0; i < numberOfPlayers; i++) {
+         		
          	  
          	   String player1 = JOptionPane.showInputDialog("Enter Player Name");
           	    
           	   
-//               ui.displayString("\n\nYou are " + people.get(0)); //GETTING PLUM FROM ARRAY
+
           	    JComboBox<String> cb = new JComboBox<String>(choices);
           	    JOptionPane.showMessageDialog( null, cb, "Characters", JOptionPane.QUESTION_MESSAGE);
-            	String chosen =  (String) cb.getSelectedItem();
+               	    String chosen =  (String) cb.getSelectedItem();
             	
-            	people.addPlayer(player1,Tokens.get(chosen));
-            	final List<String> list =  new ArrayList<String>();
-            	 Collections.addAll(list, choices);
-            	 list.remove(chosen);
-            	 choices = list.toArray(new String[list.size()]);
-             }
+                    people.addPlayer(player1,Tokens.get(chosen));
+            	    final List<String> list =  new ArrayList<String>();
+            	    Collections.addAll(list, choices);
+            	    list.remove(chosen);
+            	    choices = list.toArray(new String[list.size()]);
+         	 }
             
-             ui = new UI(people,weapons);	
-             for(Player p: people) {
-           	  ui.displayString("\n"+p.getName()+", Your character is: "+p.getToken().getName()+"\n");
+                ui = new UI(people,weapons);	
+                
+	    for(Player p: people) {
+                    ui.displayString("\n"+p.getName()+", Your character is: "+p.getToken().getName()+"\n");
              }
        
-        String command = ui.getCommand(); //INITIALISED
-       
-        
-//        people.add("Plum"); //ADDING PLUM TO THE ARRAY
+            String command = ui.getCommand();   
         
 //        Token white = tokens.get("White");
         int moves = 0;
@@ -78,13 +63,12 @@ public class Cluedo {
         //ALLOWS USER TO QUIT
          if(command.equalsIgnoreCase("quit")) {
         	System.exit(0);
-        }
-         //START COMMAND TO BEGIN THE GAME
-          
-        
+	 }   
+	    
          Iterator<Player> iter = people.iterator();
          Player currentPlayer = iter.next();
          ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
+	    
         do {
         	
         	
@@ -108,12 +92,7 @@ public class Cluedo {
         		
             command = ui.getCommand();
             
-            ui.displayString(command);
-            
-             if(command.equalsIgnoreCase("done")) {
-            	//TODO: prompts the next user to go when the done command is entered
-            }
-            
+            ui.displayString(command);  
              
             if(command.equalsIgnoreCase("roll")) {
             	Dice dice1 = new Dice();
@@ -126,11 +105,7 @@ public class Cluedo {
             	 moves=dice1.getValue()+dice2.getValue();
             	
             } 
-            	 
-            
-            
-            
-            
+                   
             if(moves>0) {
             if(command.equalsIgnoreCase("L")) {
             	int column = currentPlayer.getToken().Column()-1;
@@ -159,8 +134,6 @@ public class Cluedo {
                     	
                     	 ui.displayString("You can move " + moves + " spaces!");
             		}
-            	
-            	
             	
             }
             if(command.equalsIgnoreCase("R")) {
