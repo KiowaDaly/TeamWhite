@@ -10,11 +10,13 @@ public class Cluedo {
 
     private final Tokens tokens = new Tokens();
     private final Weapons weapons = new Weapons();
-    private final UI ui = new UI(tokens,weapons);
-    String[] choices = {"Green","Plum","Mustard","Peacock","White","Scarlett"};
-    
-    
     private Players people = new Players();
+    private UI ui;
+    String[] choices = {"Green","Plum","Mustard","Peacock","White","Scarlett"};
+    String[] numPlayers = {"2","3","4","5","6"};
+
+    
+    
  
 	
 	
@@ -25,12 +27,66 @@ public class Cluedo {
     	final int[] BoundaryColumn = {17,17,17,17,18,19,20,21,23,16,15,14,14,14,14,14,14,13,12,11,10,9,9,9,9,9,9,8,6,6,6,6,6,6,5,4,3,2,1,0,7,-1,0,1,2,3,4,5,6,7,7,7,7,7,7,6,5,4,3,2,1,0,-1,0,1,2,3,4,5,5,5,5,5,6,7,8,9,10,10,9,8,8,8,8,8,8,9,10,11,12,13,14,15,15,15,15,15,15,14,13,13,14,15,16,17,18,18,18,19,20,21,22,23,24,23,22,21,20,19,18,18,18,18,18,19,20,21,22,23,22,21,20,19,18,17,17,17,18,19,20,21,22,23,24,10,10,10,10,10,10,10,11,12,13,14,14,14,14,14,14,14,13,12,11,22};																																
     	int PlayerPositionsRow[] = {0,0,6,19,24,17};
     	int PlayerPositionsColumn[] = {9,14,23,23,7,0};
-       
-        String command = ui.getCommand(); //INITIALISED
-        int numberOfPlayers = 0; 
-    	String numberOfPlayersString = null;
+    	int numberOfPlayers = 0; 
+     	String numberOfPlayersString = null;
         String player;
         int PlayerNum=0;
+        
+    	 
+             	
+//             
+            
+        
+           
+        	JComboBox<String> Number = new JComboBox<String>(numPlayers);
+        	JOptionPane.showMessageDialog( null, Number, "Characters", JOptionPane.QUESTION_MESSAGE);
+        	numberOfPlayers = Integer.parseInt((String) Number.getSelectedItem());
+        	final List<String> list =  new ArrayList<String>();
+       	 Collections.addAll(list, choices);
+       	
+             for(int i = 0; i < 6; i++) {
+         		//BODY
+         	  if(i<numberOfPlayers) {
+         	   String player1 = JOptionPane.showInputDialog("Enter Player Name");
+          	    
+          	   
+//               ui.displayString("\n\nYou are " + people.get(0)); //GETTING PLUM FROM ARRAY
+          	    JComboBox<String> cb = new JComboBox<String>(choices);
+          	    JOptionPane.showMessageDialog( null, cb, "Characters", JOptionPane.QUESTION_MESSAGE);
+            	String chosen =  (String) cb.getSelectedItem();
+            	
+            	people.addPlayer(player1,Tokens.get(chosen),true);
+            	
+            	 list.remove(chosen);
+            	 choices = list.toArray(new String[list.size()]);
+            	      
+            	 
+         	  }else {
+         		  JComboBox<String> cb = new JComboBox<String>(choices);
+         		 String chosen =  (String) cb.getSelectedItem();
+         		 people.addPlayer(null,Tokens.get(chosen), false);
+         		 list.remove(chosen);
+            	 choices = list.toArray(new String[list.size()]);
+            	 
+              
+         	  }
+         	  
+             }
+            
+            
+             ui = new UI(people,weapons);	
+             
+             for(Player p: people ) {
+            
+           	  ui.displayString("\n"+p.getName()+", Your character is: "+p.getToken().getName()+"\n");
+            	
+             }
+             
+         
+      
+        String command = ui.getCommand(); //INITIALISED
+       
+        
 //        people.add("Plum"); //ADDING PLUM TO THE ARRAY
         
 //        Token white = tokens.get("White");
@@ -43,80 +99,56 @@ public class Cluedo {
         	System.exit(0);
         }
          //START COMMAND TO BEGIN THE GAME
-           if(command.equalsIgnoreCase("start") ) {
-  	              	
-              ui.displayString("\n\nEnter the number of players: ");
-              numberOfPlayersString = ui.getCommand();
-              numberOfPlayers = Integer.parseInt(numberOfPlayersString); //convert int to string
-            
-              if((numberOfPlayers == 0) || (numberOfPlayers == 1)) {
-              
-                ui.displayString("\n\nThis is a multiplayer game. There must be at least 2 players. Please enter a valid numer of players:\n");
-            	
-             }else if(numberOfPlayers <= 6) {
-            	
-                ui.displayString("There will be " + numberOfPlayers + " players");
-          	  
-              for(int i = 0; i < numberOfPlayers; i++) {
-          		//BODY
-          	    ui.displayString("\n\nPlease enter a name: \n");
-          	   	player = ui.getCommand();
-           	    ui.displayString(player);
-           	   
-//                ui.displayString("\n\nYou are " + people.get(0)); //GETTING PLUM FROM ARRAY
-           	    JComboBox<String> cb = new JComboBox<String>(choices);
-           	    JOptionPane.showMessageDialog( null, cb, "Characters", JOptionPane.QUESTION_MESSAGE);
-             	String chosen =  (String) cb.getSelectedItem();
-             	
-             	people.addPlayer(player,Tokens.get(chosen));
-             	final List<String> list =  new ArrayList<String>();
-             	 Collections.addAll(list, choices);
-             	 list.remove(chosen);
-             	 choices = list.toArray(new String[list.size()]);
-             	
-             	
-          	  }} else {
-   		        ui.displayString("Please enter a valid number");
-            } 	
-              for(Player p: people) {
-            	  ui.displayString("\n"+p.getName()+", Your character is: "+p.getToken().getName()+"\n");
-              }
-        }
-        
+          
          Iterator<Player> iter = people.iterator();
-         Player currentPlayer = iter.next();
+       	 Player currentPlayer = iter.next();
+         
+        
+       	while(!currentPlayer.Playing()) {
+       		currentPlayer = iter.next();
+       	}
+
          ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
         do {
         	
-        	/*if(turnsTaken==numberOfPlayers) {
-        		iter = people.iterator();
-        	    currentPlayer = iter.next();
-        		turnsTaken=0;
-        	}*/
+        	
         	if(command.equalsIgnoreCase("done")) {
+        		if(iter.hasNext())
+    			{
+        			currentPlayer = iter.next();
+               		PlayerNum++;
+        		while(!currentPlayer.Playing()) {
+        			
         			if(iter.hasNext()) {
-        				currentPlayer = iter.next();
-        				ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
-        				PlayerNum++;//updating for player position index array
+               		currentPlayer = iter.next();
+               		PlayerNum++;
         			}else {
         				iter = people.iterator();//resets iterator
         				currentPlayer = iter.next();
-        				ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
+        				//ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
         				PlayerNum=0;
         			}
-        		
-        			
-        				
-        		}
-        	
+               	}
+    				ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
+    			}else {
+    				iter = people.iterator();//resets iterator
+    				currentPlayer = iter.next();
+    				ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
+    				PlayerNum=0;
+    			}
+    		
+    			
+    				
+    		}
+        
         	
         		
             command = ui.getCommand();
             
             ui.displayString(command);
             
-             
-  
+            
+            
              
             if(command.equalsIgnoreCase("roll")) {
             	Dice dice1 = new Dice();
@@ -267,7 +299,6 @@ public class Cluedo {
             else if(moves<=0){
             	ui.displayString("\nYou are all out of moves, make a suggestion or type 'done' to end your turn!\n");
             	//if there is no more moves left, make a suggestion or move to the next player//
-            
             }
             
            
