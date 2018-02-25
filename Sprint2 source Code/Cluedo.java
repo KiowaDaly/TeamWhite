@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+
 public class Cluedo {
 
     private final Tokens tokens = new Tokens();
     private final Weapons weapons = new Weapons();
     private final UI ui = new UI(tokens,weapons);
     
-    private static ArrayList<String> people= new ArrayList<String>(); //HERE IS THE ARRAY FOR CHARACTER NAMES
+ //   private static ArrayList<String> people= new ArrayList<String>(); //HERE IS THE ARRAY FOR CHARACTER NAMES
 
     private void testUI() {
     	final int[] BoundaryRow =    {24,23,22,21,21,21,21,21,20,25,24,23,22,21,20,19,18,18,18,18,18,18,19,20,21,22,23,24,24,23,22,21,20,19,19,19,19,19,19,18,25,17,16,15,15,15,15,15,15,15,14,13,12,11,10,10,10,9,9,9,9,8,7,6,6,6,6,6,6,5,4,3,2,1,0,0,-1,0,1,2,2,3,4,5,6,7,7,7,7,7,7,7,7,6,5,4,3,2,2,1,0,-1,0,0,1,2,3,4,5,5,5,5,5,6,7,8,8,8,8,8,9,10,11,12,12,12,12,12,13,14,14,14,14,14,15,16,17,18,18,18,18,18,18,19,10,11,12,13,14,15,16,16,16,16,16,15,14,13,12,11,10,10,10,10,21};																																																					
@@ -17,7 +19,7 @@ public class Cluedo {
     	String numberOfPlayersString = null;
         String player;
         
-        people.add("Plum"); //ADDING PLUM TO THE ARRAY
+   //     people.add("Plum"); //ADDING PLUM TO THE ARRAY
         
         Token white = tokens.get("White");
         int moves = 0;
