@@ -11,29 +11,38 @@ public class Cluedo {
     private final Tokens tokens = new Tokens();
     private final Weapons weapons = new Weapons();
     private Players people = new Players();
+    private Rooms rooms = new Rooms();
+    private Doors doors = new Doors();
     private UI ui;
     String[] choices = {"Green","Plum","Mustard","Peacock","White","Scarlett"};
     String[] numPlayers = {"2","3","4","5","6"};	
 	
     private void testUI() {
-    	final int[] BoundaryRow =    {24,23,22,21,21,21,21,21,20,25,24,23,22,21,20,19,18,18,18,18,18,18,19,20,21,22,23,24,24,23,22,21,20,19,19,19,19,19,19,18,25,17,16,15,15,15,15,15,15,15,14,13,12,11,10,10,10,9,9,9,9,8,7,6,6,6,6,6,6,5,4,3,2,1,0,0,-1,0,1,2,2,3,4,5,6,7,7,7,7,7,7,7,7,6,5,4,3,2,2,1,0,-1,0,0,1,2,3,4,5,5,5,5,5,6,7,8,8,8,8,8,9,10,11,12,12,12,12,12,13,14,14,14,14,14,15,16,17,18,18,18,18,18,18,19,10,11,12,13,14,15,16,16,16,16,16,15,14,13,12,11,10,10,10,10,21};																																																					
-    	final int[] BoundaryColumn = {17,17,17,17,18,19,20,21,23,16,15,14,14,14,14,14,14,13,12,11,10,9,9,9,9,9,9,8,6,6,6,6,6,6,5,4,3,2,1,0,7,-1,0,1,2,3,4,5,6,7,7,7,7,7,7,6,5,4,3,2,1,0,-1,0,1,2,3,4,5,5,5,5,5,6,7,8,9,10,10,9,8,8,8,8,8,8,9,10,11,12,13,14,15,15,15,15,15,15,14,13,13,14,15,16,17,18,18,18,19,20,21,22,23,24,23,22,21,20,19,18,18,18,18,18,19,20,21,22,23,22,21,20,19,18,17,17,17,18,19,20,21,22,23,24,10,10,10,10,10,10,10,11,12,13,14,14,14,14,14,14,14,13,12,11,22};																																
+    	final int[] BoundaryRow =    {24,23,22,21,21,21,21,21,20,25,24,23,22,21,20,19,18,18,18,18,18,18,19,20,21,22,23,24,24,23,22,21,20,19,19,19,19,19,19,18,25,17,16,15,15,15,15,15,15,15,14,13,12,11,10,10,10,9,9,9,9,8, 7,6,6,6,6,6,6,5,4,3,2,1,0,0,-1, 0, 1,2,2,3,4,5,6,7,7, 7, 7, 7, 7, 7, 7, 6, 4, 3, 2, 2, 1, 0,-1, 0, 0, 1, 2, 3, 4, 5, 5, 5, 5, 5, 6, 7, 8, 8, 8, 8, 8, 9,10,11,12,12,12,12,12,13,14,14,14,14,14,15,16,17,18,18,18,18,18,18,19,10,11,12,13,14,15,16,16,16,16,16,15,14,13,12,11,10,10,10,10,21};																																																					
+    	final int[] BoundaryColumn = {17,17,17,17,18,19,20,21,23,16,15,14,14,14,14,14,14,13,12,11,10, 9, 9, 9, 9, 9, 9, 8, 6, 6, 6, 6, 6, 6, 5, 4, 3, 2, 1, 0, 7,-1, 0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7, 6, 5,4,3,2,1,0,-1,0,1,2,3,4,5,5,5,5,5,6,7,8, 9,10,10,9,8,8,8,8,8,8,9,10,11,12,13,14,15,15,15,15,15,14,13,13,14,15,16,17,18,18,18,19,20,21,22,23,24,23,22,21,20,19,18,18,18,18,18,19,20,21,22,23,22,21,20,19,18,17,17,17,18,19,20,21,22,23,24,10,10,10,10,10,10,10,11,12,13,14,14,14,14,14,14,14,13,12,11,22};																																
     	int PlayerPositionsRow[] = {0,0,6,19,24,17};
     	int PlayerPositionsColumn[] = {9,14,23,23,7,0};
     	int numberOfPlayers = 0; 
      	String numberOfPlayersString = null;
         String player;
         int PlayerNum=0;
-   
+        ui = new UI(people,weapons);
         	JComboBox<String> Number = new JComboBox<String>(numPlayers);
         	JOptionPane.showMessageDialog( null, Number, "Characters", JOptionPane.QUESTION_MESSAGE);
         	numberOfPlayers = Integer.parseInt((String) Number.getSelectedItem());
+        	System.out.println("BoundryRow length: "+BoundaryRow.length);
+        	System.out.println("BoundryRow length: "+BoundaryColumn.length);
         	
-       	      	  for(int i = 0; i < numberOfPlayers; i++) {  
-             	     String player1 = JOptionPane.showInputDialog("Enter Player Name");
-          	        for(int j = 0; player1.length() < 2; j++ ) {
-            	  	    player1 = JOptionPane.showInputDialog("Name must contain at least two letters. Please enter a valid name.");
-         	    }	
+        	
+       	        for(int i = 0; i < numberOfPlayers; i++) {
+         		
+         	  
+         	   String player1 = JOptionPane.showInputDialog("Enter Player Name");
+         	   
+               for(int j = 0; player1.length() < 2; j++ ) {
+       	  	    player1 = JOptionPane.showInputDialog("Name must contain at least two letters. Please enter a valid name.");
+    	    }	
+          	    
           	   
 
           	    JComboBox<String> cb = new JComboBox<String>(choices);
@@ -46,7 +55,7 @@ public class Cluedo {
             	    list.remove(chosen);
             	    choices = list.toArray(new String[list.size()]);
          	 }
-            
+       	     
                 ui = new UI(people,weapons);	
                 
 	    for(Player p: people) {
@@ -67,7 +76,7 @@ public class Cluedo {
 	    
          Iterator<Player> iter = people.iterator();
          Player currentPlayer = iter.next();
-         ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
+         ui.displayString(currentPlayer.getName()+"-"+currentPlayer.getToken().getName()+", It is your turn. Roll the dice and make a move!\n");
 	    
         do {
         	
@@ -75,12 +84,12 @@ public class Cluedo {
         	if(command.equalsIgnoreCase("done")) {
     			if(iter.hasNext()) {
     				currentPlayer = iter.next();
-    				ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
+    				ui.displayString(currentPlayer.getName()+"-"+currentPlayer.getToken().getName()+", It is your turn. Roll the dice and make a move!\n");
     				PlayerNum++;//updating for player position index array
     			}else {
     				iter = people.iterator();//resets iterator
     				currentPlayer = iter.next();
-    				ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
+    				ui.displayString(currentPlayer.getName()+"-"+currentPlayer.getToken().getName()+", It is your turn. Roll the dice and make a move!\n");
     				PlayerNum=0;
     			}
     		
@@ -106,6 +115,13 @@ public class Cluedo {
             	
             } 
                    
+            for(Door door:doors) {
+        		if(currentPlayer.getToken().getPosition().equals(door.getCoord())) {
+        			
+        				currentPlayer.getToken().moveTo(rooms.get("Ball Room").getCoord());
+        			
+        		}
+        	}
             if(moves>0) {
             if(command.equalsIgnoreCase("L")) {
             	int column = currentPlayer.getToken().Column()-1;
@@ -113,7 +129,7 @@ public class Cluedo {
             	
             	int count=0;
             	int j=0;
-            	for(int i=0;i<165;i++) {
+            	for(int i=0;i<164;i++) {
             		if(row==BoundaryRow[i] && column ==BoundaryColumn[i]) {
             			ui.displayString("This is an invalid move!!!!!!");
             			count++;
@@ -132,6 +148,7 @@ public class Cluedo {
                     	PlayerPositionsRow[0] = currentPlayer.getToken().Row();
                     	PlayerPositionsColumn[0] = currentPlayer.getToken().Column();
                     	
+                    	
                     	 ui.displayString("You can move " + moves + " spaces!");
             		}
             	
@@ -142,7 +159,7 @@ public class Cluedo {
             	int row = currentPlayer.getToken().Row();
             	int j=0;
             	int count=0;
-            	for(int i=0;i<165;i++) {
+            	for(int i=0;i<164;i++) {
             		if(row==BoundaryRow[i] && column ==BoundaryColumn[i]) {
             			ui.displayString("This is an invalid move!!!!!!");
             			count++;
@@ -171,7 +188,7 @@ public class Cluedo {
             	int row = currentPlayer.getToken().Row() + 1;
             	int j=0;
             	int count=0;
-            	for(int i=0;i<165;i++) {
+            	for(int i=0;i<164;i++) {
             		if(row==BoundaryRow[i] && column ==BoundaryColumn[i]) {
             			ui.displayString("This is an invalid move!!!!!!");
             			count++;
@@ -198,7 +215,7 @@ public class Cluedo {
             	int row = currentPlayer.getToken().Row() -1;
             	int j=0;
             	int count=0;
-            	for(int i=0;i<165;i++) {
+            	for(int i=0;i<164;i++) {
             		if(row==BoundaryRow[i] && column ==BoundaryColumn[i]) {
             			ui.displayString("This is an invalid move!!!!!!");
             			count++;
