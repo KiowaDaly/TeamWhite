@@ -3,20 +3,42 @@ public class Cluedo {
     private final Tokens tokens = new Tokens();
     private final Weapons weapons = new Weapons();
     private final UI ui = new UI(tokens,weapons);
+    
+    private static ArrayList<String> people= new ArrayList<String>(); //HERE IS THE ARRAY FOR CHARACTER NAMES
 
     private void testUI() {
     	final int[] BoundaryRow =    {24,23,22,21,21,21,21,21,20,25,24,23,22,21,20,19,18,18,18,18,18,18,19,20,21,22,23,24,24,23,22,21,20,19,19,19,19,19,19,18,25,17,16,15,15,15,15,15,15,15,14,13,12,11,10,10,10,9,9,9,9,8,7,6,6,6,6,6,6,5,4,3,2,1,0,0,-1,0,1,2,2,3,4,5,6,7,7,7,7,7,7,7,7,6,5,4,3,2,2,1,0,-1,0,0,1,2,3,4,5,5,5,5,5,6,7,8,8,8,8,8,9,10,11,12,12,12,12,12,13,14,14,14,14,14,15,16,17,18,18,18,18,18,18,19,10,11,12,13,14,15,16,16,16,16,16,15,14,13,12,11,10,10,10,10,21};																																																					
     	final int[] BoundaryColumn = {17,17,17,17,18,19,20,21,23,16,15,14,14,14,14,14,14,13,12,11,10,9,9,9,9,9,9,8,6,6,6,6,6,6,5,4,3,2,1,0,7,-1,0,1,2,3,4,5,6,7,7,7,7,7,7,6,5,4,3,2,1,0,-1,0,1,2,3,4,5,5,5,5,5,6,7,8,9,10,10,9,8,8,8,8,8,8,9,10,11,12,13,14,15,15,15,15,15,15,14,13,13,14,15,16,17,18,18,18,19,20,21,22,23,24,23,22,21,20,19,18,18,18,18,18,19,20,21,22,23,22,21,20,19,18,17,17,17,18,19,20,21,22,23,24,10,10,10,10,10,10,10,11,12,13,14,14,14,14,14,14,14,13,12,11,22};																																
     	int PlayerPositionsRow[] = {0,0,6,19,24,17};
     	int PlayerPositionsColumn[] = {9,14,23,23,7,0};
-        String command;
+        String command = ui.getCommand(); 
+        people.add("Plum"); //ADDING PLUM TO THE ARRAY
+        
         Token white = tokens.get("White");
         int moves = 0;
         Weapon dagger = weapons.get("Dagger");
+        
+         //START COMMAND TO BEGIN THE GAME
+           if(command.equalsIgnoreCase("start") ) {
+  	         
+        	//TODO: ASK HOW MANY PLAYERS AND CREATE A FOR LOOP FOR UP TO SIX PLAYERS
+        	
+    		ui.displayString("\n\nPlease enter the name of player one: ");
+    		player1 = ui.getCommand();
+        	ui.displayString(player1);
+     //   	player1 = character1;
+        	player1 = people.get(0);
+        	ui.displayString("\n\nYou are " + people.get(0));
+        }
+        
         do {
             command = ui.getCommand();
             
             ui.displayString(command);
+            
+             if(command.equalsIgnoreCase("done")) {
+            	//TODO: prompts the next user to go when the done command is entered
+            }
             
             if(command.equalsIgnoreCase("roll")) {
             	Dice dice1 = new Dice();
