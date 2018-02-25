@@ -94,10 +94,7 @@ public class Cluedo {
         				currentPlayer = iter.next();
         				ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
         			}
-        			while(!iter.hasNext()) {
-        			  iter = people.iterator();
-        			  currentPlayer = iter.next();
-        			}
+        		
         			
         				
         		}
