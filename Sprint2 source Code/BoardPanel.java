@@ -14,12 +14,12 @@ class BoardPanel extends JPanel {
     private static final float COL_SCALE = 26.9f, ROW_SCALE = 27.1f;
     private static final int TOKEN_RADIUS = 12;   // must be even
 
-    private final Tokens tokens;
+    private final Players people;
     private final Weapons weapons;
     private BufferedImage boardImage;
 
-    BoardPanel(Tokens tokens, Weapons weapons) {
-        this.tokens = tokens;
+    BoardPanel(Players people, Weapons weapons) {
+        this.people = people;
         this.weapons = weapons;
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setBackground(Color.WHITE);
@@ -28,23 +28,27 @@ class BoardPanel extends JPanel {
         } catch (IOException ex) {
             System.out.println("Could not find the image file " + ex.toString());
         }
+     
     }
-
+    
     @Override
     public void paintComponent(Graphics g) {
+    
         super.paintComponent(g);
         Graphics2D g2 =(Graphics2D) g;
         g2.drawImage(boardImage, 0, 0, FRAME_WIDTH, FRAME_HEIGHT, this);
-        for (Token token : tokens) {
-            int x = Math.round(token.getPosition().getCol()*COL_SCALE + COL_OFFSET);
-            int y = Math.round(token.getPosition().getRow()*ROW_SCALE + ROW_OFFSET);
+        for (Player person : people) {
+            int x = Math.round(person.getToken().getPosition().getCol()*COL_SCALE + COL_OFFSET);
+            int y = Math.round(person.getToken().getPosition().getRow()*ROW_SCALE + ROW_OFFSET);
             g2.setColor(Color.BLACK);
             Ellipse2D.Double ellipseBlack = new Ellipse2D.Double(x,y,2*TOKEN_RADIUS,2*TOKEN_RADIUS);
             g2.fill(ellipseBlack);
             Ellipse2D.Double ellipseColour = new Ellipse2D.Double(x+2,y+2,2*TOKEN_RADIUS-4,2*TOKEN_RADIUS-4);
-            g2.setColor(token.getColor());
+            g2.setColor(person.getToken().getColor());
             g2.fill(ellipseColour);
         }
+      
+        
         for (Weapon weapon : weapons) {
             int x = Math.round(weapon.getPosition().getCol()*COL_SCALE + COL_OFFSET);
             int y = Math.round(weapon.getPosition().getRow()*ROW_SCALE + ROW_OFFSET);

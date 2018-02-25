@@ -1,5 +1,5 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Frame;
 
 import javax.swing.*;
 
@@ -13,9 +13,9 @@ public class UI {
     private final InfoPanel infoPanel = new InfoPanel();
     private final CommandPanel commandPanel = new CommandPanel();
 
-    UI(Tokens characters, Weapons weapons) {
+    UI(Players people, Weapons weapons) {
         JFrame frame = new JFrame();
-        boardPanel = new BoardPanel(characters, weapons);
+        boardPanel = new BoardPanel(people, weapons);
         frame.setSize(FRAME_WIDTH,FRAME_HEIGHT);
         frame.setTitle("Cluedo");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -23,7 +23,7 @@ public class UI {
         frame.add(tabbedPanel, BorderLayout.CENTER);
         frame.add(infoPanel, BorderLayout.EAST);
         frame.add(commandPanel,BorderLayout.PAGE_END);
-        frame.setExtendedState(frame.MAXIMIZED_BOTH);
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setResizable(true);
         frame.setVisible(true);
     }

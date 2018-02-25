@@ -37,5 +37,11 @@ public class Tokens implements Iterable<Token>, Iterator<Token> {
         iterator = suspects.iterator();
         return iterator;
     }
+    public void removeItem() {
+    Token item = suspects.iterator().next();
+    suspects.remove(item);
+    }
+    
+ 
 
 }
