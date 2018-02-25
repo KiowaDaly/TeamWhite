@@ -10,10 +10,11 @@ class TabbedPanel extends JTabbedPane{
 	private static final long serialVersionUID = 1L;
 	private final Tokens tokens= new Tokens();
 	private final Weapons weapons = new Weapons();
+	private final Rooms rooms = new Rooms();
 	
 	TabbedPanel(){
 		JPanel characters = new JPanel();  //Initialises a new panel...
-		addTab("Characters", characters); //... and adds it as a new named tab to the bottom panel.
+		addTab("Suspects", characters); //... and adds it as a new named tab to the bottom panel.
 		
 		JTextArea character_names = new JTextArea(); //Initialises a new area where text can be written...
 		//character_names.setFont(font); //... sets the pre-determined Cluedo font...
@@ -48,6 +49,10 @@ class TabbedPanel extends JTabbedPane{
 			player_1.append("\n");
 		}
 		for(Weapon items: weapons) {
+			player_1.append(items.getName());
+			player_1.append("\n");
+		}
+		for(Room items: rooms) {
 			player_1.append(items.getName());
 			player_1.append("\n");
 		}

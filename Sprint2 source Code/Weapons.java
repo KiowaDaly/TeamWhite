@@ -8,7 +8,7 @@ public class Weapons implements Iterable<Weapon>, Iterator<Weapon> {
 
     Weapons() {
         weapons.add(new Weapon("Rope",new Coordinates(2,2)));
-        weapons.add(new Weapon("Dagger",new Coordinates(12,3)));
+    	weapons.add(new Weapon("Dagger",new Coordinates(12,3)));
         weapons.add(new Weapon("Wrench",new Coordinates(20,4)));
         weapons.add(new Weapon("Pistol",new Coordinates(2,12)));
         weapons.add(new Weapon("Candlestick",new Coordinates(3,20)));

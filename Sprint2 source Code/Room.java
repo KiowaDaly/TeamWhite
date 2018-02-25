@@ -1,13 +1,12 @@
-
 public class Room {
-		private final String RoomName;
+		private final String name;
 		private Coordinates Room;
 		int row;
 		int column;
-		//test
 		
-	public Room(String RoomName,Coordinates Room) {
-		this.RoomName=RoomName;
+		
+	public Room(String name,Coordinates Room) {
+		this.name = name;
 		this.Room=Room;
 	}
 	
@@ -18,12 +17,14 @@ public class Room {
 		
 		return new Coordinates(column,row);
 		
-		
-		
 	}
-
-	  public boolean hasName(String name) {
-        return this.RoomName.toLowerCase().equals(name.toLowerCase().trim());
+	
+	public String getName() {
+        return name;
+    }
+	
+	public boolean hasName(String name) {
+        return this.name.toLowerCase().equals(name.toLowerCase().trim());
     }
 
 }
