@@ -77,8 +77,9 @@ public class Cluedo {
              ui = new UI(people,weapons);	
              
              for(Player p: people ) {
-            
+              if(p.Playing()) {
            	  ui.displayString("\n"+p.getName()+", Your character is: "+p.getToken().getName()+"\n");
+              }
             	
              }
              
