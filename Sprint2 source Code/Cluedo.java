@@ -29,11 +29,11 @@ public class Cluedo {
         	JOptionPane.showMessageDialog( null, Number, "Characters", JOptionPane.QUESTION_MESSAGE);
         	numberOfPlayers = Integer.parseInt((String) Number.getSelectedItem());
         	
-       	        for(int i = 0; i < numberOfPlayers; i++) {
-         		
-         	  
-         	   String player1 = JOptionPane.showInputDialog("Enter Player Name");
-          	    
+       	      	  for(int i = 0; i < numberOfPlayers; i++) {  
+             	     String player1 = JOptionPane.showInputDialog("Enter Player Name");
+          	        for(int j = 0; player1.length() < 2; j++ ) {
+            	  	    player1 = JOptionPane.showInputDialog("Name must contain at least two letters. Please enter a valid name.");
+         	    }	
           	   
 
           	    JComboBox<String> cb = new JComboBox<String>(choices);
