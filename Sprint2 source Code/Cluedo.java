@@ -114,12 +114,25 @@ public class Cluedo {
        	}
 
          ui.displayString(currentPlayer.getName()+", It is your turn. Roll the dice and make a move!\n");
+         
+    
         do {
-        	
+        
         	
         	if(command.equalsIgnoreCase("done")) {
+        		for(Door door:doors) {
+                 	if(currentPlayer.getToken().getPosition().equals(door.getCoord())) {
+                 		String Entrance = door.getName();
+                 		for(Room room:rooms) {
+                 			if(Entrance.contains(room.getName())) {
+                 				currentPlayer.getToken().moveTo(room.getCoord());
+                 			}
+                 		}
+                 	}
+                 }
         		if(iter.hasNext())
     			{
+        		    
         			currentPlayer = iter.next();
                		PlayerNum++;
         		while(!currentPlayer.Playing()) {
@@ -168,17 +181,7 @@ public class Cluedo {
             } 
             	 
             
-            
-            for(Door door:doors) {
-            	if(currentPlayer.getToken().getPosition().equals(door.getCoord())) {
-            		String Entrance = door.getName();
-            		for(Room room:rooms) {
-            			if(Entrance.contains(room.getName())) {
-            				currentPlayer.getToken().moveTo(room.getCoord());
-            			}
-            		}
-            	}
-            }
+      
             
             if(moves>0) {
             if(command.equalsIgnoreCase("L")) {
@@ -187,7 +190,8 @@ public class Cluedo {
             	
             	int count=0;
             	int j=0;
-            	for(int i=0;i<165;i++) {
+            	for(int i=0;i<BoundaryRow.length
+            			;i++) {
             		if(row==BoundaryRow[i] && column ==BoundaryColumn[i]) {
             			ui.displayString("This is an invalid move!!!!!!");
             			count++;
@@ -218,7 +222,7 @@ public class Cluedo {
             	int row = currentPlayer.getToken().Row();
             	int j=0;
             	int count=0;
-            	for(int i=0;i<165;i++) {
+            	for(int i=0;i<BoundaryRow.length;i++) {
             		if(row==BoundaryRow[i] && column ==BoundaryColumn[i]) {
             			ui.displayString("This is an invalid move!!!!!!");
             			count++;
@@ -247,7 +251,7 @@ public class Cluedo {
             	int row = currentPlayer.getToken().Row() + 1;
             	int j=0;
             	int count=0;
-            	for(int i=0;i<165;i++) {
+            	for(int i=0;i<BoundaryRow.length;i++) {
             		if(row==BoundaryRow[i] && column ==BoundaryColumn[i]) {
             			ui.displayString("This is an invalid move!!!!!!");
             			count++;
@@ -274,7 +278,7 @@ public class Cluedo {
             	int row = currentPlayer.getToken().Row() -1;
             	int j=0;
             	int count=0;
-            	for(int i=0;i<165;i++) {
+            	for(int i=0;i<BoundaryRow.length;i++) {
             		if(row==BoundaryRow[i] && column ==BoundaryColumn[i]) {
             			ui.displayString("This is an invalid move!!!!!!");
             			count++;
