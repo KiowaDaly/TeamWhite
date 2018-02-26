@@ -175,8 +175,8 @@ public class Cluedo {
 		if(command.equalsIgnoreCase("cheat")){
             
             ui.displayString("The murderer is: " + crimeSolution.theMurderer);
-            ui.displayString("The murder room is: " + crimeSolution.theMurderRoom);
-            ui.displayString("The murder is: " + crimeSolution.theMurderWeapon);
+            ui.displayString("\nThe murder room is: " + crimeSolution.theMurderRoom);
+            ui.displayString("\nThe murder weapon is: " + crimeSolution.theMurderWeapon);
             
             }
 		
