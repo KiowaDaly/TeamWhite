@@ -24,7 +24,7 @@ class BoardPanel extends JPanel {
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setBackground(Color.WHITE);
         try {
-            boardImage = ImageIO.read(this.getClass().getResource("cluedo board.jpg"));
+            boardImage = ImageIO.read(this.getClass().getResource("resources/cluedo board.jpg"));
         } catch (IOException ex) {
             System.out.println("Could not find the image file " + ex.toString());
         }

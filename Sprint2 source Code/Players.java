@@ -10,17 +10,7 @@ public class Players implements Iterable<Player>, Iterator<Player>{
 	Players(){
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	  public void addPlayer(String name,Token token, boolean b) {
+	public void addPlayer(String name,Token token, boolean b) {
 		   people.add(new Player(name,token, b));
 	  }
 	
