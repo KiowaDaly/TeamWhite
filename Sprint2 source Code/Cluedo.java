@@ -103,6 +103,16 @@ public class Cluedo {
          if(command.equalsIgnoreCase("quit")) {
         	System.exit(0);
         }
+	    
+	    
+	    int n=0;
+         for(Player p: people ) {
+       	PlayerPositionsRow[n] = p.getToken().Row();
+       	PlayerPositionsColumn[n] = p.getToken().Column();
+       	n++;
+         }//loop for initial icon collision
+	    
+	    
          //START COMMAND TO BEGIN THE GAME
           
          Iterator<Player> iter = people.iterator();
