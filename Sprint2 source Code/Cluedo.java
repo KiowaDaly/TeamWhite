@@ -165,6 +165,7 @@ public class Cluedo {
         	     "\n'start' to start the game.\n" +
        	      	     "\n'roll' to roll the dice\n" +
         	     "\n'quit' to quit the game\n" +
+		     "\n'cheat' to see what's inside the murder envelope\n" +
                      "\n'L' to go left when it is your turn\n" +
                      "\n'R' to go right when it is your turn\n" +
                      "\n'U' to go up when it is your turn\n" +
