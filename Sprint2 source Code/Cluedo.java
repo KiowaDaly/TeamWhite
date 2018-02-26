@@ -97,8 +97,7 @@ public class Cluedo {
 //        Token white = tokens.get("White");
         int moves = 0;
        
-        Weapon dagger = weapons.get("Dagger");
-        
+     
         //ALLOWS USER TO QUIT
          if(command.equalsIgnoreCase("quit")) {
         	System.exit(0);
@@ -321,7 +320,7 @@ public class Cluedo {
             
            
             
-            dagger.moveBy(new Coordinates(+1,0));
+            
             ui.display();
         	
         } while (!command.equals("quit"));
