@@ -158,6 +158,19 @@ public class Cluedo {
             	moves=dice1.getValue()+dice2.getValue();
             	
             } 
+		
+	       if(command.equalsIgnoreCase("help")) {
+       		     JOptionPane.showMessageDialog(null, 
+        	     "\n'start' to start the game.\n" +
+       	      	     "\n'roll' to roll the dice\n" +
+        	     "\n'quit' to quit the game\n" +
+                     "\n'L' to go left when it is your turn\n" +
+                     "\n'R' to go right when it is your turn\n" +
+                     "\n'U' to go up when it is your turn\n" +
+                     "\n'D' to go down when it is your turn\n" 
+            		);
+            }
+		
             //checks if the dice roll produced a number of moves greater than 0, then the player can press certain keys to move their token across the board
             if(moves>0){
             	//checks whether the key typed in is the letter 'L'
