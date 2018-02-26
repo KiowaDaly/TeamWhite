@@ -47,11 +47,13 @@ public class Cluedo {
        	 Collections.addAll(list, choices);
        	
              for(int i = 0; i < 6; i++) {
-         		//BODY
+         	
          	  if(i<numberOfPlayers) {
          	   String player1 = JOptionPane.showInputDialog("Enter Player Name");
           	    
-          	   
+          	    for(int j = 0; player1.length() < 2; j++ ) {
+            	  	    player1 = JOptionPane.showInputDialog("Name must contain at least two letters. Please enter a valid name.");
+         	    }	
 //               ui.displayString("\n\nYou are " + people.get(0)); //GETTING PLUM FROM ARRAY
           	    JComboBox<String> cb = new JComboBox<String>(choices);
           	    JOptionPane.showMessageDialog( null, cb, "Characters", JOptionPane.QUESTION_MESSAGE);
