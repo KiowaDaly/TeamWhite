@@ -13,6 +13,7 @@ public class Cluedo {
     private Players players = new Players();
     private Doors doors = new Doors();
     private Rooms rooms = new Rooms();
+    private CrimeSolution crimeSolution = new CrimeSolution();
     private UI ui; // linking the Tokens, Weapons, Players, Doors, Rooms and UI classes by initialising variables which hold the variable type of each class
     String[] choices_of_characters = {"Green","Plum","Mustard","Peacock","White","Scarlett"}; //an array of Strings holding the character names
     String[] choices_of_playernumber = {"2","3","4","5","6"}; //an array of Strings holding the number of players
@@ -169,6 +170,14 @@ public class Cluedo {
                      "\n'U' to go up when it is your turn\n" +
                      "\n'D' to go down when it is your turn\n" 
             		);
+            }
+		
+		if(command.equalsIgnoreCase("cheat")){
+            
+            ui.displayString("The murderer is: " + crimeSolution.theMurderer);
+            ui.displayString("The murder room is: " + crimeSolution.theMurderRoom);
+            ui.displayString("The murder is: " + crimeSolution.theMurderWeapon);
+            
             }
 		
             //checks if the dice roll produced a number of moves greater than 0, then the player can press certain keys to move their token across the board
