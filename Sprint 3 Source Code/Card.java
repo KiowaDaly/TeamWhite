@@ -1,10 +1,10 @@
-
+import javax.swing.ImageIcon;
 
 public class Card{
 
 	
 	private final String CardName;
-	private final String CardImagePath;
+	private final ImageIcon CardIcon;
 	
 	
 	
@@ -12,9 +12,9 @@ public class Card{
 	
 	
 	
-	public Card(String CardName,String CardImagePath){
+	public Card(String CardName,ImageIcon CardIcon){
 		this.CardName = CardName;
-		this.CardImagePath = CardImagePath;
+		this.CardIcon = CardIcon;
 		
 	}
 	
@@ -22,11 +22,16 @@ public class Card{
 		return CardName;
 	}
 	
-	public String getImage() {
-		return CardImagePath;
+	public ImageIcon getImage() {
+		return CardIcon;
 		
 	}
+	public Card getCard() {
+		return this;
+	}
+    public boolean hasName(String name) {
+        return this.CardName.toLowerCase().equals(name.toLowerCase().trim());
+    }
 	
-	
-	
+
 }

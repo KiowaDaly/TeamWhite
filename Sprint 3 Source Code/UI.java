@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class UI {
 
@@ -12,9 +13,16 @@ public class UI {
     private String input, playerName, tokenName, command, move;
     private int door;
     private boolean inputIsDone;
+    private final Cards cards = new Cards();
+    ImageIcon image = new ImageIcon();
+    JLabel label = new JLabel();
+    JPanel card = new JPanel();
 
     UI(Tokens characters, Weapons weapons) {
+    	
         boardPanel = new BoardPanel(characters, weapons);
+        
+        
         JFrame frame = new JFrame();
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setTitle("Cluedo");

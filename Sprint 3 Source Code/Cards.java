@@ -1,12 +1,24 @@
 import java.util.ArrayList;
 
-public class Cards extends ArrayList{
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
-	private final ArrayList<Card> Cards = new ArrayList<>();
+public class Cards extends ArrayList {
+
+	private final static ArrayList<Card> WeaponCards = new ArrayList<>();
 	
 	public Cards() {
-		Cards.add(new Card("Mr.Green","/resources/green.png"));
+		WeaponCards.add(new Card("Rope",new ImageIcon("/weapon images/rope.png")));
 	}
+
+    public static Card get(String name) {
+        for (Card card : WeaponCards) {
+            if (card.hasName(name)) {
+                return card;
+            }
+        }
+        return null;
+    }
 	
 	
 	//todo//

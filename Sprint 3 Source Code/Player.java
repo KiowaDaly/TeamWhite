@@ -1,11 +1,15 @@
+import javax.swing.ImageIcon;
+
 public class Player {
 
     private final String name;
     private final Token token;
+   
 
     Player(String name, Token token) {
         this.name = name;
         this.token = token;
+      
     }
 
     public boolean hasName(String name) {
@@ -20,6 +24,8 @@ public class Player {
         return token;
     }
 
+    
+    
     @Override
     public String toString() {
         return name + " (" + token.getName() + ")";
