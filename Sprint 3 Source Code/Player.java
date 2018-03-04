@@ -4,11 +4,12 @@ public class Player {
 
     private final String name;
     private final Token token;
-   
+    private final Card[] myCards;
 
-    Player(String name, Token token) {
+    Player(String name, Token token,Card[] myCards) {
         this.name = name;
         this.token = token;
+        this.myCards = myCards;
       
     }
 
@@ -23,7 +24,9 @@ public class Player {
     public Token getToken() {
         return token;
     }
-
+    public Card[] getCards() {
+    	return myCards;
+    }
     
     
     @Override

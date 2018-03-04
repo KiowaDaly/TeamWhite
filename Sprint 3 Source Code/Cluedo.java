@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Cluedo {
 
     private static final int MAX_NUM_PLAYERS = 6;
@@ -8,15 +10,22 @@ public class Cluedo {
     private final Map map = new Map();
     private final Weapons weapons = new Weapons(map);
     private final UI ui = new UI(tokens,weapons);
+    private final WeaponCards weaponCards = new WeaponCards();
+    private final RoomCards roomCards = new RoomCards();
 
     private void inputPlayerNames() {
         int numPlayersSoFar = 0;
+        CardAssignment cardAssign = new CardAssignment();
+        Object[] cards = cardAssign.cluedoCard(weaponCards, roomCards);
+        Card[] WeaponCard = (Card[]) cards[0];
+        Card[] RoomCards = (Card[]) cards[1];
         do {
             ui.inputName(players);
             if (!ui.inputIsDone()) {
                 ui.inputToken(tokens);
                 Token token = tokens.get(ui.getTokenName());
-                players.add(new Player(ui.getPlayerName(),token));
+                
+                players.add(new Player(ui.getPlayerName(),token,new Card[] {WeaponCard[new Random().nextInt(WeaponCard.length-0+1)+0],RoomCards[new Random().nextInt(RoomCards.length-0+1)+0]}));//added random card assignent//
                 token.setOwned();
                 numPlayersSoFar++;
             }
@@ -113,7 +122,8 @@ public class Cluedo {
             }
         } while (!gameOver);
     }
-
+    
+    
     public static void main(String[] args) {
         Cluedo game = new Cluedo();
         game.inputPlayerNames();

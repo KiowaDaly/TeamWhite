@@ -3,22 +3,28 @@
 
 import java.util.Random;
 
-public class CrimeSolution{
+public class CardAssignment{
 	
 	static final String[] characters = {"Green","Plum","Mustard","Peacock","White","Scarlett"};
 	static final String[] rooms =  {"Ball Room", "Hall", "Kitchen", "Conservatory", "Library", "Lounge", "Dining Room", "Billiard Room"};
 	static final String[] weapons = {"Rope", "Dagger", "Wrench", "Pistol", "Candlestick", "Lead Pipe"};
 		
-	public void cluedoCard() {
-	
+	public Object[] cluedoCard(WeaponCards weaponsCards,RoomCards roomCards) {
+	Random rn = new Random();
 	//Gets random character, room and weapon from strings
 	
-	String theMurderer = (characters[new Random().nextInt(characters.length)]);
-	String theMurderRoom = (rooms[new Random().nextInt(characters.length)]);
-	String theMurderWeapon = (weapons[new Random().nextInt(characters.length)]);
+//	Card theMurderer = (characters[new Random().nextInt(characters.length)]);
+	Card theMurderRoom = (roomCards.get(rn.nextInt(roomCards.size()-0+1)+0));
+	roomCards.removeItem(theMurderRoom);
+	Card theMurderWeapon = (weaponsCards.get(rn.nextInt(roomCards.size()-0+1)+0));
+	weaponsCards.removeItem(theMurderWeapon);
 	
 	//Stores the randomly generated murderer, room and weapon into an array
-	String[] theAnswer = {theMurderer, theMurderRoom, theMurderWeapon};
+	Card[] theAnswer = {theMurderRoom, theMurderWeapon};
+	
+	return new Object[] {weaponsCards,roomCards,theAnswer};
+	
+	
 	
 	}
 	

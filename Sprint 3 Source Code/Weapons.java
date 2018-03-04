@@ -36,5 +36,6 @@ public class Weapons implements Iterable<Weapon>, Iterator<Weapon> {
         iterator = weapons.iterator();
         return iterator;
     }
+  
 
 }
