@@ -68,6 +68,10 @@ public class WeaponCards implements Iterable<Card>, Iterator<Card>  {
 	        }
 	//todo//
 
+	public int size() {
+        return WeaponCards.size();
+    }
+
 	
 	
 	

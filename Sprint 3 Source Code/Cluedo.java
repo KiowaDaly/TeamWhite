@@ -17,15 +17,15 @@ public class Cluedo {
         int numPlayersSoFar = 0;
         CardAssignment cardAssign = new CardAssignment();
         Object[] cards = cardAssign.cluedoCard(weaponCards, roomCards);
-        Card[] WeaponCard = (Card[]) cards[0];
-        Card[] RoomCards = (Card[]) cards[1];
+        WeaponCards WeaponCard = (WeaponCards) cards[0];
+        RoomCards RoomCards = (RoomCards) cards[1];
         do {
             ui.inputName(players);
             if (!ui.inputIsDone()) {
                 ui.inputToken(tokens);
                 Token token = tokens.get(ui.getTokenName());
                 
-                players.add(new Player(ui.getPlayerName(),token,new Card[] {WeaponCard[new Random().nextInt(WeaponCard.length-0+1)+0],RoomCards[new Random().nextInt(RoomCards.length-0+1)+0]}));//added random card assignent//
+                players.add(new Player(ui.getPlayerName(),token,new Card[] {WeaponCard.get(new Random().nextInt(WeaponCard.size()-0+1)+0),RoomCards.get(new Random().nextInt(RoomCards.size()-0+1)+0)}));//added random card assignent//
                 token.setOwned();
                 numPlayersSoFar++;
             }
@@ -114,6 +114,13 @@ public class Cluedo {
                         turnOver = true;
                         gameOver = true;
                         break;
+                    }
+                    case "cards": {
+                    	Card[] myCards = currentPlayer.getCards();
+                    	ui.displayString("\nMy cards: \n");
+                    	ui.displayString(myCards[0].getName()+"\n");
+                    	ui.displayString(myCards[1].getName()+"\n");
+                    	
                     }
                 }
             } while (!turnOver);

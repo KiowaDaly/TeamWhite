@@ -40,7 +40,7 @@ public class UI {
         boardPanel.refresh();
     }
 
-    private void displayString(String string) {
+    public void displayString(String string) {
         infoPanel.addText(string);
     }
 
@@ -139,7 +139,7 @@ public class UI {
             inputString();
             displayString("> " + input);
             command = input.trim().toLowerCase().replaceAll("( )+", " ");
-            if (command.equals("quit") || command.equals("done") || command.equals("roll") || command.equals("passage")) {
+            if (command.equals("quit") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage")) {
                 valid = true;
             } else {
                 displayError("No such command");
