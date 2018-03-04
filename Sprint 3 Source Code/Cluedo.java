@@ -105,7 +105,19 @@ public class Cluedo {
                             ui.displayErrorAlreadyMoved();
                         }
                         break;
-                    }
+                    }       
+                   case "help": {
+                    	 JOptionPane.showMessageDialog(null, 
+                          	      "\n'start' to start the game.\n" +
+                         	      "\n'roll' to roll the dice\n" +
+                          	      "\n'quit' to quit the game\n" +
+                                  "\n'L' to go left when it is your turn\n" +
+                                  "\n'R' to go right when it is your turn\n" +
+                                  "\n'U' to go up when it is your turn\n" +
+                                  "\n'D' to go down when it is your turn\n" 
+                              		);      	
+                        break;
+                    } 
                     case "done": {
                         turnOver = true;
                         break;
