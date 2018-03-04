@@ -139,7 +139,7 @@ public class UI {
             inputString();
             displayString("> " + input);
             command = input.trim().toLowerCase().replaceAll("( )+", " ");
-            if (command.equals("quit") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage")) {
+            if (command.equals("quit") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage") || command.equals("help")) {
                 valid = true;
             } else {
                 displayError("No such command");
