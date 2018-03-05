@@ -1,0 +1,97 @@
+
+
+//GETS A RANDOM CHARACTER, ROOM AND WEAPON AND STORES THEM INTO AN ARRAY
+//TODO: WORKS AT THE MOMENT (CAN BE TESTED USING PRINT), HOWEVER STILL NEEDS TO BE IMPLEMENTED  INTO THE REST OF THE GAME
+
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Random;
+
+public class Cards{
+	
+	static ArrayList<String> characters = new ArrayList<String>();
+	static ArrayList<String> rooms = new ArrayList<String>();
+	static ArrayList<String> weapons = new ArrayList<String>();
+	static ArrayList<String> playerCards = new ArrayList<String>();
+	static ArrayList<String> hand = new ArrayList<String>();
+	
+	private final Players players = new Players();
+	Player currentPlayer = players.getCurrentPlayer();
+	
+	static Random randomizer = new Random();
+	
+	static Players p;
+	
+	public static void cardAssignment() {
+	
+	characters.add("Green");
+	characters.add("Plum");
+	characters.add("Mustard");
+	characters.add("Peacock");
+	characters.add("White");
+	characters.add("Scarlett");
+	
+	rooms.add("Ball Room");
+	rooms.add("Hall");
+	rooms.add("Kitchen");
+	rooms.add("Conservatory");
+	rooms.add("Library");
+	rooms.add("Lounge");
+	rooms.add("Dining Room");
+	rooms.add("Billiard Room");
+	
+	weapons.add("Rope");
+	weapons.add("Dagger");
+	weapons.add("Wrench");
+	weapons.add("Pistol");
+	weapons.add("Candlestick");
+	weapons.add("Lead Pipe");
+	
+	
+	//GETS THE THREE SOLUTIONS FOR THE ENVELOPE
+	String theMurderer = characters.get(randomizer.nextInt(characters.size()));
+	String theMurderRoom = rooms.get(randomizer.nextInt(rooms.size()));
+	String theMurderWeapon = weapons.get(randomizer.nextInt(weapons.size()));
+
+	playerCards.addAll(characters);
+	playerCards.addAll(rooms);
+	playerCards.addAll(weapons);
+	
+	//REMOVE THE THREE SOLUTIONS 
+	playerCards.remove(theMurderer);
+	playerCards.remove(theMurderRoom);
+	playerCards.remove(theMurderWeapon);
+	
+	
+	}
+	//METHOD FOR DISTRIBUTING THE REST OF THE CARDS TO THE PLAYERS
+	public void getCards(){
+  
+  //IF THE AMOUNT OF PLAYERS IS EQUAL TO TWO
+		if(p.size()==2) {
+		
+    
+   //LOOP THAT GETS A RANDOM WEAPON, CHARACTER OR ROOM AND STORES IT IN HAND 
+   //THEN REMOVES THIS CARD FROM THE PILE SO THAT IT CANNOT BE GIVEN TO ANOTHER PLAYER
+   //IT CONTINUES TO DO SO UNTIL THERE ARE 8 CARDS STORED IN HAND
+   //IN A GAME OF 2 PEOPLE THEY WOULD GET 8 CARDS EACH AND 1 WOULD BE LEFT OVER, HOWEVER THE CASE FOR WHAT HAPPENS WITH THE 1 LEFTOVER CARD IS NOT FINISHED
+   
+		for(int i=0; hand.size()<8;i++) {
+			String randomCard = playerCards.get(randomizer.nextInt(playerCards.size()));
+			hand.add(randomCard);
+			playerCards.remove(hand);
+			
+		}
+	}
+  //TODO: show the 1 card that is left over in 2 player mode
+  //TODO: add if statement for 3 players -> 5 cards each, 2 left over
+  //TODO: add if statement for 4 players -> 4 cards each, 1 left over
+  //TODO: add if statement for 5 players -> 3 cards each, 2 left over
+  //TODO: add if statement for 6 players -> 2 cards each, 5 left over
+
+	}
+	
+
+}
