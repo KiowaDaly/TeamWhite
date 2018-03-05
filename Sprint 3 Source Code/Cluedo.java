@@ -1,5 +1,14 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
 import javax.swing.JOptionPane;
+
+
 
 public class Cluedo {
 
@@ -14,24 +23,79 @@ public class Cluedo {
     private final WeaponCards weaponCards = new WeaponCards();
     private final RoomCards roomCards = new RoomCards();
 
-    private void inputPlayerNames() {
-        int numPlayersSoFar = 0;
-        CardAssignment cardAssign = new CardAssignment();
-        Object[] cards = cardAssign.cluedoCard(weaponCards, roomCards);
+    
+    
+    
+    //a function to allocate cards to the game;
+    private void AllocateCards(Players players,int numPlayersSoFar) {
+    	CardAssignment cardAssign = new CardAssignment();
+        Object[] cards = cardAssign.cluedoCard();
         WeaponCards WeaponCard = (WeaponCards) cards[0];
         RoomCards RoomCards = (RoomCards) cards[1];
+        ArrayList<Card> ListOfCards = new ArrayList<Card>();
+        Card ExtraCard;
+      
+        
+        
+        for(Card card:WeaponCard) {
+        	ListOfCards.add(card);
+        }
+        for(Card card:RoomCards) {
+        	ListOfCards.add(card);
+        }
+      long mySeed = System.nanoTime();
+      Collections.shuffle(ListOfCards,new Random(mySeed));
+      Collections.shuffle(ListOfCards,new Random(mySeed));//shuffles twice to ensure random shuffle//
+      
+      if(ListOfCards.size()%numPlayersSoFar!=0) {
+    	 ExtraCard = ListOfCards.get(new Random().nextInt((ListOfCards.size()-1)-0+1)+0);
+    	 ListOfCards.remove(ExtraCard);
+      
+    	 
+    	
+    		while(!ListOfCards.isEmpty()) {
+    			for(Player player:players){
+    				Card temp = ListOfCards.get(new Random().nextInt((ListOfCards.size()-1)-0+1)+0);
+    				player.addCard(temp);
+    				ListOfCards.remove(temp);
+    				
+    			}
+    		}
+ 
+      }
+      else {
+    	  while(!ListOfCards.isEmpty()) {
+    		  for(Player player:players){
+    			  Card temp = ListOfCards.get(new Random().nextInt((ListOfCards.size()-1)-0+1)+0);
+    			  player.addCard(temp);
+    			  ListOfCards.remove(temp);
+				
+    		  }
+    	  }
+      }
+    }
+    
+    private void inputPlayerNames() {
+        int numPlayersSoFar = 0;
+        
         do {
             ui.inputName(players);
             if (!ui.inputIsDone()) {
                 ui.inputToken(tokens);
                 Token token = tokens.get(ui.getTokenName());
                 
-                players.add(new Player(ui.getPlayerName(),token,new Card[] {WeaponCard.get(new Random().nextInt(WeaponCard.size()-0+1)+0),RoomCards.get(new Random().nextInt(RoomCards.size()-0+1)+0)}));//added random card assignent//
+                players.add(new Player(ui.getPlayerName(),token,new ArrayList<Card>()));//added random card assignent//
                 token.setOwned();
                 numPlayersSoFar++;
             }
+            if(ui.inputIsDone()) {
+            	  AllocateCards(players,numPlayersSoFar);
+            }
+          
         } while (!ui.inputIsDone() && numPlayersSoFar<MAX_NUM_PLAYERS);
+        
     }
+
 
     private void takeTurns() {
         boolean moveOver, turnOver, gameOver = false;
@@ -130,10 +194,11 @@ public class Cluedo {
                          break;
                     }
                     case "cards": {
-                    	Card[] myCards = currentPlayer.getCards();
+                    	ArrayList<Card> myCards = currentPlayer.getCards();
                     	ui.displayString("\nMy cards: \n");
-                    	ui.displayString(myCards[0].getName()+"\n");
-                    	ui.displayString(myCards[1].getName()+"\n");
+                    	for(Card card:myCards) {
+                    		ui.displayString(card.getName());
+                    	}
                     	
                     }
                 }
@@ -148,6 +213,7 @@ public class Cluedo {
     public static void main(String[] args) {
         Cluedo game = new Cluedo();
         game.inputPlayerNames();
+//        game.AllocateCards(players, 0);
         game.takeTurns();
         System.exit(0);
     }

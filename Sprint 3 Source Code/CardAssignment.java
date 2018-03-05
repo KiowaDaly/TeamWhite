@@ -9,14 +9,16 @@ public class CardAssignment{
 	static final String[] rooms =  {"Ball Room", "Hall", "Kitchen", "Conservatory", "Library", "Lounge", "Dining Room", "Billiard Room"};
 	static final String[] weapons = {"Rope", "Dagger", "Wrench", "Pistol", "Candlestick", "Lead Pipe"};
 		
-	public Object[] cluedoCard(WeaponCards weaponsCards,RoomCards roomCards) {
+	public Object[] cluedoCard() {
+	WeaponCards weaponsCards = new WeaponCards();
+	RoomCards roomCards = new RoomCards();
 	Random rn = new Random();
 	//Gets random character, room and weapon from strings
 	
 //	Card theMurderer = (characters[new Random().nextInt(characters.length)]); THIS HAS TO BE IMPLEMENTED LATER
-	Card theMurderRoom = (roomCards.get(rn.nextInt(roomCards.size()-0+1)+0));
+	Card theMurderRoom = (roomCards.get(rn.nextInt((roomCards.size()-1)-0+1)+0));
 	roomCards.removeItem(theMurderRoom);
-	Card theMurderWeapon = (weaponsCards.get(rn.nextInt(roomCards.size()-0+1)+0));
+	Card theMurderWeapon = (weaponsCards.get(rn.nextInt((roomCards.size()-1)-0+1)+0));
 	weaponsCards.removeItem(theMurderWeapon);
 	
 	//Stores the randomly generated murderer, room and weapon into an array

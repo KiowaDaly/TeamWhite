@@ -1,18 +1,27 @@
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
 public class Player {
 
     private final String name;
     private final Token token;
-    private final Card[] myCards;
+    private ArrayList<Card> myCards;
 
-    Player(String name, Token token,Card[] myCards) {
+    Player(String name, Token token,ArrayList<Card>myCards) {
         this.name = name;
         this.token = token;
         this.myCards = myCards;
       
     }
 
+    public void addCard(Card myCard) {
+    	myCards.add(myCard);
+    }
+    public void setCards(ArrayList<Card> myCardList){
+    	this.myCards=myCardList;
+    	
+    }
     public boolean hasName(String name) {
         return this.name.toLowerCase().equals(name.trim());
     }
@@ -24,7 +33,7 @@ public class Player {
     public Token getToken() {
         return token;
     }
-    public Card[] getCards() {
+    public ArrayList getCards() {
     	return myCards;
     }
     
