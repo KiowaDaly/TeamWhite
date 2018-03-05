@@ -108,9 +108,10 @@ public class Cluedo {
                     }       
                    case "help": {
                     	 JOptionPane.showMessageDialog(null, 
-                          	      "\n'start' to start the game.\n" +
-                         	      "\n'roll' to roll the dice\n" +
+                          	      "\n'roll' to roll the dice\n" +
                           	      "\n'quit' to quit the game\n" +
+                          	      "\n'cheat' to look at game solution\n" +
+                          	      "\n'cards' to look at your cards\n" +
                                   "\n'L' to go left when it is your turn\n" +
                                   "\n'R' to go right when it is your turn\n" +
                                   "\n'U' to go up when it is your turn\n" +
