@@ -106,8 +106,17 @@ public class Cluedo {
                             ui.displayErrorAlreadyMoved();
                         }
                         break;
-                    }       
-                   case "help": {
+                    }        
+                    case "done": {
+                        turnOver = true;
+                        break;
+                    }
+                    case "quit": {
+                        turnOver = true;
+                        gameOver = true;
+                        break;
+                    }
+                    case "help": {
                     	 JOptionPane.showMessageDialog(null, 
                           	      "\n'roll' to roll the dice\n" +
                           	      "\n'quit' to quit the game\n" +
@@ -118,16 +127,7 @@ public class Cluedo {
                                   "\n'U' to go up when it is your turn\n" +
                                   "\n'D' to go down when it is your turn\n" 
                               		);      	
-                        break;
-                    } 
-                    case "done": {
-                        turnOver = true;
-                        break;
-                    }
-                    case "quit": {
-                        turnOver = true;
-                        gameOver = true;
-                        break;
+                         break;
                     }
                     case "cards": {
                     	Card[] myCards = currentPlayer.getCards();
