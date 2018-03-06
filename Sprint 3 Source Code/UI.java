@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
+
 
 public class UI {
 
@@ -13,7 +13,6 @@ public class UI {
     private String input, playerName, tokenName, command, move;
     private int door;
     private boolean inputIsDone;
-    private final WeaponCards cards = new WeaponCards();
     ImageIcon image = new ImageIcon();
     JLabel label = new JLabel();
     JPanel card = new JPanel();

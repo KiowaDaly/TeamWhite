@@ -6,7 +6,7 @@ import java.util.Random;
 public class CardAssignment{
 	
 	static final String[] characters = {"Green","Plum","Mustard","Peacock","White","Scarlett"};
-	static final String[] rooms =  {"Ball Room", "Hall", "Kitchen", "Conservatory", "Library", "Lounge", "Dining Room", "Billiard Room"};
+	static final String[] rooms =  {"Ball Room", "Hall", "Kitchen", "Conservatory", "Library", "Lounge","Study", "Dining Room", "Billiard Room"};
 	static final String[] weapons = {"Rope", "Dagger", "Wrench", "Pistol", "Candlestick", "Lead Pipe"};
 		
 	public Object[] cluedoCard() {
@@ -17,7 +17,7 @@ public class CardAssignment{
 	
 	
 	Card theMurderer = (characterCards.get(rn.nextInt(characterCards.size()-1)+0));
-	roomCards.removeItem(theMurderer);
+	characterCards.removeItem(theMurderer);
 	Card theMurderRoom = (roomCards.get(rn.nextInt(roomCards.size()-1)+0));
 	roomCards.removeItem(theMurderRoom);
 	Card theMurderWeapon = (weaponsCards.get(rn.nextInt(weaponsCards.size()-1) + 0));

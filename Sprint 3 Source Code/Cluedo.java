@@ -23,11 +23,9 @@ public class Cluedo {
     private ArrayList<Card> CardsVisibleToAll = new ArrayList<Card>();
     private CardAssignment cardAssign = new CardAssignment();
     private Object[] cards = cardAssign.cluedoCard();
-    private CharacterCards CharacterCards = (CharacterCards) cards[0];
-    private WeaponCards WeaponCard = (WeaponCards) cards[1];
-    private RoomCards RoomCards = (RoomCards) cards[2];
+  
     private Card[] Solutions =  (Card[]) cards[3];
-    private Card ExtraCard;
+    
 
     
     
@@ -36,63 +34,48 @@ public class Cluedo {
     private void AllocateCards(Players players,int numPlayersSoFar) {
     	
        
-        ArrayList<Card> ListOfCards = new ArrayList<Card>();
-        
+       ArrayList<Card> ListOfCards = new ArrayList<Card>();
+       CharacterCards CharacterCards = (CharacterCards) cards[0];
+       WeaponCards WeaponCard = (WeaponCards) cards[1];
+       RoomCards RoomCards = (RoomCards) cards[2];
       
         
         
-        for(Card card:WeaponCard) {
+       for(Card card:WeaponCard) {
         	ListOfCards.add(card);
-        }
-        for(Card card:RoomCards) {
+       }
+       
+       for(Card card:RoomCards) {
         	ListOfCards.add(card);
-        }
-        for(Card card:CharacterCards) {
+       }
+     
+       for(Card card:CharacterCards) {
         	ListOfCards.add(card);
-        }
+       }
+      
         
       long mySeed = System.nanoTime();
       Collections.shuffle(ListOfCards,new Random(mySeed));
       Collections.shuffle(ListOfCards,new Random(mySeed));//shuffles twice to ensure random shuffle//
       
-      if(!((ListOfCards.size()%numPlayersSoFar)==0)) {
-    	  System.out.println(ListOfCards.size());
-    	 ExtraCard = ListOfCards.get(0);
-    	 CardsVisibleToAll.add(ExtraCard);
-    	 ListOfCards.remove(ExtraCard);
-    	 System.out.println(ListOfCards.size());
-      }
-      System.out.println(ListOfCards.size());
-      switch(numPlayersSoFar) {
-      	case (2):{
-      			System.out.println(ListOfCards.size());
-      				for(int i=0;i<(ListOfCards.size()-1)/numPlayersSoFar;i++) {
-      					
-      					players.get(0).addCard(ListOfCards.get(i));
-				
-      				}
-      				for(int i=((ListOfCards.size()-1)/numPlayersSoFar)+1;i<ListOfCards.size()-1;i++) {
-      				
-      					players.get(1).addCard(ListOfCards.get(i));
-      				}
-      				
-		}
       
-      case(3):{
-    	  
-      }
-      case(4):{
-    	  
-      }
-      case(5):{
-    	  
-      }
-      case(6):{
-    	  
-      }
+      
+      while(!((ListOfCards.size()%numPlayersSoFar)==0)) {
+    	  	CardsVisibleToAll.add(ListOfCards.get(0));
+    	  	ListOfCards.remove(ListOfCards.get(0));	  	
       }
       
+    	while(!ListOfCards.isEmpty()) {
+    	  	for(int i = 0;i<numPlayersSoFar;i++) { 
+    	  		players.get(i).addCard(ListOfCards.get(0));
+    			ListOfCards.remove(ListOfCards.get(0));
+    		  } 
+    	  }	  
     }
+      
+
+      
+    
     
     private void inputPlayerNames() {
         int numPlayersSoFar = 0;
@@ -199,6 +182,7 @@ public class Cluedo {
                         gameOver = true;
                         break;
                     }
+                   
                     case "cheat":{
                     	
                     	ui.displayString("\nSolutions:");
@@ -222,15 +206,15 @@ public class Cluedo {
                          break;
                     }
                     case "cards": {
-                    	ArrayList<Card> myCards = currentPlayer.getCards();
                     	ui.displayString("\nMy cards: \n");
-                    	for(Card card:myCards) {
+                    	for(Card card:currentPlayer.getCards()) {
                     		ui.displayString(card.getName());
-                    	
                     	}
                     	ui.displayString("\nExtra Cards:");
-                		ui.displayString(ExtraCard.getName());
-                    	
+                    	for(Card card:CardsVisibleToAll) {
+                		ui.displayString(card.getName());
+                    	}
+                    	break;
                     }
                   
                 }

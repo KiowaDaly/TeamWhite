@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
+
 
 public class Player {
 
@@ -33,7 +33,7 @@ public class Player {
     public Token getToken() {
         return token;
     }
-    public ArrayList getCards() {
+    public ArrayList<Card> getCards() {
     	return myCards;
     }
     
