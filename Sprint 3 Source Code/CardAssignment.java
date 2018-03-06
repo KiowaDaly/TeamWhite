@@ -12,19 +12,21 @@ public class CardAssignment{
 	public Object[] cluedoCard() {
 	WeaponCards weaponsCards = new WeaponCards();
 	RoomCards roomCards = new RoomCards();
+	CharacterCards characterCards = new CharacterCards();
 	Random rn = new Random();
-	//Gets random character, room and weapon from strings
 	
-//	Card theMurderer = (characters[new Random().nextInt(characters.length)]); THIS HAS TO BE IMPLEMENTED LATER
-	Card theMurderRoom = (roomCards.get(rn.nextInt((roomCards.size()-1)-0+1)+0));
+	
+	Card theMurderer = (characterCards.get(rn.nextInt(characterCards.size()-1)+0));
+	roomCards.removeItem(theMurderer);
+	Card theMurderRoom = (roomCards.get(rn.nextInt(roomCards.size()-1)+0));
 	roomCards.removeItem(theMurderRoom);
-	Card theMurderWeapon = (weaponsCards.get(rn.nextInt((roomCards.size()-1)-0+1)+0));
+	Card theMurderWeapon = (weaponsCards.get(rn.nextInt(weaponsCards.size()-1) + 0));
 	weaponsCards.removeItem(theMurderWeapon);
 	
 	//Stores the randomly generated murderer, room and weapon into an array
-	Card[] theAnswer = {theMurderRoom, theMurderWeapon};
+	Card[] theAnswer = {theMurderer,theMurderRoom, theMurderWeapon};
 	
-	return new Object[] {weaponsCards,roomCards,theAnswer};
+	return new Object[] {characterCards,weaponsCards,roomCards,theAnswer};
 	
 	
 	

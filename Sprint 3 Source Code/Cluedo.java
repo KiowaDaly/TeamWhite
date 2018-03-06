@@ -1,10 +1,9 @@
 import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.Collections;
-import java.util.List;
+
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
+
 
 import javax.swing.JOptionPane;
 
@@ -20,20 +19,25 @@ public class Cluedo {
     private final Map map = new Map();
     private final Weapons weapons = new Weapons(map);
     private final UI ui = new UI(tokens,weapons);
-    private final WeaponCards weaponCards = new WeaponCards();
-    private final RoomCards roomCards = new RoomCards();
+   
+    private ArrayList<Card> CardsVisibleToAll = new ArrayList<Card>();
+    private CardAssignment cardAssign = new CardAssignment();
+    private Object[] cards = cardAssign.cluedoCard();
+    private CharacterCards CharacterCards = (CharacterCards) cards[0];
+    private WeaponCards WeaponCard = (WeaponCards) cards[1];
+    private RoomCards RoomCards = (RoomCards) cards[2];
+    private Card[] Solutions =  (Card[]) cards[3];
+    private Card ExtraCard;
 
     
     
     
     //a function to allocate cards to the game;
     private void AllocateCards(Players players,int numPlayersSoFar) {
-    	CardAssignment cardAssign = new CardAssignment();
-        Object[] cards = cardAssign.cluedoCard();
-        WeaponCards WeaponCard = (WeaponCards) cards[0];
-        RoomCards RoomCards = (RoomCards) cards[1];
+    	
+       
         ArrayList<Card> ListOfCards = new ArrayList<Card>();
-        Card ExtraCard;
+        
       
         
         
@@ -43,36 +47,51 @@ public class Cluedo {
         for(Card card:RoomCards) {
         	ListOfCards.add(card);
         }
+        for(Card card:CharacterCards) {
+        	ListOfCards.add(card);
+        }
+        
       long mySeed = System.nanoTime();
       Collections.shuffle(ListOfCards,new Random(mySeed));
       Collections.shuffle(ListOfCards,new Random(mySeed));//shuffles twice to ensure random shuffle//
       
-      if(ListOfCards.size()%numPlayersSoFar!=0) {
-    	 ExtraCard = ListOfCards.get(new Random().nextInt((ListOfCards.size()-1)-0+1)+0);
+      if(!((ListOfCards.size()%numPlayersSoFar)==0)) {
+    	  System.out.println(ListOfCards.size());
+    	 ExtraCard = ListOfCards.get(0);
+    	 CardsVisibleToAll.add(ExtraCard);
     	 ListOfCards.remove(ExtraCard);
-      
-    	 
-    	
-    		while(!ListOfCards.isEmpty()) {
-    			for(Player player:players){
-    				Card temp = ListOfCards.get(new Random().nextInt((ListOfCards.size()-1)-0+1)+0);
-    				player.addCard(temp);
-    				ListOfCards.remove(temp);
-    				
-    			}
-    		}
- 
+    	 System.out.println(ListOfCards.size());
       }
-      else {
-    	  while(!ListOfCards.isEmpty()) {
-    		  for(Player player:players){
-    			  Card temp = ListOfCards.get(new Random().nextInt((ListOfCards.size()-1)-0+1)+0);
-    			  player.addCard(temp);
-    			  ListOfCards.remove(temp);
+      System.out.println(ListOfCards.size());
+      switch(numPlayersSoFar) {
+      	case (2):{
+      			System.out.println(ListOfCards.size());
+      				for(int i=0;i<(ListOfCards.size()-1)/numPlayersSoFar;i++) {
+      					
+      					players.get(0).addCard(ListOfCards.get(i));
 				
-    		  }
-    	  }
+      				}
+      				for(int i=((ListOfCards.size()-1)/numPlayersSoFar)+1;i<ListOfCards.size()-1;i++) {
+      				
+      					players.get(1).addCard(ListOfCards.get(i));
+      				}
+      				
+		}
+      
+      case(3):{
+    	  
       }
+      case(4):{
+    	  
+      }
+      case(5):{
+    	  
+      }
+      case(6):{
+    	  
+      }
+      }
+      
     }
     
     private void inputPlayerNames() {
@@ -180,6 +199,15 @@ public class Cluedo {
                         gameOver = true;
                         break;
                     }
+                    case "cheat":{
+                    	
+                    	ui.displayString("\nSolutions:");
+                    	for(int i = 0;i<cards.length-1;i++) {
+                    		ui.displayString(Solutions[i].getName());
+                    	}
+                    	 break;
+                    }
+                
                     case "help": {
                     	 JOptionPane.showMessageDialog(null, 
                           	      "\n'roll' to roll the dice\n" +
@@ -198,9 +226,13 @@ public class Cluedo {
                     	ui.displayString("\nMy cards: \n");
                     	for(Card card:myCards) {
                     		ui.displayString(card.getName());
+                    	
                     	}
+                    	ui.displayString("\nExtra Cards:");
+                		ui.displayString(ExtraCard.getName());
                     	
                     }
+                  
                 }
             } while (!turnOver);
             if (!gameOver) {

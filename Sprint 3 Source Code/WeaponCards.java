@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 public class WeaponCards implements Iterable<Card>, Iterator<Card>  {
 
-	private final static ArrayList<Card> WeaponCards = new ArrayList<>();
+	private final  ArrayList<Card> WeaponCards = new ArrayList<>();
 	private Iterator<Card> iterator;
 	
 	public WeaponCards() {
@@ -22,8 +22,16 @@ public class WeaponCards implements Iterable<Card>, Iterator<Card>  {
 		
 		
 	}
+	  public boolean contains(String name) {
+	        for(Card card: WeaponCards) {
+	            if (card.hasName(name)) {
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
 
-    public static Card get(String name) {
+    public Card get(String name) {
         for (Card card : WeaponCards) {
             if (card.hasName(name)) {
                 return card;
@@ -50,14 +58,7 @@ public class WeaponCards implements Iterable<Card>, Iterator<Card>  {
 	  public Card get(int index) {
 	        return WeaponCards.get(index);
 	    }
-	  public boolean contains(String name) {
-	        for(Card card: WeaponCards) {
-	            if (card.hasName(name)) {
-	                return true;
-	            }
-	        }
-	        return false;
-	    }
+	
 	  public void removeItem() {
 	        Card item = WeaponCards.iterator().next();
 	        WeaponCards.remove(item);
