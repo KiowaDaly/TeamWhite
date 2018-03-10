@@ -134,7 +134,7 @@ public class UI {
     public void inputCommand(Player player) {
         boolean valid = false;
         do {
-            displayString(player + " type your command:");
+            displayString("\n"+ player + " type your command:");
             inputString();
             displayString("> " + input);
             command = input.trim().toLowerCase().replaceAll("( )+", " ");
