@@ -138,7 +138,7 @@ public class UI {
             inputString();
             displayString("> " + input);
             command = input.trim().toLowerCase().replaceAll("( )+", " ");
-            if (command.equals("quit") || command.equals("cheat") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage") || command.equals("help")) {
+            if (command.equals("quit") || command.equals("cheat") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage") || command.equals("help") || command.equals("notes")) {
                 valid = true;
             } else {
                 displayError("No such command");
