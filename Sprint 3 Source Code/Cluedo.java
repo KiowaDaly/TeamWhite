@@ -205,15 +205,20 @@ public class Cluedo {
                               		);      	
                          break;
                     }
-                    case "cards": {
+                     case "cards": {
                     	ui.displayString("\nMy cards: \n");
                     	for(Card card:currentPlayer.getCards()) {
                     		ui.displayString(card.getName());
                     	}
-                    	ui.displayString("\nExtra Cards:");
+                    	
+                    	if(CardsVisibleToAll.size()==0) {
+                    		ui.displayString("");
+                    	}else {
+                    	ui.displayString("\nExtra Cards:\n");
                     	for(Card card:CardsVisibleToAll) {
                 		ui.displayString(card.getName());
                     	}
+                    	}  	
                     	break;
                     }
                   
