@@ -11,9 +11,9 @@ public class RoomCards implements Iterable<Card>, Iterator<Card> {
 	
 	public RoomCards() {
 		RoomCards.add(new Card("Ballroom",new ImageIcon("/rooms/Ballroom.png")));
-		RoomCards.add(new Card("BilliardRoom",new ImageIcon("/rooms/BilliardRoom.png")));
+		RoomCards.add(new Card("Billiard Room",new ImageIcon("/rooms/BilliardRoom.png")));
 		RoomCards.add(new Card("Conservatory",new ImageIcon("/rooms/Conservatory.png")));
-		RoomCards.add(new Card("Dininigroom",new ImageIcon("/rooms/DiningRoom.png")));
+		RoomCards.add(new Card("Dining Room",new ImageIcon("/rooms/DiningRoom.png")));
 		RoomCards.add(new Card("Hall",new ImageIcon("/rooms/Hall.png")));
 		RoomCards.add(new Card("Kitchen",new ImageIcon("/rooms/Kitchen.png")));
 		RoomCards.add(new Card("Library",new ImageIcon("/rooms/Library.png")));
