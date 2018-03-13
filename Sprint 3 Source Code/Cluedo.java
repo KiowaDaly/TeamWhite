@@ -100,7 +100,7 @@ public class Cluedo {
             	  AllocateCards(players,numPlayersSoFar);
             }
           
-        } while (!ui.inputIsDone() && numPlayersSoFar<MAX_NUM_PLAYERS);
+        } while (!ui.inputIsDone() && numPlayersSoFar<=MAX_NUM_PLAYERS);
         
     }
 
