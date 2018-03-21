@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 
 public class Players implements Iterable<Player>, Iterator<Player> {
@@ -28,13 +30,18 @@ public class Players implements Iterable<Player>, Iterator<Player> {
         return players.get(index);
     }
 
-    public void setCurrentPlayer(String name) {
+   public void setCurrentPlayer(String name) {
+    	
+    	
+    	
         currentPlayerIndex = 0;
         while (players.get(currentPlayerIndex).hasName(name)) {
             currentPlayerIndex++;
         }
-    }
+    
 
+
+    }
     public Player getCurrentPlayer() {
         return players.get(currentPlayerIndex);
     }
@@ -62,5 +69,12 @@ public class Players implements Iterable<Player>, Iterator<Player> {
         iterator = players.iterator();
         return iterator;
     }
-
+    
+    //method to sort an arraylist
+ public void sort() {
+	 //to sort the arraylist i had to use the collections method which will sort in ascending order
+	   Collections.sort(players, new TurnComparator());
+	   //so reverse the arrayList for descending order
+	   Collections.reverse(players);
+ }
 }
