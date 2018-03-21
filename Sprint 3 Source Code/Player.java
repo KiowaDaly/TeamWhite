@@ -6,11 +6,13 @@ public class Player {
 
     private final String name;
     private final Token token;
+    private int turnNum;
     private ArrayList<Card> myCards;
 
-    Player(String name, Token token,ArrayList<Card>myCards) {
+    Player(String name, Token token, int turnNum,ArrayList<Card>myCards) {
         this.name = name;
         this.token = token;
+        this.turnNum = turnNum;
         this.myCards = myCards;
       
     }
@@ -29,7 +31,15 @@ public class Player {
     public String getName() {
         return name;
     }
+    
+    public void setTurnNum(int turnNum) {
+    	  this.turnNum = turnNum;
+    }
 
+    public int getTurnNum() {
+        return turnNum;
+    }
+    
     public Token getToken() {
         return token;
     }
@@ -42,4 +52,5 @@ public class Player {
     public String toString() {
         return name + " (" + token.getName() + ")";
     }
+    
 }
