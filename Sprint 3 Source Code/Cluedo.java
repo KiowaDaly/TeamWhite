@@ -3,7 +3,6 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 import java.util.Collections;
-
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -25,7 +24,7 @@ public class Cluedo {
     private final Map map = new Map();
     private final Weapons weapons = new Weapons(map);
     private final UI ui = new UI(tokens,weapons);
-   
+    
     private ArrayList<Card> CardsVisibleToAll = new ArrayList<Card>();
     private CardAssignment cardAssign = new CardAssignment();
     private Object[] cards = cardAssign.cluedoCard();
@@ -85,6 +84,7 @@ public class Cluedo {
     
     private void inputPlayerNames() {
         int numPlayersSoFar = 0;
+        int i=0;
         
         do {
             ui.inputName(players);
@@ -92,7 +92,7 @@ public class Cluedo {
                 ui.inputToken(tokens);
                 Token token = tokens.get(ui.getTokenName());
                 
-                players.add(new Player(ui.getPlayerName(),token,new ArrayList<Card>()));//added random card assignment//
+                players.add(new Player(ui.getPlayerName(),token,0, new ArrayList<Card>()));//added random card assignment//
                 token.setOwned();
                 numPlayersSoFar++;
             }
@@ -102,6 +102,41 @@ public class Cluedo {
           
         } while (!ui.inputIsDone() && numPlayersSoFar<MAX_NUM_PLAYERS);
         AllocateCards(players,numPlayersSoFar);
+        
+        
+        
+        int[] array=new int[numPlayersSoFar];
+        do {
+        	dice.roll();
+        	 Player currentPlayer = players.getCurrentPlayer();
+        	 currentPlayer.setTurnNum(dice.getTotal());
+        	// System.out.println( currentPlayer.getTurnNum() +  currentPlayer.getName());
+        	 array[i]=currentPlayer.getTurnNum();
+        	 
+        	 
+        	 //for loop to check if they have rolled the same number as somebody else
+        	  for(int j=0;j<array.length;) {
+        		 
+        		  if(currentPlayer.getTurnNum()==array[j] && j!=i) {
+        			//if they have re-roll and restart the loop    
+        		  dice.roll();
+            	 currentPlayer.setTurnNum(dice.getTotal());
+            	// System.out.println( currentPlayer.getTurnNum() +  currentPlayer.getName());
+            	 array[i]=currentPlayer.getTurnNum();
+            	 j=0;
+        		  }else {
+        			  j++;
+        		  }
+        		 
+        	  }
+        	  players.turnOver();
+          i++;
+        } while (i!=numPlayersSoFar);
+        
+        //calls sort in players.java
+       players.sort();
+         
+        
     }
 
 
