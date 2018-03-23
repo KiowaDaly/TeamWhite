@@ -17,7 +17,7 @@ import javax.swing.JTable;
 public class Cluedo {
 
     private static final int MAX_NUM_PLAYERS = 6;
-
+    int max =0;
     private final Tokens tokens = new Tokens();
     private final Players players = new Players();
     private final Dice dice = new Dice();
@@ -106,48 +106,131 @@ public class Cluedo {
         
         
         int[] array=new int[numPlayersSoFar];
+        int[] newArray=new int[numPlayersSoFar];
+        ui.displayString("  ROLLING TO SEE WHO GOES FIRST......");
         do {
+        	
         	dice.roll();
         	 Player currentPlayer = players.getCurrentPlayer();
         	 currentPlayer.setTurnNum(dice.getTotal());
-        	// System.out.println( currentPlayer.getTurnNum() +  currentPlayer.getName());
         	 array[i]=currentPlayer.getTurnNum();
         	 
         	 
         	 //for loop to check if they have rolled the same number as somebody else
-        	  for(int j=0;j<array.length;) {
+        	/*  for(int j=0;j<array.length;) {
         		 
         		  if(currentPlayer.getTurnNum()==array[j] && j!=i) {
         			//if they have re-roll and restart the loop    
         		  dice.roll();
             	 currentPlayer.setTurnNum(dice.getTotal());
-            	// System.out.println( currentPlayer.getTurnNum() +  currentPlayer.getName());
+            	System.out.println( currentPlayer.getTurnNum() +  currentPlayer.getName());
             	 array[i]=currentPlayer.getTurnNum();
             	 j=0;
         		  }else {
         			  j++;
         		  }
         		 
-        	  }
+        	  }*/
+        	 ui.displayString("\n" +currentPlayer.getName()+" has rolled a " + currentPlayer.getTurnNum());
         	  players.turnOver();
           i++;
         } while (i!=numPlayersSoFar);
         
         //calls sort in players.java
-       players.sort();
-         
+     //  players.sort();
+       
+        //gets the max of the created array from above
+        for (int counter = 0; counter < array.length; counter++)
+        {
+             if (array[counter] > max)
+             {
+              max = array[counter];
+             }
+        }
         
+        
+        ui.displayString("\n" + "The max roll was " + max);
+        
+        int numberofrolls=0;
+        int count =0;
+        do {
+       
+    	i=0;
+    	count=3;
+    	//this if and nested loop will only print out the re-rolls of dices if more than one player got the max
+    	if(numberofrolls>0) {
+    		
+    	for(int j=0;j<6;j++) {
+   		  Player currentPlayer = players.getCurrentPlayer();
+  		  if(currentPlayer.getTurnNum()>0) {
+  		
+  			 ui.displayString("\n" +currentPlayer.getName()+" has re-rolled a " + currentPlayer.getTurnNum());
+  		  }
+  		  
+  		  players.turnOver();
+    	}
+    	
+    	ui.displayString("\n" + "The new max roll is " + max);
+    	
+    	}
+    	
+    	numberofrolls=0;
+    	  for(int j=0;j<newArray.length;j++) {
+    		  newArray[j]=0;
+    	  }//sets all values of this array to 0
+    	  
+    	  
+    	  /*if the current player rolled a the max previously, then the will re-roll, but if they didn't roll the max, they will be set to 0*/
+        for(int j=0;j<array.length;j++) {
+   		  Player currentPlayer = players.getCurrentPlayer();
+  		  if(currentPlayer.getTurnNum()==max) {
+  		
+  		  dice.roll();
+      	 currentPlayer.setTurnNum(dice.getTotal());
+      	 newArray[i]=currentPlayer.getTurnNum();
+      	 i++;
+         count--;
+         numberofrolls++;
+  		  }else {
+  			currentPlayer.setTurnNum(0);
+  		  }
+  		    
+  		  players.turnOver();
+  	  }
+        
+        
+        for(int j=0;j<array.length;j++) {
+      		 //resets the max to the first element of the newArray and then if a larger value is present in the array, that will become the max 
+        	if(j==0 || max < newArray[j]) {
+           	 max = newArray[j];
+           	
+            }
+    		  }
+     
+        }while(count<2);//this will keep running until we have only needed to re-roll one dice. i.e. the guy who gets to go first.
+      
+               
     }
-
 
     private void takeTurns() {
         boolean moveOver, turnOver, gameOver = false;
+        int count=0;
         do {
             turnOver = false;
             moveOver = false;
-            do {
-                Player currentPlayer = players.getCurrentPlayer();
-                Token currentToken = currentPlayer.getToken();
+            do { 
+            	
+            	Player currentPlayer = players.getCurrentPlayer();
+            	Token currentToken = currentPlayer.getToken();
+            	/* Basically because above I set the value of the players TurnNum to 0 if they were not going to re-roll. eventually the only guy who will
+            	 * have a value greater than 0 will be the person going first, so this if statement skips to that person, but only for the first turn, after the first person has gone, count will be >0
+            	 * and thus we will never enter that if statement again.  */
+            	if(currentPlayer.getTurnNum()==0 && count==0) {
+            		turnOver = true;
+            		break;
+               
+            	}else {count=1;}
+            	
                 ui.inputCommand(currentPlayer);
                 switch (ui.getCommand()) {
                     case "roll": {
