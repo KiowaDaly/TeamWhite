@@ -68,6 +68,9 @@ public class UI {
     public void displayErrorNoPassage() {
         displayError("Not in a room with a passage");
     }
+    public void displayErrorNotInRoom() {
+    	displayError("You cannot accuse if oyu are not inside a room");
+    }
 
     /* User Input Methods */
 
@@ -138,7 +141,7 @@ public class UI {
             inputString();
             displayString("> " + input);
             command = input.trim().toLowerCase().replaceAll("( )+", " ");
-            if (command.equals("quit") || command.equals("cheat") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage") || command.equals("help") || command.equals("notes")) {
+            if (command.equals("quit") || command.equals("accuse")||command.equals("cheat") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage") || command.equals("help") || command.equals("notes")) {
                 valid = true;
             } else {
                 displayError("No such command");
@@ -184,6 +187,49 @@ public class UI {
             }
         } while (!valid);
     }
+    
+    public String inputMurderer(Tokens tokens) {
+   	 	displayString("Enter the Accused murderer:");
+   	 	input = commandPanel.getCommand();
+   	 	if(!tokens.contains(input)) {
+   	 		displayError("Not a valid character name");
+   	 		
+   	 	}
+   	 	return input;
+	
+	 
+    }
+    public String inputMurderWeapon(Weapons weapons){
+    	 displayString("Enter the murder Weapon:");
+    	 input = commandPanel.getCommand();
+    	 if(!weapons.contains(input)) {
+    	 		displayError("Not a valid weapon");
+    	 		
+    	 	}
+    	 return input;
+    }
+    public String inputMurderRoom(Map map){
+    	boolean isValid = false;
+   	 displayString("Enter the murder Room:");
+   	 
+   	 input = commandPanel.getCommand();
+   	 for(Room room:map.rooms) {
+   		 if(!room.toString().equals(input)) {
+   			 isValid = false;
+   		 }
+   		 else {
+   			 isValid = true; 
+   			 return input;
+   			 
+   		 }
+   	 }
+   	
+   		displayError("Not a valid Room");
+   		
+   	 
+   	 return inputMurderRoom(map);
+   	
+   }
 
     public int getDoor() {
         return door;

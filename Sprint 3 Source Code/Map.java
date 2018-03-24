@@ -32,7 +32,7 @@ public class Map {
             {X,X,X,X,X,X,X,C,X,X,X,X,X,X,X,X,C,X,X,X,X,X,X,X},
     };
     private final static int NUM_COLS = MAP[0].length, NUM_ROWS = MAP.length;
-    private final Room[] rooms = new Room[NUM_ROOMS];
+    final Room[] rooms = new Room[NUM_ROOMS];
     private final static HashMap<String,Coordinates> keyToCoordinates = new HashMap<>();
 
     Map() {

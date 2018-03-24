@@ -1,7 +1,8 @@
 public class Weapon {
 
     private final String name;
-    private final Coordinates position;
+    private Coordinates position;
+    private Room room;
 
     Weapon(String name, Room room) {
         this.name = name;
@@ -18,6 +19,14 @@ public class Weapon {
 
     public boolean hasName(String name) {
         return this.name.toLowerCase().equals(name.toLowerCase().trim());
+    }
+    public void enterRoom(Room room) {
+        this.room = room;
+        position = this.room.addItem();
+       
+    }
+    public void setPosition(Coordinates position) {
+        this.position = position;
     }
 
 }

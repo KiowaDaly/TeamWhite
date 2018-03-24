@@ -32,9 +32,18 @@ public class Weapons implements Iterable<Weapon>, Iterator<Weapon> {
         return iterator.next();
     }
 
+
     public Iterator<Weapon> iterator() {
         iterator = weapons.iterator();
         return iterator;
+    }
+    public boolean contains(String name) {
+        for (Weapon token : weapons) {
+            if (token.hasName(name)) {
+                return true;
+            }
+        }
+        return false;
     }
   
 

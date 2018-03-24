@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -39,7 +40,7 @@ public class Cluedo {
     private void AllocateCards(Players players,int numPlayersSoFar) {
     	
        
-       ArrayList<Card> ListOfCards = new ArrayList<Card>();
+       ArrayList<Card> ListOfCards = new ArrayList<Card>();//this list will hold all the cards we create in their respective classes.
        CharacterCards CharacterCards = (CharacterCards) cards[0];
        WeaponCards WeaponCard = (WeaponCards) cards[1];
        RoomCards RoomCards = (RoomCards) cards[2];
@@ -64,12 +65,12 @@ public class Cluedo {
       Collections.shuffle(ListOfCards,new Random(mySeed));//shuffles twice to ensure random shuffle//
       
       
-      
+      //this first while loop makes sure the cards can be evenly divided between the players//
       while(!((ListOfCards.size()%numPlayersSoFar)==0)) {
     	  	CardsVisibleToAll.add(ListOfCards.get(0));
     	  	ListOfCards.remove(ListOfCards.get(0));	  	
       }
-      
+      //so long as the list of cards isnt empty we allocate cards to each player//
     	while(!ListOfCards.isEmpty()) {
     	  	for(int i = 0;i<numPlayersSoFar;i++) { 
     	  		players.get(i).addCard(ListOfCards.get(0));
@@ -79,32 +80,9 @@ public class Cluedo {
     }
       
 
-      
-    
-    
-    private void inputPlayerNames() {
-        int numPlayersSoFar = 0;
-        int i=0;
-        
-        do {
-            ui.inputName(players);
-            if (!ui.inputIsDone()) {
-                ui.inputToken(tokens);
-                Token token = tokens.get(ui.getTokenName());
-                
-                players.add(new Player(ui.getPlayerName(),token,0, new ArrayList<Card>()));//added random card assignment//
-                token.setOwned();
-                numPlayersSoFar++;
-            }
-//            if(ui.inputIsDone()) {
-//            	  AllocateCards(players,numPlayersSoFar);
-//            }
-          
-        } while (!ui.inputIsDone() && numPlayersSoFar<MAX_NUM_PLAYERS);
-        AllocateCards(players,numPlayersSoFar);
-        
-        
-        
+    private void SelectWhoGoesFirst(int numPlayersSoFar) {
+ 
+        int i = 0;
         int[] array=new int[numPlayersSoFar];
         int[] newArray=new int[numPlayersSoFar];
         ui.displayString("  ROLLING TO SEE WHO GOES FIRST......");
@@ -153,6 +131,7 @@ public class Cluedo {
         
         int numberofrolls=0;
         int count =0;
+        
         do {
        
     	i=0;
@@ -164,10 +143,11 @@ public class Cluedo {
    		  Player currentPlayer = players.getCurrentPlayer();
   		  if(currentPlayer.getTurnNum()>0) {
   		
-  			 ui.displayString("\n" +currentPlayer.getName()+" has re-rolled a " + currentPlayer.getTurnNum());
+  			 ui.displayString("\n" +currentPlayer.getName()+" has re-rolled a " + currentPlayer.getTurnNum()); 
+  		
   		  }
   		  
-  		  players.turnOver();
+  		players.turnOver();
     	}
     	
     	ui.displayString("\n" + "The new max roll is " + max);
@@ -191,6 +171,7 @@ public class Cluedo {
       	 i++;
          count--;
          numberofrolls++;
+         
   		  }else {
   			currentPlayer.setTurnNum(0);
   		  }
@@ -208,6 +189,34 @@ public class Cluedo {
     		  }
      
         }while(count<2);//this will keep running until we have only needed to re-roll one dice. i.e. the guy who gets to go first.
+    }
+      
+    
+    
+    private void inputPlayerNames() {
+        int numPlayersSoFar = 0;
+        int i=0;
+        
+        do {
+            ui.inputName(players);
+            if (!ui.inputIsDone()) {
+                ui.inputToken(tokens);
+                Token token = tokens.get(ui.getTokenName());
+                
+                players.add(new Player(ui.getPlayerName(),token,0, new ArrayList<Card>()));//added random card assignment//
+                token.setOwned();
+                numPlayersSoFar++;
+            }
+//            if(ui.inputIsDone()) {
+//            	  AllocateCards(players,numPlayersSoFar);
+//            }
+          
+        } while (!ui.inputIsDone() && numPlayersSoFar<MAX_NUM_PLAYERS);
+        
+        AllocateCards(players,numPlayersSoFar);
+        SelectWhoGoesFirst(numPlayersSoFar);
+        
+       
       
                
     }
@@ -330,6 +339,38 @@ public class Cluedo {
                              		);        	
                          break;
                     }
+                    //this case is for sprint 4, ignore!//
+                    case "accuse":{
+                   	 if (currentToken.isInRoom()) {
+                   		 
+                   	
+                   		 String murderer = ui.inputMurderer(tokens);
+                   		 ui.displayString(murderer);
+                   		 String WeaponUsed = ui.inputMurderWeapon(weapons);
+                   		 ui.displayString(WeaponUsed);
+                   		 String MurderRoom = ui.inputMurderRoom(map);
+                   		 ui.displayString(MurderRoom);
+                   		 
+                   		 Token Murderer = tokens.get(murderer);
+                   		 Weapon Weapon = weapons.get(WeaponUsed);
+                   		 Room MurderRoom1 = map.getRoom(MurderRoom);
+                   		 ui.displayString(Murderer.getName());
+                   		 ui.displayString(Weapon.getName());
+                   		 ui.displayString(MurderRoom1.toString());
+                   		 
+                   		Murderer.enterRoom(MurderRoom1);
+                   		Weapon.enterRoom(MurderRoom1);
+                   		 
+                   	 }
+                   	 else {
+                   		 ui.displayErrorNotInRoom();
+                   	 }
+                   	 
+               		 
+                   	 break;
+                    }
+                    
+                    
                      case "cards": {
                     	ui.displayString("\nMy cards: \n");
                     	for(Card card:currentPlayer.getCards()) {
@@ -375,6 +416,7 @@ public class Cluedo {
                  		JFrame frame_table = new JFrame(currentPlayer.getName() + "'s notes");
                  		frame_table.setSize(800, 250);
                  		frame_table.add(new JScrollPane(table));
+                 		
                  	
                  		frame_table.setVisible(true);
                  		
