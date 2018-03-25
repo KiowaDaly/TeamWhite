@@ -360,6 +360,7 @@ public class Cluedo {
                    		 
                    		Murderer.enterRoom(MurderRoom1);
                    		Weapon.enterRoom(MurderRoom1);
+                   		ui.display();
                    		 
                    	 }
                    	 else {
