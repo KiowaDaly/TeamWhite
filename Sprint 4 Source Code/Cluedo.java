@@ -203,7 +203,7 @@ public class Cluedo {
                 ui.inputToken(tokens);
                 Token token = tokens.get(ui.getTokenName());
                 
-                players.add(new Player(ui.getPlayerName(),token,0, new ArrayList<Card>()));//added random card assignment//
+                players.add(new Player(ui.getPlayerName(),token,0, new ArrayList<Card>(),new ArrayList<Card>()));//added random card assignment//
                 token.setOwned();
                 numPlayersSoFar++;
             }
@@ -374,7 +374,7 @@ public class Cluedo {
                     
                      case "cards": {
                     	ui.displayString("\nMy cards: \n");
-                    	for(Card card:currentPlayer.getCards()) {
+                    	for(Card card:currentPlayer.getMyCards()) {
                     		ui.displayString(card.getName());
                     	}
                     	
@@ -421,7 +421,7 @@ public class Cluedo {
                  	
                  		frame_table.setVisible(true);
                  		
-                 		for(Card card:currentPlayer.getCards()) {
+                 		for(Card card:currentPlayer.getMyCards()) {
                  			
                          		for(int i=0; i < 10; i++) {
                          			for(int j=0; j < 3; j++) {
