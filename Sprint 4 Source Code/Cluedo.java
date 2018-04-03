@@ -184,7 +184,7 @@ public class Cluedo {
       		 //resets the max to the first element of the newArray and then if a larger value is present in the array, that will become the max 
         	if(j==0 || max < newArray[j]) {
            	 max = newArray[j];
-           	
+           
             }
     		  }
      
@@ -371,6 +371,12 @@ public class Cluedo {
                    	 break;
                     }
                     
+                     case "accusation": {
+                   
+			         ui.accuse();
+                    	       
+                     break;
+                    }
                     
                      case "cards": {
                     	ui.displayString("\nMy cards: \n");
