@@ -252,7 +252,7 @@ public class UI {
    	 		
    	 	int i =0;
    	 	
-		if(solutions[i].getName().equals(input)); {
+		if(solutions[i].getName().equals(input)) {
 		
 			displayString("Your solution is correct. You have won the game, congratulations!");
 			//Code to terminate the game will go here
