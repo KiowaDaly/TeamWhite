@@ -16,6 +16,10 @@ public class UI {
     ImageIcon image = new ImageIcon();
     JLabel label = new JLabel();
     JPanel card = new JPanel();
+	
+    private CardAssignment cardAssign = new CardAssignment();
+    private Object[] cards = cardAssign.cluedoCard();
+    private Card[] solutions =  (Card[]) cards[3];
 
     UI(Tokens characters, Weapons weapons) {
     	
