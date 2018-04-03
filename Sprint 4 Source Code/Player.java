@@ -7,23 +7,26 @@ public class Player {
     private final String name;
     private final Token token;
     private int turnNum;
-    private ArrayList<Card> myCards;
-    private ArrayList<Card> viewedCards;
+    private ArrayList<Card> myCard;
+    private ArrayList<Card> viewedCard;
 
-    Player(String name, Token token, int turnNum,ArrayList<Card>myCards,ArrayList<Card> viewedCard) {
+    Player(String name, Token token, int turnNum,ArrayList<Card>myCard,ArrayList<Card>viewedCard) {
         this.name = name;
         this.token = token;
         this.turnNum = turnNum;
-        this.myCards = myCards;
-        this.viewedCards = viewedCards;
+        this.myCard = myCard;
+        this.viewedCard = viewedCard;
       
     }
 
-    public void addCard(Card myCard) {
-    	myCards.add(myCard);
+    public void addCard(Card card) {
+    	myCard.add(card);
+    }
+    public void addViewedCard(Card card) {
+    	viewedCard.add(card);
     }
     public void setCards(ArrayList<Card> myCardList){
-    	this.myCards=myCardList;
+    	this.myCard=myCardList;
     	
     }
     public boolean hasName(String name) {
@@ -45,11 +48,11 @@ public class Player {
     public Token getToken() {
         return token;
     }
-    public ArrayList<Card> getMyCards() {
-    	return myCards;
+    public ArrayList<Card> getMyCard() {
+    	return myCard;
     }
-    public ArrayList<Card> getViewedCards() {
-    	return viewedCards;
+    public ArrayList<Card> getViewedCard() {
+    	return viewedCard;
     }
     
     

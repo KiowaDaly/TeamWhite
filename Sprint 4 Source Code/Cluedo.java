@@ -195,7 +195,6 @@ public class Cluedo {
     
     private void inputPlayerNames() {
         int numPlayersSoFar = 0;
-        int i=0;
         
         do {
             ui.inputName(players);
@@ -207,9 +206,7 @@ public class Cluedo {
                 token.setOwned();
                 numPlayersSoFar++;
             }
-//            if(ui.inputIsDone()) {
-//            	  AllocateCards(players,numPlayersSoFar);
-//            }
+
           
         } while (!ui.inputIsDone() && numPlayersSoFar<MAX_NUM_PLAYERS);
         
@@ -373,14 +370,14 @@ public class Cluedo {
                     
                      case "accusation": {
                    
-			         ui.accuse();
+			         ui.accuse(currentPlayer);
                     	       
                      break;
                     }
                     
                      case "cards": {
                     	ui.displayString("\nMy cards: \n");
-                    	for(Card card:currentPlayer.getMyCards()) {
+                    	for(Card card:currentPlayer.getMyCard()) {
                     		ui.displayString(card.getName());
                     	}
                     	
@@ -427,7 +424,7 @@ public class Cluedo {
                  	
                  		frame_table.setVisible(true);
                  		
-                 		for(Card card:currentPlayer.getMyCards()) {
+                 		for(Card card:currentPlayer.getMyCard()) {
                  			
                          		for(int i=0; i < 10; i++) {
                          			for(int j=0; j < 3; j++) {
@@ -438,6 +435,9 @@ public class Cluedo {
                          				}
                          				if(info[i][j].equals(card.getName())) {
                          					table.setValueAt((card.getName() +" 'X' "), i, j);
+                         				}
+                         				if(info[i][j].equals(card.getName())){
+                         					table.setValueAt(card.getName() + " V ", i, j);
                          				}
                          			}
                      			

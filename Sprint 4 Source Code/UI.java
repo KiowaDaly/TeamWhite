@@ -237,7 +237,7 @@ public class UI {
    }
 	
 	
-    public void accuse() {  
+    public void accuse(Player player) {  
     	
     	// To make an accusation
    	 	displayString("Enter the murderer:\n");
@@ -254,7 +254,8 @@ public class UI {
    	 	
 		if(solutions[i].getName().equals(input)) {
 		
-			displayString("Your solution is correct. You have won the game, congratulations!");
+			displayString("Your solution is correct." + player.getName() + "has won the game, congratulations!");
+			System.exit(0);
 			//Code to terminate the game will go here
 			
 		}
