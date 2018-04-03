@@ -141,7 +141,7 @@ public class UI {
             inputString();
             displayString("> " + input);
             command = input.trim().toLowerCase().replaceAll("( )+", " ");
-            if (command.equals("quit") ||command.equals("question")|| command.equals("accuse")||command.equals("cheat") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage") || command.equals("help") || command.equals("notes")) {
+            if (command.equals("quit") ||command.equals("question")|| command.equals("accuse")||command.equals("cheat") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage") || command.equals("help") || command.equals("notes") || command.equals("accusation")) {
                 valid = true;
             } else {
                 displayError("No such command");
@@ -231,6 +231,33 @@ public class UI {
    	 return inputMurderRoom(map);
    	
    }
+	
+	
+    public String accuse() {  
+    	
+    	// To make an accusation
+   	 	displayString("Enter the murderer:\n");
+   	 	input = commandPanel.getCommand();	 
+   	 	displayString("You have entered: " +input + "\n" );
+   	 	displayString("Enter murder room:\n");
+   	 	input = commandPanel.getCommand();	 
+     	 displayString("You have entered: " +input+ "\n");
+   	 	displayString("Enter murder weapon:\n");
+   	 	input = commandPanel.getCommand();	 
+   	    displayString("Your accusation: " +input+ "\n");
+   	 		
+   	 	int i =0;
+   	 	
+		if(solutions[i].getName().equals(input)); {
+		
+			displayString("Your solution is correct. You have won the game, congratulations!");
+			
+    	}
+		
+    	return input;
+    	
+    }
+   
 
     public int getDoor() {
         return door;
