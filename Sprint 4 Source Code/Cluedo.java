@@ -219,9 +219,10 @@ public class Cluedo {
     }
 
     private void takeTurns() {
-        boolean moveOver, turnOver, gameOver = false;
+        boolean moveOver, turnOver,  gameOver = false;
+        boolean finishedQ = false;
         int count=0;
-        do {
+        do {  
             turnOver = false;
             moveOver = false;
             do { 
@@ -304,6 +305,7 @@ public class Cluedo {
                         break;
                     }        
                     case "done": {
+                    	ui.resetInfo();
                         turnOver = true;
                         break;
                     }
@@ -358,7 +360,157 @@ public class Cluedo {
                    		Murderer.enterRoom(MurderRoom1);
                    		Weapon.enterRoom(MurderRoom1);
                    		ui.display();
+                   		players.turnOver();
+                   		Player currentPlayerTemp = players.getCurrentPlayer();
+                   		Player currentPlayerTemp2 = players.getCurrentPlayer();
+                    	
+                    	
+                    	int temp = 0;
+                    	
+                    	String[]  tempArray=new String[10];
+                    	 ui.resetInfo();
+                    	do {
+                    		finishedQ=false;
+                        	
+                    	do {
+                    		for(int i=0;i<10;i++)
+                    		{
+                    			tempArray[i] = "";
+                    		}
+                    		int i=0;
+                    		ui.displayString("Has the computer been given to " + currentPlayerTemp.getName() + "???\n" );
+                    		ui.displayString("If it has type yes otherwise type no!!!" );
+                    		ui.YesNoChecker(currentPlayerTemp);
+                    	 switch(ui.getYesNoChecker()) {
+                   
+                    	 case "yes":{
+                    		 
+                    		 
+                    		 ui.resetInfo();
+                    		 ui.displayString("Hello " + currentPlayerTemp.getName() + "\nThe question asked:" );
+                    		 ui.displayString(Murderer.getName());
+                       		 ui.displayString(Weapon.getName());
+                       		 ui.displayString(MurderRoom1.toString());
+                       		 ui.displayString("\nCards you have:\n");
+                       		 for(Card card:currentPlayerTemp.getMyCard()) {
+                       			
+                       			
+                        		ui.displayString(card.getName()+"\n");
+                        		
+                       			}
+                        	
+                       		
+                    	 ui.displayString("Matching cards:\n");
+                       		for(Card card:currentPlayerTemp.getMyCard()) {
+                       			
+                       			if(card.getName()==Murderer.getName() || card.getName()==Weapon.getName() || card.getName()==MurderRoom1.toString()) {
+                       				tempArray[i]=card.getName();
+                        		ui.displayString(i + " " + card.getName());
+                        		i++;
+                       			}
+                        	}
+                    	 
+                       		
+                       		do {
+                       			
+                       		if(tempArray[0]!= "") {
+                       			
+                       			
+                       			ui.inputCardNum(currentPlayerTemp);
+                       			temp = Integer.parseInt(ui.getCardNum());
+                       			
+                       			
+                       				
+                       				if(tempArray[temp]=="") {
+                       				ui.displayString("Sorry not a valid number please choose again");
+                       			
+                       				}else{
+                       					
+                       							ui.displayString("You have selected the card: " + tempArray[temp]+ "\n Please pass the computer to " + currentPlayer.getName() );
+                       							finishedQ=true;
+                       							ui.displayString("Please type 'done' to end the questioning");
+                       							
+                       							ui.QuestionFinish(currentPlayerTemp);
+                       							while(currentPlayer.getName()!=currentPlayerTemp.getName()){
+                       								players.turnOver();
+                       								currentPlayerTemp = players.getCurrentPlayer();
+                       							}
+                       						 ui.resetInfo();
+                       						}
+                       				
+                       			
+                       			
+                       		}else {
+                       			currentPlayerTemp2 = players.getCurrentPlayer();
+                       			players.turnOver();
+                       			currentPlayerTemp = players.getCurrentPlayer();
+                       			ui.displayString("You do not have any of the cards from the question asked \n please pass the computer to  " + currentPlayerTemp.getName() );
+                       			ui.displayString("and type 'done' to end the questioning");
+       							
+       							
+       							ui.QuestionFinish(currentPlayerTemp2);
+       							
+                       			finishedQ=true;
+                       			
+                       		 ui.resetInfo();
+                       		}
+                       		
+                       		}while(finishedQ==false);
+                       		
+                       	 
+                       	 
+                    		 
+                    		 break;
+                    	 }
+                    	 
+                    	 case "no":{
+                    		 ui.displayString("Please ensure that  " + currentPlayerTemp.getName() + " gets the computer" );
+                    		
+                    		 break;
+                    	 }
+                    	 
+                    	 
+                    	 }
+                    	 
+                    	 
+                    	}while(finishedQ==false);
+                    	
+                    	
+                    	}while(currentPlayer!=currentPlayerTemp);
                    		 
+                    	
+                    	
+                    	do {
+                    	ui.displayString("Has the computer been given to " + currentPlayerTemp.getName() + "???\n" );
+                		
+                		ui.YesNoChecker(currentPlayerTemp);
+                	 switch(ui.getYesNoChecker()) {
+               
+                	 case "yes":{
+                		 ui.displayString("Hello " + currentPlayer.getName() );
+                		 
+                		 if(tempArray[temp]!="") {
+                			 ui.displayString("The following card was found: " + tempArray[temp] );
+                			 ui.displayString("Please enter this card into your notes " );
+                		 }else {
+                			 
+                			 ui.displayString("None of the other players had any of the cards in question");
+                		 }
+                		 break;
+                	 }
+                	
+                	 case "no":{
+                		 ui.displayString("Please ensure that  " + currentPlayer.getName() + " gets the computer" );
+                		 
+                		 break;
+                	 }
+                    	
+                    	
+                	 }
+                    	
+                    	}while(ui.getYesNoChecker().equals("no"));	
+                    	
+                    	
                    	 }
                    	 else {
                    		 ui.displayErrorNotInRoom();
