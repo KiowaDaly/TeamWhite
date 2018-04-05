@@ -10,7 +10,7 @@ public class UI {
     private final BoardPanel boardPanel;
     private final InfoPanel infoPanel = new InfoPanel();
     private final CommandPanel commandPanel = new CommandPanel();
-    private String input, playerName, tokenName, command, move;
+    private String input, playerName, tokenName, command, move,cardNum,Qfin,YesOrNo;
     private int door;
     private boolean inputIsDone;
     ImageIcon image = new ImageIcon();
@@ -49,6 +49,11 @@ public class UI {
 
     public void displayDice(Player player, Dice dice) {
         displayString(player + " rolls " + dice + ".");
+    }
+    
+    public void resetInfo() {
+    	infoPanel.resetText("");
+	
     }
 
     /* Display Error Messages */
@@ -145,7 +150,7 @@ public class UI {
             inputString();
             displayString("> " + input);
             command = input.trim().toLowerCase().replaceAll("( )+", " ");
-            if (command.equals("quit") ||command.equals("question")|| command.equals("accuse")||command.equals("cheat") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage") || command.equals("help") || command.equals("notes") || command.equals("accusation")) {
+            if (command.equals("quit") ||command.equals("question")|| command.equals("accuse")||command.equals("cheat") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage") || command.equals("help") || command.equals("notes") || command.equals("accusation")||command.equals("yes") ||command.equals("no")) {
                 valid = true;
             } else {
                 displayError("No such command");
@@ -153,6 +158,11 @@ public class UI {
         } while (!valid);
     }
 
+    
+    
+    
+    
+    
     public String getCommand() {
         return command;
     }
@@ -236,7 +246,62 @@ public class UI {
    	
    }
 	
-	
+    public void inputCardNum(Player player) {
+        boolean valid = false;
+        do {
+            displayString("\n"+ player + " type the number of the card you wish to show corresponding with the list above");
+            inputString();
+            displayString("> " + input);
+            cardNum = input.trim().toLowerCase().replaceAll("( )+", " ");
+            if (cardNum.equals("1") || cardNum.equals("0")|| cardNum.equals("2") || cardNum.equals("3") || cardNum.equals("4") || cardNum.equals("5")||cardNum.equals("6") ||cardNum.equals("7") ||cardNum.equals("8") ||cardNum.equals("9") ||cardNum.equals("10")) {
+                valid = true;
+            } else {
+                displayError("Sorry not a valid number please choose againsdcascxcx");
+            }
+        } while (!valid);
+    }
+
+    public String getCardNum() {
+        return cardNum;
+    }
+    
+    public void YesNoChecker(Player player) {
+        boolean valid = false;
+        do {
+            displayString("\n"+ player + " If it has type yes otherwise type no!!!");
+            inputString();
+            displayString("> " + input);
+            YesOrNo = input.trim().toLowerCase().replaceAll("( )+", " ");
+            if (YesOrNo.equals("yes") || YesOrNo.equals("no")) {
+                valid = true;
+            } else {
+                displayError("Sorry not a valid command please choose again");
+            }
+        } while (!valid);
+    }
+
+    public String getYesNoChecker() {
+        return YesOrNo;
+    }
+    
+    public void QuestionFinish(Player player) {
+        boolean valid = false;
+        do {
+            displayString("\n"+ player + "Please type 'done' to finish");
+            inputString();
+            displayString("> " + input);
+            Qfin = input.trim().toLowerCase().replaceAll("( )+", " ");
+            if (Qfin.equals("done")) {
+                valid = true;
+            } else {
+                displayError("Sorry not a valid number please choose again");
+            }
+        } while (!valid);
+    }
+
+    public String getQuestionFinish() {
+        return Qfin;
+    }
     public void accuse(Player player) {  
     	
     	// To make an accusation
