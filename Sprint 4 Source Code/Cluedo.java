@@ -361,13 +361,14 @@ public class Cluedo {
                    		Weapon.enterRoom(MurderRoom1);
                    		ui.display();
                    		players.turnOver();
+                   		Player PlayerWhoAskedQuestion = players.getCurrentPlayer();
                    		Player currentPlayerTemp = players.getCurrentPlayer();
                    		Player currentPlayerTemp2 = players.getCurrentPlayer();
                     	
                     	
                     	int temp = 0;
                     	
-                    	String[]  tempArray=new String[10];
+                    	Card[]  tempArray=new Card[10];
                     	 ui.resetInfo();
                     	do {
                     		finishedQ=false;
@@ -375,7 +376,7 @@ public class Cluedo {
                     	do {
                     		for(int i=0;i<10;i++)
                     		{
-                    			tempArray[i] = "";
+                    			tempArray[i] = null;
                     		}
                     		int i=0;
                     		ui.displayString("Has the computer been given to " + currentPlayerTemp.getName() + "???\n" );
@@ -404,7 +405,7 @@ public class Cluedo {
                        		for(Card card:currentPlayerTemp.getMyCard()) {
                        			
                        			if(card.getName()==Murderer.getName() || card.getName()==Weapon.getName() || card.getName()==MurderRoom1.toString()) {
-                       				tempArray[i]=card.getName();
+                       				tempArray[i]=card;
                         		ui.displayString(i + " " + card.getName());
                         		i++;
                        			}
@@ -413,7 +414,7 @@ public class Cluedo {
                        		
                        		do {
                        			
-                       		if(tempArray[0]!= "") {
+                       		if(tempArray[0]!= null) {
                        			
                        			
                        			ui.inputCardNum(currentPlayerTemp);
@@ -421,16 +422,17 @@ public class Cluedo {
                        			
                        			
                        				
-                       				if(tempArray[temp]=="") {
+                       				if(tempArray[temp]==null) {
                        				ui.displayString("Sorry not a valid number please choose again");
                        			
                        				}else{
                        					
-                       							ui.displayString("You have selected the card: " + tempArray[temp]+ "\n Please pass the computer to " + currentPlayer.getName() );
+                       							ui.displayString("You have selected the card: " + tempArray[temp].getName()+ "\n Please pass the computer to " + currentPlayer.getName() );
                        							finishedQ=true;
                        							ui.displayString("Please type 'done' to end the questioning");
                        							
                        							ui.QuestionFinish(currentPlayerTemp);
+                       							
                        							while(currentPlayer.getName()!=currentPlayerTemp.getName()){
                        								players.turnOver();
                        								currentPlayerTemp = players.getCurrentPlayer();
@@ -489,9 +491,10 @@ public class Cluedo {
                 	 case "yes":{
                 		 ui.displayString("Hello " + currentPlayer.getName() );
                 		 
-                		 if(tempArray[temp]!="") {
-                			 ui.displayString("The following card was found: " + tempArray[temp] );
-                			 ui.displayString("Please enter this card into your notes " );
+                		 if(tempArray[temp]!=null) {
+                			 ui.displayString("The following card was found: " + tempArray[temp].getName() );
+                			 ui.displayString("This card has been added to your notes section\n");
+                			 currentPlayer.addViewedCard(tempArray[temp]);
                 		 }else {
                 			 
                 			 ui.displayString("None of the other players had any of the cards in question");
