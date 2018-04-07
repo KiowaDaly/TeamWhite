@@ -1,15 +1,25 @@
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+
 import java.util.ArrayList;
 
 import java.util.Collections;
 import java.util.Random;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+
 import javax.swing.JOptionPane;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+
+
+
+
 
 
 
@@ -25,10 +35,11 @@ public class Cluedo {
     private final Map map = new Map();
     private final Weapons weapons = new Weapons(map);
     private final UI ui = new UI(tokens,weapons);
-    
+    private soundPlayer sound = new soundPlayer();
     private ArrayList<Card> CardsVisibleToAll = new ArrayList<Card>();
     private CardAssignment cardAssign = new CardAssignment();
     private Object[] cards = cardAssign.cluedoCard();
+    
   
     private Card[] Solutions =  (Card[]) cards[3];
     
@@ -39,14 +50,11 @@ public class Cluedo {
     //a function to allocate cards to the game;
     private void AllocateCards(Players players,int numPlayersSoFar) {
     	
-       
        ArrayList<Card> ListOfCards = new ArrayList<Card>();//this list will hold all the cards we create in their respective classes.
        CharacterCards CharacterCards = (CharacterCards) cards[0];
        WeaponCards WeaponCard = (WeaponCards) cards[1];
        RoomCards RoomCards = (RoomCards) cards[2];
       
-        
-        
        for(Card card:WeaponCard) {
         	ListOfCards.add(card);
        }
@@ -57,9 +65,7 @@ public class Cluedo {
      
        for(Card card:CharacterCards) {
         	ListOfCards.add(card);
-       }
-      
-        
+       } 
       long mySeed = System.nanoTime();
       Collections.shuffle(ListOfCards,new Random(mySeed));
       Collections.shuffle(ListOfCards,new Random(mySeed));//shuffles twice to ensure random shuffle//
@@ -78,8 +84,7 @@ public class Cluedo {
     		  } 
     	  }	  
     }
-      
-
+ 
     private void SelectWhoGoesFirst(int numPlayersSoFar) {
  
         int i = 0;
@@ -240,9 +245,11 @@ public class Cluedo {
             	
                 ui.inputCommand(currentPlayer);
                 switch (ui.getCommand()) {
+                
                     case "roll": {
                         if (!moveOver) {
                             dice.roll();
+                           
                             ui.displayDice(currentPlayer, dice);
                             int squaresMoved = 0;
                             if (currentToken.isInRoom()) {
@@ -271,6 +278,7 @@ public class Cluedo {
                                     if (map.isDoor(currentPosition, newPosition)) {
                                         Room room = map.getRoom(newPosition);
                                         currentToken.enterRoom(room);
+                                        sound.playSound("open_creaky_door.wav");
                                     } else {
                                         currentToken.setPosition(newPosition);
                                     }
@@ -323,7 +331,26 @@ public class Cluedo {
                     	}
                     	 break;
                     }
-                
+                    
+                    case "log":{
+                    	SwingUtilities.invokeLater(new Runnable() {
+
+                			@Override
+                			public void run() {
+                		JFrame Logframe = new JFrame();
+                    	Logframe.setSize(800, 250);
+          
+                         Logframe.setTitle("LOG");
+                         Logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                         Logframe.add(ui.getLog(), BorderLayout.LINE_START);
+                         Logframe.setResizable(true);
+                         Logframe.setVisible(true);
+                			}
+                			
+                		});
+                    	break;
+                         
+                    }
                     case "help": {
                     	 JOptionPane.showMessageDialog(null, 
                          	      "\n'roll' to roll the dice\n" +
@@ -343,11 +370,11 @@ public class Cluedo {
                    	 if (currentToken.isInRoom()) {
                    		 
                    	
-                   		 String murderer = ui.inputMurderer(tokens);
+                   		 String murderer = ui.inputMurderer(currentPlayer,tokens);
                    		 ui.displayString(murderer);
-                   		 String WeaponUsed = ui.inputMurderWeapon(weapons);
+                   		 String WeaponUsed = ui.inputMurderWeapon(currentPlayer,weapons);
                    		 ui.displayString(WeaponUsed);
-                   		 String MurderRoom = ui.inputMurderRoom(map);
+                   		 String MurderRoom = ui.inputMurderRoom(currentPlayer,map);
                    		 ui.displayString(MurderRoom);
                    		 
                    		 Token Murderer = tokens.get(murderer);
@@ -361,7 +388,7 @@ public class Cluedo {
                    		Weapon.enterRoom(MurderRoom1);
                    		ui.display();
                    		players.turnOver();
-                   		Player PlayerWhoAskedQuestion = players.getCurrentPlayer();
+                   		
                    		Player currentPlayerTemp = players.getCurrentPlayer();
                    		Player currentPlayerTemp2 = players.getCurrentPlayer();
                     	
@@ -389,9 +416,9 @@ public class Cluedo {
                     		 
                     		 ui.resetInfo();
                     		 ui.displayString("Hello " + currentPlayerTemp.getName() + "\nThe question asked:" );
-                    		 ui.displayString(Murderer.getName());
-                       		 ui.displayString(Weapon.getName());
-                       		 ui.displayString(MurderRoom1.toString());
+                    		 ui.displayString("Murderer: "+Murderer.getName());
+                       		 ui.displayString("Weapon: "+Weapon.getName());
+                       		 ui.displayString("Room: "+MurderRoom1.toString());
                        		 ui.displayString("\nCards you have:\n");
                        		 for(Card card:currentPlayerTemp.getMyCard()) {
                        			
@@ -495,9 +522,11 @@ public class Cluedo {
                 			 ui.displayString("The following card was found: " + tempArray[temp].getName() );
                 			 ui.displayString("This card has been added to your notes section\n");
                 			 currentPlayer.addViewedCard(tempArray[temp]);
+                			 ui.addTextToLog(currentPlayerTemp.getName()+" Had this card: "+tempArray[temp].getName());
                 		 }else {
                 			 
-                			 ui.displayString("None of the other players had any of the cards in question");
+                			 ui.displayString("\n None of the other players had any of the cards in question");
+                			 ui.addTextToLog("\n no one has any of the cards asked");
                 		 }
                 		 break;
                 	 }
@@ -588,6 +617,7 @@ public class Cluedo {
                          						table.setValueAt(cards.getName() + " 'A' ", i, j);
                          					}
                          				}
+                         		
                          				if(info[i][j].equals(card.getName())) {
                          					table.setValueAt((card.getName() +" 'X' "), i, j);
                          				}
@@ -616,6 +646,7 @@ public class Cluedo {
     
     
     public static void main(String[] args) {
+    	new SplashScreenDriver();
         Cluedo game = new Cluedo();
         game.inputPlayerNames();
 //        game.AllocateCards(players, 0);

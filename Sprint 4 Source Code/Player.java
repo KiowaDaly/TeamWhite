@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.swing.JTextArea;
+
 
 
 public class Player {
@@ -10,13 +12,14 @@ public class Player {
     private ArrayList<Card> myCard;
     private ArrayList<Card> viewedCard;
 
+
     Player(String name, Token token, int turnNum,ArrayList<Card>myCard,ArrayList<Card>viewedCard) {
         this.name = name;
         this.token = token;
         this.turnNum = turnNum;
         this.myCard = myCard;
         this.viewedCard = viewedCard;
-      
+    
     }
 
     public void addCard(Card card) {
@@ -27,12 +30,10 @@ public class Player {
     }
     public void setCards(ArrayList<Card> myCardList){
     	this.myCard=myCardList;
-    	
     }
     public boolean hasName(String name) {
         return this.name.toLowerCase().equals(name.trim());
     }
-
     public String getName() {
         return name;
     }

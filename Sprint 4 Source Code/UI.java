@@ -1,5 +1,10 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+
 
 
 public class UI {
@@ -9,6 +14,7 @@ public class UI {
 
     private final BoardPanel boardPanel;
     private final InfoPanel infoPanel = new InfoPanel();
+    private final Log log = new Log();
     private final CommandPanel commandPanel = new CommandPanel();
     private String input, playerName, tokenName, command, move,cardNum,Qfin,YesOrNo;
     private int door;
@@ -16,7 +22,7 @@ public class UI {
     ImageIcon image = new ImageIcon();
     JLabel label = new JLabel();
     JPanel card = new JPanel();
-	
+   
     private CardAssignment cardAssign = new CardAssignment();
     private Object[] cards = cardAssign.cluedoCard();
     private Card[] solutions =  (Card[]) cards[3];
@@ -45,8 +51,15 @@ public class UI {
 
     public void displayString(String string) {
         infoPanel.addText(string);
+       
+       
+        
     }
-
+    
+    public Log getLog() {
+    	return log;
+    }
+    
     public void displayDice(Player player, Dice dice) {
         displayString(player + " rolls " + dice + ".");
     }
@@ -150,7 +163,7 @@ public class UI {
             inputString();
             displayString("> " + input);
             command = input.trim().toLowerCase().replaceAll("( )+", " ");
-            if (command.equals("quit") ||command.equals("question")|| command.equals("accuse")||command.equals("cheat") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage") || command.equals("help") || command.equals("notes") || command.equals("accusation")||command.equals("yes") ||command.equals("no")) {
+            if (command.equals("quit") ||command.equals("log")||command.equals("question")|| command.equals("accuse")||command.equals("cheat") || command.equals("done") || command.equals("cards")||command.equals("roll") || command.equals("passage") || command.equals("help") || command.equals("notes") || command.equals("accusation")||command.equals("yes") ||command.equals("no")) {
                 valid = true;
             } else {
                 displayError("No such command");
@@ -202,28 +215,30 @@ public class UI {
         } while (!valid);
     }
     
-    public String inputMurderer(Tokens tokens) {
-   	 	displayString("Enter the Accused murderer:");
+    public String inputMurderer(Player player,Tokens tokens) {
+   	 	displayString("Enter the murderer in question:");
    	 	input = commandPanel.getCommand();
    	 	if(!tokens.contains(input)) {
    	 		displayError("Not a valid character name");
-   	 		return inputMurderer(tokens);
+   	 		return inputMurderer(player,tokens);
    	 	}
+   	 	log.addText("\n"+player.getName()+" Asked if" +input+" was the murderer");
    	 	return input;
 	
 	 
     }
-    public String inputMurderWeapon(Weapons weapons){
+    public String inputMurderWeapon(Player player,Weapons weapons){
     	 displayString("Enter the murder Weapon:");
     	 input = commandPanel.getCommand();
     	 if(!weapons.contains(input)) {
     	 		displayError("Not a valid weapon");
-    	 		return inputMurderWeapon(weapons);
+    	 		return inputMurderWeapon(player,weapons);
     	 		
     	 	}
+    	 log.addText("\n"+player.getName()+" Asked if" +input+" was the Weapon");
     	 return input;
     }
-    public String inputMurderRoom(Map map){
+    public String inputMurderRoom(Player player,Map map){
     	boolean isValid = false;
    	 displayString("Enter the murder Room:");
    	 
@@ -234,6 +249,7 @@ public class UI {
    		 }
    		 else {
    			 isValid = true; 
+   			log.addText("\n"+player.getName()+" Asked if the murder occured in the " +input);
    			 return input;
    			 
    		 }
@@ -242,10 +258,12 @@ public class UI {
    		displayError("Not a valid Room");
    		
    	 
-   	 return inputMurderRoom(map);
+   	 return inputMurderRoom(player,map);
    	
    }
-	
+	public void addTextToLog(String string) {
+		log.addText(string);
+	}
     public void inputCardNum(Player player) {
         boolean valid = false;
         do {
@@ -332,8 +350,13 @@ public class UI {
 		}
     	
     }
+    
    
 
+    
+    
+    
+    
     public int getDoor() {
         return door;
     }

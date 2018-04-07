@@ -10,6 +10,7 @@ public class CommandPanel extends JPanel  {
     private static final int FONT_SIZE = 14;
 
     private final JTextField commandField = new JTextField();
+    
     private final LinkedList<String> commandBuffer = new LinkedList<>();
 
     CommandPanel() {
@@ -41,6 +42,7 @@ public class CommandPanel extends JPanel  {
             }
             command = commandBuffer.pop();
         }
+      
         return command;
     }
 
