@@ -333,10 +333,13 @@ public class Cluedo {
                     }
                     
                     case "log":{
+                    	//fix this code //
+                    	//the part below creates a new thread//
                     	SwingUtilities.invokeLater(new Runnable() {
 
                 			@Override
                 			public void run() {
+                				//this part needs fixing since it is really basic//
                 		JFrame Logframe = new JFrame();
                     	Logframe.setSize(800, 250);
           
