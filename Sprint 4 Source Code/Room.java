@@ -10,7 +10,8 @@ public class Room {
     private Room passageDestination;
     private final boolean[] squaresOccupied = new boolean[NUMBER_OF_ITEMS];
 
-    Room(String name, Coordinates tokenArea, Coordinates[] doors) {
+    @SuppressWarnings("unused")
+	Room(String name, Coordinates tokenArea, Coordinates[] doors) {
         this.name = name;
         this.tokenArea = tokenArea;
         this.doors = doors;

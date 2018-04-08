@@ -17,14 +17,6 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-
-
-
-
-
-
-
-
 public class Cluedo {
 
     private static final int MAX_NUM_PLAYERS = 6;
@@ -42,11 +34,6 @@ public class Cluedo {
     
   
     private Card[] Solutions =  (Card[]) cards[3];
-    
-
-    
-    
-    
     //a function to allocate cards to the game;
     private void AllocateCards(Players players,int numPlayersSoFar) {
     	
@@ -377,7 +364,7 @@ public class Cluedo {
                    		 ui.displayString(murderer);
                    		 String WeaponUsed = ui.inputMurderWeapon(currentPlayer,weapons);
                    		 ui.displayString(WeaponUsed);
-                   		 String MurderRoom = ui.inputMurderRoom(currentPlayer,map);
+                   		 String MurderRoom = currentToken.getRoom().toString();
                    		 ui.displayString(MurderRoom);
                    		 
                    		 Token Murderer = tokens.get(murderer);
@@ -421,7 +408,6 @@ public class Cluedo {
                     		 ui.displayString("Hello " + currentPlayerTemp.getName() + "\nThe question asked:" );
                     		 ui.displayString("Murderer: "+Murderer.getName());
                        		 ui.displayString("Weapon: "+Weapon.getName());
-                       		 ui.displayString("Room: "+MurderRoom1.toString());
                        		 ui.displayString("\nCards you have:\n");
                        		 for(Card card:currentPlayerTemp.getMyCard()) {
                        			
@@ -434,7 +420,7 @@ public class Cluedo {
                     	 ui.displayString("Matching cards:\n");
                        		for(Card card:currentPlayerTemp.getMyCard()) {
                        			
-                       			if(card.getName()==Murderer.getName() || card.getName()==Weapon.getName() || card.getName()==MurderRoom1.toString()) {
+                       			if(card.getName()==Murderer.getName() || card.getName()==Weapon.getName()) {
                        				tempArray[i]=card;
                         		ui.displayString(i + " " + card.getName());
                         		i++;

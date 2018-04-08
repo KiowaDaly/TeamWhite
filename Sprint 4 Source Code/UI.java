@@ -1,9 +1,7 @@
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
+
 
 
 
@@ -238,7 +236,8 @@ public class UI {
     	 log.addText("\n"+player.getName()+" Asked if" +input+" was the Weapon");
     	 return input;
     }
-    public String inputMurderRoom(Player player,Map map){
+    @SuppressWarnings("unused")
+	public String inputMurderRoom(Player player,Map map){
     	boolean isValid = false;
    	 displayString("Enter the murder Room:");
    	 

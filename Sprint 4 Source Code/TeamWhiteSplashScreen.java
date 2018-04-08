@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class TeamWhiteSplashScreen extends JWindow {
 	private BorderLayout borderLayout;
 	private JLabel imgLabel;

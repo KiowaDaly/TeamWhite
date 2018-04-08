@@ -10,6 +10,7 @@ public class SplashScreenDriver {
 		
 		for(int i=0;i<=1000;i++) {
 			for(int j=0;j<=100000;j++) {
+				@SuppressWarnings("unused")
 				String t = "ewf"+(i+j);
 			}
 			screen.setprogress(i);
