@@ -334,7 +334,7 @@ public class UI {
        displayString(Arrays.toString(test));
        
        if (Arrays.equals(test, Cluedo.tempArray)) {
-    	    displayString("You have guessed correctly." + player.getName() + "has won the game, congratulations!");
+    	    displayString("You have guessed correctly." + player.getName() + " has won the game, congratulations!");
        		//System.exit(0);
        		}
 
