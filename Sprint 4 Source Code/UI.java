@@ -20,6 +20,7 @@ public class UI {
     ImageIcon image = new ImageIcon();
     JLabel label = new JLabel();
     JPanel card = new JPanel();
+    private final Players players = new Players();
 
     UI(Tokens characters, Weapons weapons) {
     	
@@ -348,14 +349,35 @@ public class UI {
     	    System.exit(0);
        		}
 
-    	else {
-    	  	displayString("You have guessed incorrectly.");
-    	  	
-    	  	//If there is more than one player left then the player making the accusation is eliminated and only answers questions
-    	  	
-    	  	//If the accusation is incorrect and there is only one other player left, then the other player is the winner
-    	  	
-    	  	}
+    else if(!Arrays.equals(test, Cluedo.tempArray)) {
+       	
+   	  	if(players.size() == 2 ) {
+   	  		
+   	  		
+   	  		displayString("You are wrong.");
+   	  		players.turnOver();
+   	    	//DECLARE OTHER PLAYER AS THE WINNER
+   	  		displayString("" +players.getCurrentPlayer().getName() + " has won the game.");
+   	  		//END THE GAME
+		  		
+   	  	}
+   	  	/**
+   	  	else if(players.size() > 2 ) {
+   	  		displayString("You have guessed incorrectly." + player.getName() + " you are now out of the game.");
+   	//  	   
+   	  	   players.remove();
+   	  	   
+   	     	displayString("" +players.getCurrentPlayer().getName() + " is the current player.");
+				
+   	  	
+   	  		
+   	  	
+   	  		
+   	  	} **/
+   	  	
+   	  	
+   	  	}
+       
          	
     } 
     
