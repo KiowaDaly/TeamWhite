@@ -68,7 +68,9 @@ public class UI {
     private void displayError(String message) {
         displayString("Error: " + message + ".");
     }
-
+    public void displayAccuseError() {
+    	displayError("You are not in the cellar, you cannot make an accusation yet!");
+    }
     public void displayErrorNotADoor() {
         displayError("Not a door");
     }
@@ -335,7 +337,15 @@ public class UI {
        
        if (Arrays.equals(test, Cluedo.tempArray)) {
     	    displayString("You have guessed correctly." + player.getName() + " has won the game, congratulations!");
-       		//System.exit(0);
+    	    displayString("Game will close in 3 second!");
+       		
+    	    try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	    System.exit(0);
        		}
 
     	else {

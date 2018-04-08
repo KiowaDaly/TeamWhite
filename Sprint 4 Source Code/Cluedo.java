@@ -553,12 +553,20 @@ public class Cluedo {
                     }
                     
                      case "accusation": {
-                   if(!currentToken.getRoom().toString().equalsIgnoreCase("celler")) {
-                	   ui.displayErrorNotInRoom();
+                    	 if(currentToken.isInRoom()) {
+                    		 if(!currentToken.getRoom().toString().equalsIgnoreCase("cellar")) {
+                    			 ui.displayAccuseError();
                    }
-                   else {
+                    		 
+                    		else {
                 	   ui.accuse(currentPlayer);
-                   }
+                   } 
+                    		 
+                    	 }
+                    	 else {
+                    		 ui.displayErrorNotInRoom();
+                    	 }
+                   
 			         
                     	       
                      break;
@@ -620,6 +628,11 @@ public class Cluedo {
                          				for(Card cards:CardsVisibleToAll) {
                          					if(info[i][j].equals(cards.getName())) {
                          						table.setValueAt(cards.getName() + " 'A' ", i, j);
+                         					}
+                         					for(Card cards2:currentPlayer.getViewedCard()) {
+                             					if(info[i][j].equals(cards2.getName())) {
+                             						table.setValueAt(cards2.getName() + " 'V' ", i, j);
+                             					}
                          					}
                          				}
                          		
