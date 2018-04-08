@@ -52,7 +52,9 @@ public class Players implements Iterable<Player>, Iterator<Player> {
             currentPlayerIndex = 0;
         }
     }
-
+    public void remove(Player player) {
+    	players.remove(player);
+    }
     @Override
     public boolean hasNext() {
         return iterator.hasNext();
