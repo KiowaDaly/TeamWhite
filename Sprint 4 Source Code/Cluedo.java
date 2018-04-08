@@ -325,7 +325,7 @@ public class Cluedo {
                     		tempArray[i] = murderSolutions;
                  	}
                  	
-                     ui.displayString(Arrays.toString(tempArray));
+                   //  ui.displayString(Arrays.toString(tempArray));
 			   
                     	 break;
                     }
