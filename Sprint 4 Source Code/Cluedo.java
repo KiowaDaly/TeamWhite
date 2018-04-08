@@ -375,18 +375,17 @@ public class Cluedo {
                    		 ui.displayString(murderer);
                    		 String WeaponUsed = ui.inputMurderWeapon(currentPlayer,weapons);
                    		 ui.displayString(WeaponUsed);
-                   		 String MurderRoom = currentToken.getRoom().toString();
-                   		 ui.displayString(MurderRoom);
+                   		
                    		 
                    		 Token Murderer = tokens.get(murderer);
                    		 Weapon Weapon = weapons.get(WeaponUsed);
-                   		 Room MurderRoom1 = map.getRoom(MurderRoom);
+                   		 Room MurderRoom =  currentToken.getRoom();
                    		 ui.displayString(Murderer.getName());
                    		 ui.displayString(Weapon.getName());
-                   		 ui.displayString(MurderRoom1.toString());
+                   		 ui.displayString(MurderRoom.toString());
                    		 
-                   		Murderer.enterRoom(MurderRoom1);
-                   		Weapon.enterRoom(MurderRoom1);
+                   		Murderer.enterRoom(MurderRoom);
+                   		Weapon.enterRoom(MurderRoom);
                    		ui.display();
                    		players.turnOver();
                    		
@@ -419,6 +418,7 @@ public class Cluedo {
                     		 ui.displayString("Hello " + currentPlayerTemp.getName() + "\nThe question asked:" );
                     		 ui.displayString("Murderer: "+Murderer.getName());
                        		 ui.displayString("Weapon: "+Weapon.getName());
+                       		 ui.displayString("Room: " + MurderRoom.toString());
                        		 ui.displayString("\nCards you have:\n");
                        		 for(Card card:currentPlayerTemp.getMyCard()) {
                        			
@@ -431,7 +431,7 @@ public class Cluedo {
                     	 ui.displayString("Matching cards:\n");
                        		for(Card card:currentPlayerTemp.getMyCard()) {
                        			
-                       			if(card.getName()==Murderer.getName() || card.getName()==Weapon.getName()) {
+                       			if(card.getName()==Murderer.getName().trim() || card.getName()==Weapon.getName().trim() || card.getName()== MurderRoom.toString()) {
                        				tempArray[i]=card;
                         		ui.displayString(i + " " + card.getName());
                         		i++;
