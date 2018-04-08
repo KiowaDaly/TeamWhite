@@ -319,36 +319,39 @@ public class UI {
     public String getQuestionFinish() {
         return Qfin;
     }
-    public void accuse(Player player) {  
+   
+        public void accuse(Player player) {  
     	
-    	// To make an accusation
+    //	displayString(Arrays.toString(Cluedo.tempArray));
+    	
    	 	displayString("Enter the murderer:\n");
-   	 	input = commandPanel.getCommand();	 
-   	 	displayString("You have entered: " +input + "\n" );
-   	 	displayString("Enter murder room:\n");
-   	 	input = commandPanel.getCommand();	 
-     	 displayString("You have entered: " +input+ "\n");
-   	 	displayString("Enter murder weapon:\n");
-   	 	input = commandPanel.getCommand();	 
-   	    displayString("Your accusation: " +input+ "\n");
-   	 		
-   	 	int i =0;
-   	 	
-		if(solutions[i].getName().equals(input)) {
-		
-			displayString("Your solution is correct." + player.getName() + "has won the game, congratulations!");
-			System.exit(0);
-			//Code to terminate the game will go here
-			
-		}
-	    
-		else if(!solutions[i].getName().equals(input)) {
-			
-			displayString("Your accusation is wrong.");
-			//Code to eliminate player from the game will go here
-		}
-    	
-    }
+   	 	input1 = commandPanel.getCommand();	 
+   	 
+   		displayString("Enter the murder room:\n");
+   	 	input2 = commandPanel.getCommand();	 	
+    
+   	 	displayString("Enter the murder weapon:\n");
+   	 	input3 = commandPanel.getCommand();	
+  
+	
+       String[] test = new String[]{input1, input2, input3};
+       displayString(Arrays.toString(test));
+       
+       if (Arrays.equals(test, Cluedo.tempArray)) {
+    	    displayString("You have guessed correctly." + player.getName() + "has won the game, congratulations!");
+       		//System.exit(0);
+       		}
+
+    	else {
+    	  	displayString("You have guessed incorrectly.");
+    	  	
+    	  	//If there is more than one player left then the player making the accusation is eliminated and only answers questions
+    	  	
+    	  	//If the accusation is incorrect and there is only one other player left, then the other player is the winner
+    	  	
+    	  	}
+         	
+    } 
     
    
 
