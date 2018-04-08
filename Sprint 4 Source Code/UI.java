@@ -1,7 +1,7 @@
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.util.Arrays;
 
 
 
@@ -14,7 +14,7 @@ public class UI {
     private final InfoPanel infoPanel = new InfoPanel();
     private final Log log = new Log();
     private final CommandPanel commandPanel = new CommandPanel();
-    private String input, playerName, tokenName, command, move,cardNum,Qfin,YesOrNo;
+    private String input, input1, input2, input3, playerName, tokenName, command, move,cardNum,Qfin,YesOrNo;
     private int door;
     private boolean inputIsDone;
     ImageIcon image = new ImageIcon();
