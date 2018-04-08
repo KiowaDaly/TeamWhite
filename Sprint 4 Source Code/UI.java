@@ -358,6 +358,15 @@ public class UI {
    	  		players.turnOver();
    	    	//DECLARE OTHER PLAYER AS THE WINNER
    	  		displayString("" +players.getCurrentPlayer().getName() + " has won the game.");
+			displayString("Game will close in 3 second!");
+       		
+    	    try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	    System.exit(0);
    	  		//END THE GAME
 		  		
    	  	}
