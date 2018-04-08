@@ -553,8 +553,13 @@ public class Cluedo {
                     }
                     
                      case "accusation": {
-                   
-			         ui.accuse(currentPlayer);
+                   if(!currentToken.getRoom().toString().equalsIgnoreCase("celler")) {
+                	   ui.displayErrorNotInRoom();
+                   }
+                   else {
+                	   ui.accuse(currentPlayer);
+                   }
+			         
                     	       
                      break;
                     }
