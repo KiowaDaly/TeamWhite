@@ -31,9 +31,10 @@ public class Cluedo {
     private ArrayList<Card> CardsVisibleToAll = new ArrayList<Card>();
     private CardAssignment cardAssign = new CardAssignment();
     private Object[] cards = cardAssign.cluedoCard();
-    
-  
     private Card[] Solutions =  (Card[]) cards[3];
+    private String murderSolutions;
+    static String[] tempArray = new String[3];
+	
     //a function to allocate cards to the game;
     private void AllocateCards(Players players,int numPlayersSoFar) {
     	
@@ -312,10 +313,19 @@ public class Cluedo {
                    
                     case "cheat":{
                     	
-                    	ui.displayString("\nSolutions:");
-                    	for(int i = 0;i<cards.length-1;i++) {
-                    		ui.displayString(Solutions[i].getName());
-                    	}
+                    	 int i = 0;
+                    
+                    ui.displayString("\nSolutions:");
+                   	
+                    	for( i = 0;i<cards.length-1;i++) {
+                 	
+                    		murderSolutions = Solutions[i].getName();
+                    		ui.displayString(""+murderSolutions+"");
+                    		tempArray[i] = murderSolutions;
+                 	}
+                 	
+                     ui.displayString(Arrays.toString(tempArray));
+			   
                     	 break;
                     }
                     
