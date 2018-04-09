@@ -380,6 +380,8 @@ public class Cluedo {
                    		 ui.displayString(murderer);
                    		 String WeaponUsed = ui.inputMurderWeapon(currentPlayer,weapons);
                    		 ui.displayString(WeaponUsed);
+				 String room = ui.inputMurderRoom(currentPlayer, map);
+                   		 ui.displayString(room);
                    		
                    		 
                    		 Token Murderer = tokens.get(murderer);
