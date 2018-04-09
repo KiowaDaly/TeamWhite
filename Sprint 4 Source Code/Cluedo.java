@@ -112,19 +112,23 @@ public class Cluedo {
      //  players.sort();
        
         //gets the max of the created array from above
+        int count = 1;
         for (int counter = 0; counter < array.length; counter++)
         {
              if (array[counter] > max)
              {
               max = array[counter];
              }
+             	
+             
         }
         
         
         ui.displayString("\n" + "The max roll was " + max);
         
         int numberofrolls=0;
-        int count =0;
+        
+		
         
         do {
        
@@ -140,6 +144,7 @@ public class Cluedo {
   			 ui.displayString("\n" +currentPlayer.getName()+" has re-rolled a " + currentPlayer.getTurnNum()); 
   		
   		  }
+  	
   		  
   		players.turnOver();
     	}
@@ -158,6 +163,7 @@ public class Cluedo {
         for(int j=0;j<array.length;j++) {
    		  Player currentPlayer = players.getCurrentPlayer();
   		  if(currentPlayer.getTurnNum()==max) {
+  		
   		
   		  dice.roll();
       	 currentPlayer.setTurnNum(dice.getTotal());
