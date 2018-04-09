@@ -23,7 +23,7 @@ public class Cluedo {
     private static final int MAX_NUM_PLAYERS = 6;
     int max =0;
     private final Tokens tokens = new Tokens();
-    private final Players players = new Players();
+    private Players players = new Players();
     private final Dice dice = new Dice();
     private final Map map = new Map();
     private final Weapons weapons = new Weapons(map);
@@ -559,7 +559,8 @@ public class Cluedo {
                    }
                     		 
                     		else {
-                	   ui.accuse(currentPlayer);
+                	   players = ui.accuse(players,currentPlayer);
+                	   moveOver = true;
                    } 
                     		 
                     	 }

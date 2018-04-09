@@ -319,7 +319,7 @@ public class UI {
         return Qfin;
     }
    
-        public void accuse(Player player) {  
+        public Players accuse(Players players,Player player) {  
     	
     //	displayString(Arrays.toString(Cluedo.tempArray));
     	
@@ -335,8 +335,9 @@ public class UI {
 	
        String[] test = new String[]{input1, input2, input3};
        displayString(Arrays.toString(test));
-       
-       if (Arrays.equals(test, Cluedo.tempArray)) {
+      
+	 if(compareArrayCaseInsensitive(test, Cluedo.tempArray) == true) { 
+    //   if (Arrays.equals(test, Cluedo.tempArray)) {
     	    displayString("You have guessed correctly." + player.getName() + " has won the game, congratulations!");
     	    displayString("Game will close in 3 second!");
        		
@@ -348,8 +349,9 @@ public class UI {
 			}
     	    System.exit(0);
        		}
-
-    else if(!Arrays.equals(test, Cluedo.tempArray)) {
+ 	
+	else if(compareArrayCaseInsensitive(test, Cluedo.tempArray) != true) {
+//    else if(!Arrays.equals(test, Cluedo.tempArray)) {
        	
    	  	if(players.size() == 2 ) {
    	  		
@@ -370,27 +372,47 @@ public class UI {
    	  		//END THE GAME
 		  		
    	  	}
-   	  	/**
-   	  	else if(players.size() > 2 ) {
-   	  		displayString("You have guessed incorrectly." + player.getName() + " you are now out of the game.");
-   	//  	   
-   	  	   players.remove();
-   	  	   
-   	     	displayString("" +players.getCurrentPlayer().getName() + " is the current player.");
-				
+   	  	if(players.size()>2) {
+   	     displayString("You have guessed incorrectly.\n");
+         displayString(player.getName()+" has been removed from the game!\n");
+         players.remove(player);
+         if(players.size()==1) {
+           displayString(players.get(0).getName() + " has won the game, congratulations!\n");
+           displayString("Game will close in 3 second!");
+            try {
+                   Thread.sleep(5);
+              } catch (InterruptedException e) {
+                   // TODO Auto-generated catch block
+                   e.printStackTrace();
+              }
+             System.exit(0);
+                   
+           
+         }
+         return players;
+   	  	}
+      
    	  	
-   	  		
-   	  	
-   	  		
-   	  	} **/
+   	
    	  	
    	  	
    	  	}
        
-         	
-    } 
+         	return players;
+        }
     
-   
+    public static boolean compareArrayCaseInsensitive(String[] a1, String[] a2) {
+            
+
+            if (a1 == a2) return true;
+            if (a1.length != a2.length) return false;
+
+            for (int i = 0; i < a1.length; i++) {
+                if (!a1[i].equalsIgnoreCase(a2[i])) return false;
+            }
+
+            return true;
+        }
 
     
     
