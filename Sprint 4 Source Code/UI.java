@@ -235,14 +235,14 @@ public class UI {
     	 log.addText("\n"+player.getName()+  "(" + player.getToken().getName() + ")" +" asked if the " +input+" was the Weapon. \n");
     	 return input;
     }
-    @SuppressWarnings("unused")
+ //   @SuppressWarnings("unused")
 	public String inputMurderRoom(Player player,Map map){
     	boolean isValid = false;
    	 displayString("Enter the murder Room:");
    	 
    	 input = commandPanel.getCommand();
    	 for(Room room:map.rooms) {
-   		 if(!room.toString().equals(input)) {
+   		 if(!room.toString().equalsIgnoreCase(input)) {
    			 isValid = false;
    		 }
    		 else {
