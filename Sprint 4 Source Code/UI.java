@@ -219,7 +219,7 @@ public class UI {
    	 		displayError("Not a valid character name");
    	 		return inputMurderer(player,tokens);
    	 	}
-   	 	log.addText("\n"+player.getName()+" Asked if" +input+" was the murderer");
+   	 	log.addText("\n"+player.getName()+ "(" + player.getToken().getName() + ")" + " asked if " +input+" was the Murderer. \n");
    	 	return input;
 	
 	 
@@ -232,7 +232,7 @@ public class UI {
     	 		return inputMurderWeapon(player,weapons);
     	 		
     	 	}
-    	 log.addText("\n"+player.getName()+" Asked if" +input+" was the Weapon");
+    	 log.addText("\n"+player.getName()+  "(" + player.getToken().getName() + ")" +" asked if the " +input+" was the Weapon. \n");
     	 return input;
     }
     @SuppressWarnings("unused")
@@ -247,10 +247,11 @@ public class UI {
    		 }
    		 else {
    			 isValid = true; 
-   			log.addText("\n"+player.getName()+" Asked if the murder occured in the " +input);
+   			
    			 return input;
    			 
    		 }
+   		log.addText("\n"+player.getName()+ "(" + player.getToken().getName() + ")" +" asked if the murder occured in the " + input.toString() + ".\n");
    	 }
    	
    		displayError("Not a valid Room");
@@ -272,7 +273,7 @@ public class UI {
             if (cardNum.equals("1") || cardNum.equals("0")|| cardNum.equals("2") || cardNum.equals("3") || cardNum.equals("4") || cardNum.equals("5")||cardNum.equals("6") ||cardNum.equals("7") ||cardNum.equals("8") ||cardNum.equals("9") ||cardNum.equals("10")) {
                 valid = true;
             } else {
-                displayError("Sorry not a valid number please choose againsdcascxcx");
+                displayError("Sorry not a valid number please choose again");
             }
         } while (!valid);
     }

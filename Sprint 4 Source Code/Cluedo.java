@@ -337,8 +337,7 @@ public class Cluedo {
                     }
                     
                     case "log":{
-                    	//fix this code //
-                    	//the part below creates a new thread//
+                    	
                     	SwingUtilities.invokeLater(new Runnable() {
 
                 			@Override
@@ -528,7 +527,7 @@ public class Cluedo {
                 			 ui.displayString("The following card was found: " + tempArray[temp].getName() );
                 			 ui.displayString("This card has been added to your notes section\n");
                 			 currentPlayer.addViewedCard(tempArray[temp]);
-                			 ui.addTextToLog(currentPlayerTemp.getName()+" Had this card: "+tempArray[temp].getName());
+                			 
                 		 }else {
                 			 
                 			 ui.displayString("\n None of the other players had any of the cards in question");
