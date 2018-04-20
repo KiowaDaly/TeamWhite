@@ -47,6 +47,11 @@ public class Bot1 implements BotAPI {
 
     public String getMove() {
         // Add your code here
+    	//can possibly implement getDoor here to find the door the 
+    	//current player is at and map the suitable route for the bot to the nearest possible room and its nearest possible door
+    	
+    	//also can possibly implement getCard here to find which ROOM cards the user already has
+    	//this eliminates the bot's routes to those specific rooms.
         return "r";
     }
 
@@ -67,6 +72,8 @@ public class Bot1 implements BotAPI {
 
     public String getDoor() {
         // Add your code here
+    	// getting the certain door which the current player has just used
+    	
         return "1";
     }
 
