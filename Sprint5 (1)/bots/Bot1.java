@@ -32,6 +32,16 @@ public class Bot1 implements BotAPI {
 
     public String getCommand() {
         // Add your code here
+    	//has to be player's turn...
+    	//roll, help, log, quit, cheat (can be used anytime)
+    	
+    	//question (inside any room)
+    	
+    	//passage (only inside kitchen, study, conservatory lounge)
+    	
+    	//accuse (inside cellar)
+    	
+    	//else... if they're finished
         return "done";
     }
 
