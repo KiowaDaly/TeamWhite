@@ -70,10 +70,30 @@ public class TeamWhite implements BotAPI {
     	//this eliminates the bot's routes to those specific rooms.
     	
     	//implement A*//
-    	findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
-        return "r";
+    	System.out.println("test");
+    	for(Coordinates path:findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1))){
+    		System.out.println(path.toString());
+    		return getDirection(player.getToken().getPosition(),path);
+    		
+    	}
+        return null;
     }
-
+    
+    private String getDirection(Coordinates startingPoint,Coordinates destination) {
+    	if(startingPoint.getRow()<destination.getRow()) {
+    		return "d";
+    	}
+    	if(startingPoint.getRow()>destination.getRow()) {
+    		return "u";
+    	}
+    	if(startingPoint.getCol()<destination.getCol()) {
+    		return "r";
+    	}
+    	if(startingPoint.getCol()>destination.getCol()) {
+    		return "l";
+    	}
+    	return null;
+    }
     public String getSuspect() {
         // Add your code here
         return Names.SUSPECT_NAMES[0];
@@ -110,10 +130,9 @@ public class TeamWhite implements BotAPI {
 }
 class AStarAlgorithm<T>{
 	
-	//thsi algoithm find the shortes path between two node//
-	
+	//this algorithm find the shortest path between two n 
 	public static <T extends Coordinates> List<Coordinates> execute(Coordinates startingPoint,Coordinates destination){
-		Set<Coordinates> closed = new HashSet<Coordinates>();
+	Set<Coordinates> closed = new HashSet<Coordinates>();
 		HashMap<Coordinates,Coordinates> fromMap = new HashMap<Coordinates,Coordinates>();
 		List<Coordinates> route = new LinkedList<Coordinates>();
 		HashMap<Coordinates,Double> gValue = new HashMap<Coordinates,Double>();
@@ -143,7 +162,7 @@ class AStarAlgorithm<T>{
 				if(closed.contains(neighbour)) {
 					continue;
 				}
-				double tentG = gValue.get(current)+1.0;//the +1.0 here is the amount of moves it will take to get to the neighboring node//
+				double tentG = gValue.get(current)+1.0;
 				
 				boolean contains = open.contains(neighbour);
 				if(!contains||tentG<gValue.get(neighbour)) {
