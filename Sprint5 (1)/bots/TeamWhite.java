@@ -1,6 +1,7 @@
 package bots;
 
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,6 +28,7 @@ public class TeamWhite implements BotAPI {
     private Dice dice;
     private Log log;
     private Deck deck;
+    private List<Coordinates> myPath; 
 
     public TeamWhite (Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
         this.player = player;
@@ -58,7 +60,8 @@ public class TeamWhite implements BotAPI {
     	
     	//else... if they're finished
     	getMove();
-        return "done";
+        return "roll";
+        
     }
 
     public String getMove() {
@@ -71,12 +74,17 @@ public class TeamWhite implements BotAPI {
     	
     	//implement A*//
     	System.out.println("test");
-    	for(Coordinates path:findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1))){
-    		System.out.println(path.toString());
-    		return getDirection(player.getToken().getPosition(),path);
-    		
+//    	myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
+    	int routeLeft = 0;
+    	if(routeLeft==0) {
+    		myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
+    		routeLeft = myPath.size();
     	}
-        return null;
+    	String move = getDirection(player.getToken().getPosition(),myPath.remove(myPath.size()-1));
+    
+    	
+    	routeLeft--;
+        return move;
     }
     
     private String getDirection(Coordinates startingPoint,Coordinates destination) {
@@ -193,7 +201,7 @@ class AStarAlgorithm<T>{
 		Neighbours.add(new Coordinates(current.getRow()+1,current.getCol()));
 		Neighbours.add(new Coordinates(current.getRow()-1,current.getCol()));
 		Neighbours.add(new Coordinates(current.getRow(),current.getCol()+1));
-		Neighbours.add(new Coordinates(current.getRow()+1,current.getCol()-1));
+		Neighbours.add(new Coordinates(current.getRow(),current.getCol()-1));
 		 return Neighbours;
 	 }
 }
