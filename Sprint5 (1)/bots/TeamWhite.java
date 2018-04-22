@@ -1,5 +1,16 @@
 package bots;
 
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Set;
+
+
+
 import gameengine.*;
 
 public class TeamWhite implements BotAPI {
@@ -25,10 +36,14 @@ public class TeamWhite implements BotAPI {
         this.log = log;
         this.deck = deck;
     }
+    public List<Coordinates> findPath(Coordinates X,Coordinates Y){
+    	return AStarAlgorithm.execute(X,Y);
+    }
 
     public String getName() {
         return "TeamWhite"; // must match the class name
     }
+   
 
     public String getCommand() {
         // Add your code here
@@ -42,6 +57,7 @@ public class TeamWhite implements BotAPI {
     	//accuse (inside cellar)
     	
     	//else... if they're finished
+    	getMove();
         return "done";
     }
 
@@ -52,6 +68,9 @@ public class TeamWhite implements BotAPI {
     	
     	//also can possibly implement getCard here to find which ROOM cards the user already has
     	//this eliminates the bot's routes to those specific rooms.
+    	
+    	//implement A*//
+    	findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
         return "r";
     }
 
@@ -85,5 +104,81 @@ public class TeamWhite implements BotAPI {
     public void notifyResponse(Log response) {
         // Add your code here
     }
-
+    public void getPath() {
+    	
+    }
 }
+class AStarAlgorithm<T>{
+	
+	//thsi algoithm find the shortes path between two node//
+	
+	public static <T extends Coordinates> List<Coordinates> execute(Coordinates startingPoint,Coordinates destination){
+		Set<Coordinates> closed = new HashSet<Coordinates>();
+		HashMap<Coordinates,Coordinates> fromMap = new HashMap<Coordinates,Coordinates>();
+		List<Coordinates> route = new LinkedList<Coordinates>();
+		HashMap<Coordinates,Double> gValue = new HashMap<Coordinates,Double>();
+		final HashMap<Coordinates,Double> fValue = new HashMap<Coordinates,Double>();
+		PriorityQueue<Coordinates> open = new PriorityQueue<Coordinates>(11,new Comparator<Coordinates>() {
+			public int compare(Coordinates nodeA, Coordinates nodeB) {
+				return Double.compare(fValue.get(nodeA), fValue.get(nodeB));
+			}
+		});
+		
+		gValue.put(startingPoint, 0.0);
+		fValue.put(startingPoint,getHeuristic(startingPoint,destination));
+		open.offer(startingPoint);
+		
+		while(!open.isEmpty()) {
+			Coordinates current = open.poll();
+			if(current.equals(destination)) {
+				while(current!=null) {
+					route.add(0,current);
+					current = fromMap.get(current);
+				}
+				return route;
+			}
+			closed.add(current);
+			
+			for(Coordinates neighbour : getNeighbours(current)) {
+				if(closed.contains(neighbour)) {
+					continue;
+				}
+				double tentG = gValue.get(current)+1.0;//the +1.0 here is the amount of moves it will take to get to the neighboring node//
+				
+				boolean contains = open.contains(neighbour);
+				if(!contains||tentG<gValue.get(neighbour)) {
+					gValue.put(neighbour,tentG);
+					fValue.put(neighbour,tentG+getHeuristic(neighbour,destination));
+					if(contains) {
+						open.remove(neighbour);
+					}
+					open.offer(neighbour);
+					fromMap.put(neighbour, current);
+				}
+			}
+		}
+		
+		return route;
+		
+		
+		
+	}
+	 public static double getHeuristic(Coordinates startingPoint,Coordinates destination) {
+	    	double distance = Math.abs(startingPoint.getRow()-destination.getRow()) + Math.abs(startingPoint.getCol()-destination.getCol());
+	    	
+			return distance;
+	    	
+	    }
+	 public static List<Coordinates> getNeighbours(Coordinates current){
+		 List<Coordinates> Neighbours = new LinkedList<Coordinates>();
+		Neighbours.add(new Coordinates(current.getRow()+1,current.getCol()));
+		Neighbours.add(new Coordinates(current.getRow()-1,current.getCol()));
+		Neighbours.add(new Coordinates(current.getRow(),current.getCol()+1));
+		Neighbours.add(new Coordinates(current.getRow()+1,current.getCol()-1));
+		 return Neighbours;
+	 }
+}
+
+
+
+
