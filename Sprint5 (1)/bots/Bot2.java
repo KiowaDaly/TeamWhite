@@ -1,5 +1,17 @@
 package bots;
 
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Set;
+
+
+
 import gameengine.*;
 
 public class Bot2 implements BotAPI {
@@ -16,6 +28,8 @@ public class Bot2 implements BotAPI {
     private Dice dice;
     private Log log;
     private Deck deck;
+    private List<Coordinates> myPath; 
+    int routeLeft = 0;
 
     public Bot2 (Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
         this.player = player;
@@ -25,21 +39,74 @@ public class Bot2 implements BotAPI {
         this.log = log;
         this.deck = deck;
     }
+    public List<Coordinates> findPath(Coordinates X,Coordinates Y){
+    	return AStarAlgorithm.execute(X,Y,map);
+    }
 
     public String getName() {
-        return "Bot2"; // must match the class name
+        return "TeamWhite"; // must match the class name
     }
+   
 
     public String getCommand() {
         // Add your code here
-        return "done";
+    	//has to be player's turn...
+    	//roll, help, log, quit, cheat (can be used anytime)
+    	
+    	//question (inside any room)
+    	
+    	//passage (only inside kitchen, study, conservatory lounge)
+    	
+    	//accuse (inside cellar)
+    	
+    	//else... if they're finished
+//    	getMove();
+        return "roll";
+        
     }
 
     public String getMove() {
         // Add your code here
-        return "r";
+    	//can possibly implement getDoor here to find the door the 
+    	//current player is at and map the suitable route for the bot to the nearest possible room and its nearest possible door
+    	
+    	//also can possibly implement getCard here to find which ROOM cards the user already has
+    	//this eliminates the bot's routes to those specific rooms.
+    	
+    	//implement A*//
+    	System.out.println("test");
+//    	myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
+    	
+    	if(routeLeft==0) {
+    		myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
+    		routeLeft = myPath.size();
+    	}
+    	System.out.println(myPath);
+    	
+    	String move = getDirection(player.getToken().getPosition(),myPath.remove(myPath.size()-1));
+    
+    	
+    	routeLeft--;
+        return move;
     }
-
+    
+    private String getDirection(Coordinates startingPoint,Coordinates destination) {
+    	if(startingPoint.getRow()<destination.getRow()) {
+    		return "d";
+    	}
+    	if(startingPoint.getRow()>destination.getRow()) {
+    		return "u";
+    	}
+    	if(startingPoint.getCol()<destination.getCol()) {
+    		return "r";
+    	}
+    	if(startingPoint.getCol()>destination.getCol()) {
+    		return "l";
+    	}
+    	return null;
+    }
+    
+    
     public String getSuspect() {
         // Add your code here
         return Names.SUSPECT_NAMES[0];
@@ -57,6 +124,8 @@ public class Bot2 implements BotAPI {
 
     public String getDoor() {
         // Add your code here
+    	// getting the certain door which the current player has just used
+    	
         return "1";
     }
 
@@ -68,4 +137,14 @@ public class Bot2 implements BotAPI {
     public void notifyResponse(Log response) {
         // Add your code here
     }
+    public void getPath() {
+    	
+    }
 }
+
+
+	
+
+
+
+

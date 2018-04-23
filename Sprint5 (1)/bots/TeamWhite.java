@@ -29,6 +29,7 @@ public class TeamWhite implements BotAPI {
     private Log log;
     private Deck deck;
     private List<Coordinates> myPath; 
+    int routeLeft;
 
     public TeamWhite (Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
         this.player = player;
@@ -39,7 +40,7 @@ public class TeamWhite implements BotAPI {
         this.deck = deck;
     }
     public List<Coordinates> findPath(Coordinates X,Coordinates Y){
-    	return AStarAlgorithm.execute(X,Y);
+    	return AStarAlgorithm.execute(X,Y,map);
     }
 
     public String getName() {
@@ -59,7 +60,7 @@ public class TeamWhite implements BotAPI {
     	//accuse (inside cellar)
     	
     	//else... if they're finished
-    	getMove();
+//    	getMove();
         return "roll";
         
     }
@@ -75,11 +76,13 @@ public class TeamWhite implements BotAPI {
     	//implement A*//
     	System.out.println("test");
 //    	myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
-    	int routeLeft = 0;
+    	
     	if(routeLeft==0) {
     		myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
     		routeLeft = myPath.size();
     	}
+    	System.out.println(myPath);
+    	
     	String move = getDirection(player.getToken().getPosition(),myPath.remove(myPath.size()-1));
     
     	
@@ -102,6 +105,8 @@ public class TeamWhite implements BotAPI {
     	}
     	return null;
     }
+    
+    
     public String getSuspect() {
         // Add your code here
         return Names.SUSPECT_NAMES[0];
@@ -139,8 +144,8 @@ public class TeamWhite implements BotAPI {
 class AStarAlgorithm<T>{
 	
 	//this algorithm find the shortest path between two n 
-	public static <T extends Coordinates> List<Coordinates> execute(Coordinates startingPoint,Coordinates destination){
-	Set<Coordinates> closed = new HashSet<Coordinates>();
+	public static  List<Coordinates> execute(Coordinates startingPoint,Coordinates destination,Map map){
+		Set<Coordinates> closed = new HashSet<Coordinates>();
 		HashMap<Coordinates,Coordinates> fromMap = new HashMap<Coordinates,Coordinates>();
 		List<Coordinates> route = new LinkedList<Coordinates>();
 		HashMap<Coordinates,Double> gValue = new HashMap<Coordinates,Double>();
@@ -151,22 +156,31 @@ class AStarAlgorithm<T>{
 			}
 		});
 		
+		System.out.println("I het to this point - finished intialising all variables");
 		gValue.put(startingPoint, 0.0);
 		fValue.put(startingPoint,getHeuristic(startingPoint,destination));
-		open.offer(startingPoint);
+		open.offer (startingPoint);
+		
+		
+		//acount for walls//
+		//error with this while loop//
 		
 		while(!open.isEmpty()) {
 			Coordinates current = open.poll();
 			if(current.equals(destination)) {
-				while(current!=null) {
+				while(!(current==null)) {
 					route.add(0,current);
 					current = fromMap.get(current);
-				}
+				}	
+				
 				return route;
+			
 			}
+		
 			closed.add(current);
 			
-			for(Coordinates neighbour : getNeighbours(current)) {
+		
+			for(Coordinates neighbour : getNeighbours(current,map)) {
 				if(closed.contains(neighbour)) {
 					continue;
 				}
@@ -176,18 +190,26 @@ class AStarAlgorithm<T>{
 				if(!contains||tentG<gValue.get(neighbour)) {
 					gValue.put(neighbour,tentG);
 					fValue.put(neighbour,tentG+getHeuristic(neighbour,destination));
+					
 					if(contains) {
 						open.remove(neighbour);
 					}
+					
 					open.offer(neighbour);
 					fromMap.put(neighbour, current);
+					
 				}
 			}
+			
 		}
+		return null;
+	}
+	
+	public static int compareNodes(Coordinates start, Coordinates end) {
 		
-		return route;
-		
-		
+		String start1 = start.toString();
+		String end1 = end.toString();
+		return start1.compareTo(end1);
 		
 	}
 	 public static double getHeuristic(Coordinates startingPoint,Coordinates destination) {
@@ -196,15 +218,22 @@ class AStarAlgorithm<T>{
 			return distance;
 	    	
 	    }
-	 public static List<Coordinates> getNeighbours(Coordinates current){
+	 public static List<Coordinates> getNeighbours(Coordinates current,Map map){
 		 List<Coordinates> Neighbours = new LinkedList<Coordinates>();
-		Neighbours.add(new Coordinates(current.getRow()+1,current.getCol()));
-		Neighbours.add(new Coordinates(current.getRow()-1,current.getCol()));
-		Neighbours.add(new Coordinates(current.getRow(),current.getCol()+1));
-		Neighbours.add(new Coordinates(current.getRow(),current.getCol()-1));
+		Neighbours.add(new Coordinates(current.getCol(),current.getRow()+1));
+		
+		Neighbours.add(new Coordinates(current.getCol()-1,current.getRow()-1));
+		
+		Neighbours.add(new Coordinates(current.getCol()+1,current.getRow()));
+		
+		Neighbours.add(new Coordinates(current.getCol()-1,current.getRow()));
 		 return Neighbours;
 	 }
+	 
 }
+
+	
+
 
 
 
