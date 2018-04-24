@@ -31,6 +31,7 @@ public class TeamWhite implements BotAPI {
     private List<Coordinates> myPath; 
     int routeLeft;
     boolean firstCom= true;
+    boolean askQ= false;
 
     public TeamWhite (Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
         this.player = player;
@@ -64,9 +65,11 @@ public class TeamWhite implements BotAPI {
         String command= "done";
     	
     	
-    	if(player.getToken().isInRoom() && firstCom == false) {
+    	if(player.getToken().isInRoom() && askQ == false) {
     		command ="question";
+    		askQ = true;
     	}
+    	
     	
     	
     	
