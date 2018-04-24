@@ -74,16 +74,14 @@ public class TeamWhite implements BotAPI {
     	//this eliminates the bot's routes to those specific rooms.
     	
     	//implement A*//
-    	System.out.println("test");
-//    	myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
-    	
     	if(routeLeft==0) {
     		myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
     		routeLeft = myPath.size();
     	}
     	System.out.println(myPath);
+    
+    	String  move = getDirection(player.getToken().getPosition(),myPath.remove(1));
     	
-    	String move = getDirection(player.getToken().getPosition(),myPath.remove(myPath.size()-1));
     
     	
     	routeLeft--;
@@ -140,6 +138,31 @@ public class TeamWhite implements BotAPI {
     public void getPath() {
     	
     }
+	@Override
+	public String getVersion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void notifyPlayerName(String playerName) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void notifyTurnOver(String playerName, String position) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void notifyQuery(String playerName, String query) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void notifyReply(String playerName, boolean cardShown) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 class AStarAlgorithm<T>{
 	
@@ -205,13 +228,6 @@ class AStarAlgorithm<T>{
 		return null;
 	}
 	
-	public static int compareNodes(Coordinates start, Coordinates end) {
-		
-		String start1 = start.toString();
-		String end1 = end.toString();
-		return start1.compareTo(end1);
-		
-	}
 	 public static double getHeuristic(Coordinates startingPoint,Coordinates destination) {
 	    	double distance = Math.abs(startingPoint.getRow()-destination.getRow()) + Math.abs(startingPoint.getCol()-destination.getCol());
 	    	
@@ -222,7 +238,7 @@ class AStarAlgorithm<T>{
 		 List<Coordinates> Neighbours = new LinkedList<Coordinates>();
 		Neighbours.add(new Coordinates(current.getCol(),current.getRow()+1));
 		
-		Neighbours.add(new Coordinates(current.getCol()-1,current.getRow()-1));
+		Neighbours.add(new Coordinates(current.getCol(),current.getRow()-1));
 		
 		Neighbours.add(new Coordinates(current.getCol()+1,current.getRow()));
 		
