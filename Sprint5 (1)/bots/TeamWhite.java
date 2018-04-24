@@ -68,6 +68,9 @@ public class TeamWhite implements BotAPI {
     	if(player.getToken().isInRoom() && askQ == false) {
     		command ="question";
     		askQ = true;
+		//getWeapon();
+    	        //getSuspect();
+    	        //getRoom();
     	}
     	
     	
