@@ -40,10 +40,7 @@ public class Bot2 implements BotAPI {
         this.log = log;
         this.deck = deck;
     }
-    public List<Coordinates> findPath(Coordinates X,Coordinates Y){
-    	return AStarAlgorithm.execute(X,Y,map);
-    }
-
+  
     public String getName() {
         return "TeamWhite"; // must match the class name
     }
@@ -97,12 +94,12 @@ if( command== "done") {
 //    	myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
     	
     	if(routeLeft==0) {
-    		myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
+    		myPath = getPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
     		routeLeft = myPath.size();
     	}
     	System.out.println(myPath);
     	
-    	String move = getDirection(player.getToken().getPosition(),myPath.remove(myPath.size()-1));
+    	String move = getDirection(player.getToken().getPosition(),myPath.remove(1));
     
     	
     	routeLeft--;
@@ -110,11 +107,11 @@ if( command== "done") {
     }
     
     private String getDirection(Coordinates startingPoint,Coordinates destination) {
-    	if(startingPoint.getRow()<destination.getRow()) {
-    		return "d";
-    	}
     	if(startingPoint.getRow()>destination.getRow()) {
     		return "u";
+    	}
+    	if(startingPoint.getRow()<destination.getRow()) {
+    		return "d";
     	}
     	if(startingPoint.getCol()<destination.getCol()) {
     		return "r";
@@ -156,7 +153,8 @@ if( command== "done") {
     public void notifyResponse(Log response) {
         // Add your code here
     }
-    public void getPath() {
+    public List<Coordinates> getPath(Coordinates X,Coordinates Y) {
+    	return AStarAlgorithm.execute(X,Y,map);
     	
     }
 	@Override

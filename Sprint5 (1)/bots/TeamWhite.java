@@ -31,8 +31,7 @@ public class TeamWhite implements BotAPI {
     private List<Coordinates> myPath; 
     int routeLeft;
     boolean firstCom= true;
-	
-	
+
     public TeamWhite (Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
         this.player = player;
         this.playersInfo = playersInfo;
@@ -41,9 +40,7 @@ public class TeamWhite implements BotAPI {
         this.log = log;
         this.deck = deck;
     }
-    public List<Coordinates> findPath(Coordinates X,Coordinates Y){
-    	return AStarAlgorithm.execute(X,Y,map);
-    }
+    
 
     public String getName() {
         return "TeamWhite"; // must match the class name
@@ -63,7 +60,9 @@ public class TeamWhite implements BotAPI {
     	
     	//else... if they're finished
 //    	getMove();
-     String command= "done";
+    	
+        String command= "done";
+    	
     	
     	if(player.getToken().isInRoom() && firstCom == false) {
     		command ="question";
@@ -81,7 +80,6 @@ if( command== "done") {
     		firstCom=true;
     	}
         return command;
-       
         
     }
 
@@ -94,10 +92,12 @@ if( command== "done") {
     	//this eliminates the bot's routes to those specific rooms.
     	
     	//implement A*//
+
     	if(routeLeft==0) {
-    		myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
+    		myPath = getPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
     		routeLeft = myPath.size();
     	}
+    	System.out.println(player.getToken().getPosition());
     	System.out.println(myPath);
     
     	String  move = getDirection(player.getToken().getPosition(),myPath.remove(1));
@@ -105,15 +105,17 @@ if( command== "done") {
     
     	
     	routeLeft--;
+    	
         return move;
-    }
-    
-    private String getDirection(Coordinates startingPoint,Coordinates destination) {
-    	if(startingPoint.getRow()<destination.getRow()) {
-    		return "d";
     	}
+//    }
+    
+    private static String getDirection(Coordinates startingPoint,Coordinates destination) {
     	if(startingPoint.getRow()>destination.getRow()) {
     		return "u";
+    	}
+    	if(startingPoint.getRow()<destination.getRow()) {
+    		return "d";
     	}
     	if(startingPoint.getCol()<destination.getCol()) {
     		return "r";
@@ -131,23 +133,7 @@ if( command== "done") {
     }
 
     public String getWeapon() {
-   
-    int weaponArraySize = Names.WEAPON_NAMES.length;
-    
-    	//Loop through the Weapons List
-    	for (int i = 0; i <= weaponArraySize; i++) {	
-    		// If player does not have the card, or the card is not a shared card, or the player has not seen the card then execute if statement
-    		if (player.hasCard(Names.WEAPON_NAMES[i]) == false || deck.isSharedCard(Names.WEAPON_NAMES[i]) == false || player.hasSeen(Names.WEAPON_NAMES[i]) == false) {
-    			
-    			//TODO: Code for suggesting a weapon
-    			
-    			break; // don't loop over the other elements
-    		}
-    		else {
-    			i++;
-    		} 
-		        }   
-	    
+        // Add your code here
         return Names.WEAPON_NAMES[0];
     }
 
@@ -171,9 +157,11 @@ if( command== "done") {
     public void notifyResponse(Log response) {
         // Add your code here
     }
-    public void getPath() {
-    	
-    }
+    public List<Coordinates> getPath(Coordinates X,Coordinates Y) {
+    
+        	return AStarAlgorithm.execute(X,Y,map);
+        }
+    
 	@Override
 	public String getVersion() {
 		// TODO Auto-generated method stub
@@ -215,7 +203,7 @@ class AStarAlgorithm<T>{
 			}
 		});
 		
-		System.out.println("I het to this point - finished intialising all variables");
+	
 		gValue.put(startingPoint, 0.0);
 		fValue.put(startingPoint,getHeuristic(startingPoint,destination));
 		open.offer (startingPoint);
@@ -226,11 +214,13 @@ class AStarAlgorithm<T>{
 		
 		while(!open.isEmpty()) {
 			Coordinates current = open.poll();
+			
 			if(current.equals(destination)) {
 				while(!(current==null)) {
 					route.add(0,current);
 					current = fromMap.get(current);
 				}	
+				
 				
 				return route;
 			
@@ -240,7 +230,15 @@ class AStarAlgorithm<T>{
 			
 		
 			for(Coordinates neighbour : getNeighbours(current,map)) {
+				
+				
+				
 				if(closed.contains(neighbour)) {
+					continue;
+				}
+				
+				
+				if(!map.isCorridor(current)) {
 					continue;
 				}
 				double tentG = gValue.get(current)+1.0;
@@ -254,7 +252,11 @@ class AStarAlgorithm<T>{
 						open.remove(neighbour);
 					}
 					
+					
+					
+					
 					open.offer(neighbour);
+				
 					fromMap.put(neighbour, current);
 					
 				}
@@ -279,6 +281,7 @@ class AStarAlgorithm<T>{
 		Neighbours.add(new Coordinates(current.getCol()+1,current.getRow()));
 		
 		Neighbours.add(new Coordinates(current.getCol()-1,current.getRow()));
+		
 		 return Neighbours;
 	 }
 	 
