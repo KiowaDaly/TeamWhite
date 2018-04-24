@@ -111,7 +111,23 @@ public class TeamWhite implements BotAPI {
     }
 
     public String getWeapon() {
-        // Add your code here
+   
+    int weaponArraySize = Names.WEAPON_NAMES.length;
+    
+    	//Loop through the Weapons List
+    	for (int i = 0; i <= weaponArraySize; i++) {	
+    		// If player does not have the card, or the card is not a shared card, or the player has not seen the card then execute if statement
+    		if (player.hasCard(Names.WEAPON_NAMES[i]) == false || deck.isSharedCard(Names.WEAPON_NAMES[i]) == false || player.hasSeen(Names.WEAPON_NAMES[i]) == false) {
+    			
+    			//TODO: Code for suggesting a weapon
+    			
+    			break; // don't loop over the other elements
+    		}
+    		else {
+    			i++;
+    		} 
+		        }   
+	    
         return Names.WEAPON_NAMES[0];
     }
 
