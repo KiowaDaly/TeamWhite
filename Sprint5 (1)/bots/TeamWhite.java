@@ -132,7 +132,7 @@ if( command== "done") {
 	    	/**
     	 int suspectArraySize = Names.SUSPECT_NAMES.length;
   	    
-	    	//Loop through the Weapons List
+	    	//Loop through the Suspect Array
 	    	for (int i = 0; i <= suspectArraySize; i++) {
 	    		// If player has the card, or the card is a shared card or the card has been seen, then iterate the for loop
 	    		if(player.hasCard(Names.SUSPECT_NAMES[i]) == true || deck.isSharedCard(Names.SUSPECT_NAMES[i]) == true || player.hasSeen(Names.SUSPECT_NAMES[i]) == true) {
@@ -155,7 +155,7 @@ if( command== "done") {
 	      /**
     	  int weaponArraySize = Names.WEAPON_NAMES.length;
   	    
-	    	//Loop through the Weapons List
+	    	//Loop through the Weapons Array
 	    	for (int i = 0; i <= weaponArraySize; i++) {
 	    		// If player has the card, or the card is a shared card or the card has been seen, then iterate the for loop
 	    		if(player.hasCard(Names.WEAPON_NAMES[i]) == true || deck.isSharedCard(Names.WEAPON_NAMES[i]) == true || player.hasSeen(Names.WEAPON_NAMES[i]) == true) {
