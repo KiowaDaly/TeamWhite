@@ -128,17 +128,58 @@ if( command== "done") {
     
     
     public String getSuspect() {
-        // Add your code here
+       
+	    	/**
+    	 int suspectArraySize = Names.SUSPECT_NAMES.length;
+  	    
+	    	//Loop through the Weapons List
+	    	for (int i = 0; i <= suspectArraySize; i++) {
+	    		// If player has the card, or the card is a shared card or the card has been seen, then iterate the for loop
+	    		if(player.hasCard(Names.SUSPECT_NAMES[i]) == true || deck.isSharedCard(Names.SUSPECT_NAMES[i]) == true || player.hasSeen(Names.SUSPECT_NAMES[i]) == true) {
+	    			i++;
+	    		}
+	    		// If player does not have the card, or the card is not a shared card, or the player has not seen the card then execute if statement
+	    		else if (player.hasCard(Names.SUSPECT_NAMES[i]) == false || deck.isSharedCard(Names.SUSPECT_NAMES[i]) == false || player.hasSeen(Names.SUSPECT_NAMES[i]) == false) {
+	    			// Return the weapon that the player does not have as a suggestion
+	    		    return Names.SUSPECT_NAMES[i];
+	    	}
+	    		//TODO: What happens when there is only one card left?
+	    		break; //end loop
+			        }   **/
+    	
         return Names.SUSPECT_NAMES[0];
     }
 
     public String getWeapon() {
-        // Add your code here
+      
+	      /**
+    	  int weaponArraySize = Names.WEAPON_NAMES.length;
+  	    
+	    	//Loop through the Weapons List
+	    	for (int i = 0; i <= weaponArraySize; i++) {
+	    		// If player has the card, or the card is a shared card or the card has been seen, then iterate the for loop
+	    		if(player.hasCard(Names.WEAPON_NAMES[i]) == true || deck.isSharedCard(Names.WEAPON_NAMES[i]) == true || player.hasSeen(Names.WEAPON_NAMES[i]) == true) {
+	    			i++;
+	    		}
+	    		// If player does not have the card, or the card is not a shared card, or the player has not seen the card then execute if statement
+	    		else if (player.hasCard(Names.WEAPON_NAMES[i]) == false || deck.isSharedCard(Names.WEAPON_NAMES[i]) == false || player.hasSeen(Names.WEAPON_NAMES[i]) == false) {
+	    			// Return the weapon that the player does not have as a suggestion
+	    		    return Names.WEAPON_NAMES[i];
+	    	}
+	    		//TODO: What happens when there is only one card left?
+	    		break;
+			        }   **/
+	    
         return Names.WEAPON_NAMES[0];
     }
 
     public String getRoom() {
-        // Add your code here
+           
+    	if(player.getToken().isInRoom()) {
+    		//Return current room of player
+    		//return Names.ROOM_NAMES[];
+    	}
+	    
         return Names.ROOM_NAMES[0];
     }
 
