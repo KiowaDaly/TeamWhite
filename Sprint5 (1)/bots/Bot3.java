@@ -30,6 +30,7 @@ public class Bot3 implements BotAPI {
     private Deck deck;
     private List<Coordinates> myPath; 
     int routeLeft;
+    boolean firstCom= true;
 
     public Bot3 (Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
         this.player = player;
@@ -61,7 +62,25 @@ public class Bot3 implements BotAPI {
     	
     	//else... if they're finished
 //    	getMove();
-        return "roll";
+        String command= "done";
+    	
+    	
+    	if(player.getToken().isInRoom() && firstCom == false) {
+    		command ="question";
+    	}
+    	
+    	
+    	
+    	if( firstCom == true) {
+    		command ="roll";
+    		firstCom=false;
+    	}
+    	
+if( command== "done") {
+    		
+    		firstCom=true;
+    	}
+        return command;
         
     }
 
