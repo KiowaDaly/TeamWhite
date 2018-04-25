@@ -222,9 +222,13 @@ public class TeamWhite implements BotAPI {
 
     public String getRoom() {
            
-    	if(player.getToken().isInRoom()) {
+    		if(player.getToken().isInRoom()) {
+    		
+    		Player currentPlayer = null;
+         	Token currentToken = currentPlayer.getToken();
+         	String currentRoom = currentToken.getRoom().toString();
     		//Return current room of player
-    		//return Names.ROOM_NAMES[];
+    		return currentRoom;
     	}
 	    
         return Names.ROOM_NAMES[0];
