@@ -221,7 +221,7 @@ public class TeamWhite implements BotAPI {
     }
 
     public String getRoom() {
-           
+           /**
     		if(player.getToken().isInRoom()) {
     		
     		Player currentPlayer = null;
@@ -229,7 +229,7 @@ public class TeamWhite implements BotAPI {
          	String currentRoom = currentToken.getRoom().toString();
     		//Return current room of player
     		return currentRoom;
-    	}
+    	} **/
 	    
         return Names.ROOM_NAMES[0];
     }
