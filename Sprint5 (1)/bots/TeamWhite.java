@@ -98,11 +98,19 @@ if( command== "done") {
     	//this eliminates the bot's routes to those specific rooms.
     	
     	//implement A*//
-
+//    	final int NUM_ROOMS = 1 + (int)(Math.random() * 9);
+//    	final int NUM_DOORS = 1+ (int)(Math.random() + 4);
+//    	final Room[] rooms = new Room[NUM_ROOMS];
     	if(routeLeft==0) {
-    		myPath = getPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
-    		routeLeft = myPath.size();
+    		
+    //		for(int i=0;i<NUM_ROOMS;i++) {
+    			myPath = getPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
+    			routeLeft = myPath.size();
+    	
     	}
+    //	}
+    		
+    	
     	System.out.println(player.getToken().getPosition());
     	System.out.println(myPath);
     
@@ -114,7 +122,7 @@ if( command== "done") {
     	
         return move;
     	}
-//    }
+
     
     private static String getDirection(Coordinates startingPoint,Coordinates destination) {
     	if(startingPoint.getRow()>destination.getRow()) {
@@ -235,78 +243,69 @@ if( command== "done") {
 		
 	}
 }
+
 class AStarAlgorithm<T>{
-	
-	//this algorithm find the shortest path between two n 
+	//this algorithm finds the shortest path between two nodes
 	public static  List<Coordinates> execute(Coordinates startingPoint,Coordinates destination,Map map){
 		Set<Coordinates> closed = new HashSet<Coordinates>();
-		HashMap<Coordinates,Coordinates> fromMap = new HashMap<Coordinates,Coordinates>();
+		HashMap<Coordinates,Coordinates> hashmap = new HashMap<Coordinates,Coordinates>();
 		List<Coordinates> route = new LinkedList<Coordinates>();
-		HashMap<Coordinates,Double> gValue = new HashMap<Coordinates,Double>();
-		final HashMap<Coordinates,Double> fValue = new HashMap<Coordinates,Double>();
-		PriorityQueue<Coordinates> open = new PriorityQueue<Coordinates>(11,new Comparator<Coordinates>() {
-			public int compare(Coordinates nodeA, Coordinates nodeB) {
-				return Double.compare(fValue.get(nodeA), fValue.get(nodeB));
+		HashMap<Coordinates,Double> starttocurrent = new HashMap<Coordinates,Double>();
+		final HashMap<Coordinates,Double> starttofinish = new HashMap<Coordinates,Double>();
+		
+		PriorityQueue<Coordinates> closest_node = new PriorityQueue<Coordinates>(11,new Comparator<Coordinates>() {
+			public int compare(Coordinates first, Coordinates last) {
+				return Double.compare(starttofinish.get(first), starttofinish.get(last));
 			}
 		});
 		
-	
-		gValue.put(startingPoint, 0.0);
-		fValue.put(startingPoint,getHeuristic(startingPoint,destination));
-		open.offer (startingPoint);
+		starttocurrent.put(startingPoint, 0.0);
+		starttofinish.put(startingPoint, getHeuristic(startingPoint,destination));
+		closest_node.offer(startingPoint);
 		
-		
-		//acount for walls//
-		//error with this while loop//
-		
-		while(!open.isEmpty()) {
-			Coordinates current = open.poll();
+		while(!closest_node.isEmpty()) {
+			Coordinates current = closest_node.poll();
 			
-			if(current.equals(destination)) {
-				while(!(current==null)) {
+			if(current.equals(destination)){
+				while(current!=null) {
 					route.add(0,current);
-					current = fromMap.get(current);
+					current = hashmap.get(current);
 				}	
-				
-				
 				return route;
-			
 			}
 		
 			closed.add(current);
 			
-		
-			for(Coordinates neighbour : getNeighbours(current,map)) {
-				
-				
+			for(Coordinates neighbour:getNeighbours(current,map)){
 				
 				if(closed.contains(neighbour)) {
 					continue;
 				}
-				
-				
 				if(!map.isCorridor(current)) {
 					continue;
 				}
-				double tentG = gValue.get(current)+1.0;
 				
-				boolean contains = open.contains(neighbour);
-				if(!contains||tentG<gValue.get(neighbour)) {
-					gValue.put(neighbour,tentG);
-					fValue.put(neighbour,tentG+getHeuristic(neighbour,destination));
+
+				
+				double tempdistance_plus_one = starttocurrent.get(current)+1.0;
+				boolean contains = closest_node.contains(neighbour);
+				
+				if(!contains||tempdistance_plus_one<starttocurrent.get(neighbour)) {
+					starttocurrent.put(neighbour,tempdistance_plus_one);
+					starttofinish.put(neighbour,tempdistance_plus_one+getHeuristic(neighbour,destination));
 					
 					if(contains) {
-						open.remove(neighbour);
+						closest_node.remove(neighbour);
 					}
 					
-					
-					
-					
-					open.offer(neighbour);
-				
-					fromMap.put(neighbour, current);
+					closest_node.offer(neighbour);
+					hashmap.put(neighbour, current);
 					
 				}
+				if(map.isDoor(current, neighbour)){
+					current = startingPoint;
+				}
+
 			}
 			
 		}
