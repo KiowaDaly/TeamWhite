@@ -141,20 +141,15 @@ public class TeamWhite implements BotAPI {
     		}
     	}
     		
-    	
     	System.out.println(player.getToken().getPosition());
     	System.out.println(myPath);
     
     	String  move = getDirection(player.getToken().getPosition(),myPath.remove(1));
-    	
-    
-    	
     	routeLeft--;
+    	return move;
     	
-        return move;
-    	}
+    }
 
-    
     private static String getDirection(Coordinates startingPoint,Coordinates destination) {
     	if(startingPoint.getRow()>destination.getRow()) {
     		return "u";
@@ -220,15 +215,13 @@ public class TeamWhite implements BotAPI {
 
     public String getRoom() {
         //Suspects room that token is in
-	    
-        return Names.ROOM_NAMES[0];
+	    return Names.ROOM_NAMES[0];
     }
 
     public String getDoor() {
         // Add your code here
     	// getting the certain door which the current player has just used
-    	
-        return "1";
+    	return "1";
     }
 
     public String getCard(Cards matchingCards) {
@@ -240,40 +233,32 @@ public class TeamWhite implements BotAPI {
         // Add your code here
     }
     public List<Coordinates> getPath(Coordinates X,Coordinates Y) {
+    	return AStarAlgorithm.execute(X,Y,map);
+    }
     
-        	return AStarAlgorithm.execute(X,Y,map);
-        }
-    
-	@Override
 	public String getVersion() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+	
 	public void notifyPlayerName(String playerName) {
 		// TODO Auto-generated method stub
-		
 	}
-	@Override
 	public void notifyTurnOver(String playerName, String position) {
 		// TODO Auto-generated method stub
-		
 	}
-	@Override
 	public void notifyQuery(String playerName, String query) {
 		// TODO Auto-generated method stub
-		
 	}
-	@Override
 	public void notifyReply(String playerName, boolean cardShown) {
 		// TODO Auto-generated method stub
-		
 	}
 }
 
 class AStarAlgorithm<T>{
 	//this algorithm finds the shortest path between two nodes
 	public static  List<Coordinates> execute(Coordinates startingPoint,Coordinates destination,Map map){
+		
 		Set<Coordinates> closed = new HashSet<Coordinates>();
 		HashMap<Coordinates,Coordinates> hashmap = new HashMap<Coordinates,Coordinates>();
 		List<Coordinates> route = new LinkedList<Coordinates>();
@@ -300,19 +285,16 @@ class AStarAlgorithm<T>{
 				}	
 				return route;
 			}
-		
+			
 			closed.add(current);
 			
 			for(Coordinates neighbour:getNeighbours(current,map)){
-				
 				if(closed.contains(neighbour)) {
 					continue;
 				}
 				if(!map.isCorridor(current)) {
 					continue;
 				}
-				
-
 				
 				double tempdistance_plus_one = starttocurrent.get(current)+1.0;
 				boolean contains = closest_node.contains(neighbour);
@@ -327,10 +309,8 @@ class AStarAlgorithm<T>{
 					
 					closest_node.offer(neighbour);
 					hashmap.put(neighbour, current);
-					
 				}
-
-
+				
 			}
 			
 		}
@@ -338,11 +318,10 @@ class AStarAlgorithm<T>{
 	}
 	
 	 public static double getHeuristic(Coordinates startingPoint,Coordinates destination) {
-	    	double distance = Math.abs(startingPoint.getRow()-destination.getRow()) + Math.abs(startingPoint.getCol()-destination.getCol());
-	    	
-			return distance;
-	    	
-	    }
+		 double distance = Math.abs(startingPoint.getRow()-destination.getRow()) + Math.abs(startingPoint.getCol()-destination.getCol());
+		 return distance;
+		 
+	 }
 	 public static List<Coordinates> getNeighbours(Coordinates current,Map map){
 		 List<Coordinates> Neighbours = new LinkedList<Coordinates>();
 		Neighbours.add(new Coordinates(current.getCol(),current.getRow()+1));
@@ -355,6 +334,8 @@ class AStarAlgorithm<T>{
 		
 		 return Neighbours;
 	 }
+	 
+	 
 	 
 }
 
