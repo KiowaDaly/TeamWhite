@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Random;
 import java.util.Set;
 
 
@@ -69,6 +70,9 @@ public class Bot2 implements BotAPI {
     	}
     	
     	
+    	if(player.getToken().isInRoom()) {
+    		routeLeft = 0;
+    	}
     	
     	if( firstCom == true) {
     		command ="roll";
@@ -91,13 +95,37 @@ if( command== "done") {
     	//also can possibly implement getCard here to find which ROOM cards the user already has
     	//this eliminates the bot's routes to those specific rooms.
     	
-    	//implement A*//
-    	System.out.println("test");
-//    	myPath = findPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
+    	String[] rooms = {"Kitchen", "Ballroom", "Conservatory", "Billiard Room", "Library",
+                "Study", "Hall", "Lounge", "Dining Room", "Cellar"};
     	
     	if(routeLeft==0) {
-    		myPath = getPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
-    		routeLeft = myPath.size();
+    		
+    //		for(int i=0;i<NUM_ROOMS;i++) {
+    			myPath = getPath(player.getToken().getPosition(),map.getRoom(rooms[new Random().nextInt(9)]).getDoorCoordinates(0));
+    			routeLeft = myPath.size();
+    	
+    	}
+     	if(myPath.size()==0) {
+    		Coordinates north = map.getNewPosition(player.getToken().getPosition(), "u");
+    		Coordinates south = map.getNewPosition(player.getToken().getPosition(), "d");
+    		Coordinates west = map.getNewPosition(player.getToken().getPosition(), "l");
+    		Coordinates east = map.getNewPosition(player.getToken().getPosition(), "r");
+    		if(map.isDoor(north, player.getToken().getPosition())) {
+    			myPath.add(player.getToken().getPosition());
+    			myPath.add(north);
+    		}
+    		if(map.isDoor(south, player.getToken().getPosition())) {
+    			myPath.add(player.getToken().getPosition());
+    			myPath.add(south);
+    		}
+    		if(map.isDoor(west, player.getToken().getPosition())) {
+    			myPath.add(player.getToken().getPosition());
+    			myPath.add(west);
+    		}
+    		if(map.isDoor(east, player.getToken().getPosition())) {
+    			myPath.add(player.getToken().getPosition());
+    			myPath.add(east);
+    		}
     	}
     	System.out.println(myPath);
     	

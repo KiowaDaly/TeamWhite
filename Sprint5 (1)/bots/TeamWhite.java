@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Random;
 import java.util.Set;
 
 
@@ -32,6 +33,7 @@ public class TeamWhite implements BotAPI {
     int routeLeft;
     boolean firstCom= true;
     boolean askQ= false;
+    String[] directions = {"u","d","l","r"};
 
     public TeamWhite (Player player, PlayersInfo playersInfo, Map map, Dice dice, Log log, Deck deck) {
         this.player = player;
@@ -72,7 +74,9 @@ public class TeamWhite implements BotAPI {
     	        //getSuspect();
     	        //getRoom();
     	}
-    	
+    	if(player.getToken().isInRoom()) {
+    		routeLeft = 0;
+    	}
     	
     	
     	
@@ -81,7 +85,7 @@ public class TeamWhite implements BotAPI {
     		firstCom=false;
     	}
     	
-if( command== "done") {
+    	if( command== "done") {
     		
     		firstCom=true;
     	}
@@ -101,14 +105,43 @@ if( command== "done") {
 //    	final int NUM_ROOMS = 1 + (int)(Math.random() * 9);
 //    	final int NUM_DOORS = 1+ (int)(Math.random() + 4);
 //    	final Room[] rooms = new Room[NUM_ROOMS];
+    	String[] rooms = {"Kitchen", "Ballroom", "Conservatory", "Billiard Room", "Library",
+                "Study", "Hall", "Lounge", "Dining Room", "Cellar"};
+    	if(!map.isCorridor(player.getToken().getPosition())) {
+    		routeLeft = 0;
+    		myPath = getPath(player.getToken().getPosition(),map.getRoom(rooms[new Random().nextInt(9)]).getDoorCoordinates(0));
+			routeLeft = myPath.size();
+    	}
     	if(routeLeft==0) {
     		
     //		for(int i=0;i<NUM_ROOMS;i++) {
-    			myPath = getPath(player.getToken().getPosition(),map.getRoom("Ballroom").getDoorCoordinates(1));
+    			myPath = getPath(player.getToken().getPosition(),map.getRoom(rooms[new Random().nextInt(9)]).getDoorCoordinates(0));
     			routeLeft = myPath.size();
     	
     	}
     //	}
+    	if(myPath.size()==0) {
+    		Coordinates north = map.getNewPosition(player.getToken().getPosition(), "u");
+    		Coordinates south = map.getNewPosition(player.getToken().getPosition(), "d");
+    		Coordinates west = map.getNewPosition(player.getToken().getPosition(), "l");
+    		Coordinates east = map.getNewPosition(player.getToken().getPosition(), "r");
+    		if(map.isDoor(north, player.getToken().getPosition())) {
+    			myPath.add(player.getToken().getPosition());
+    			myPath.add(north);
+    		}
+    		if(map.isDoor(south, player.getToken().getPosition())) {
+    			myPath.add(player.getToken().getPosition());
+    			myPath.add(south);
+    		}
+    		if(map.isDoor(west, player.getToken().getPosition())) {
+    			myPath.add(player.getToken().getPosition());
+    			myPath.add(west);
+    		}
+    		if(map.isDoor(east, player.getToken().getPosition())) {
+    			myPath.add(player.getToken().getPosition());
+    			myPath.add(east);
+    		}
+    	}
     		
     	
     	System.out.println(player.getToken().getPosition());
@@ -302,9 +335,7 @@ class AStarAlgorithm<T>{
 					hashmap.put(neighbour, current);
 					
 				}
-				if(map.isDoor(current, neighbour)){
-					current = startingPoint;
-				}
+
 
 			}
 			
