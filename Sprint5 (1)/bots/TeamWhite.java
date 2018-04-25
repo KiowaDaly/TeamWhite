@@ -70,9 +70,7 @@ public class TeamWhite implements BotAPI {
     	if(player.getToken().isInRoom() && askQ == false) {
     		command ="question";
     		askQ = true;
-		//getWeapon();
-    	        //getSuspect();
-    	        //getRoom();
+		
     	}
     	if(player.getToken().isInRoom()) {
     		routeLeft = 0;
@@ -221,15 +219,7 @@ public class TeamWhite implements BotAPI {
     }
 
     public String getRoom() {
-           /**
-    		if(player.getToken().isInRoom()) {
-    		
-    		Player currentPlayer = null;
-         	Token currentToken = currentPlayer.getToken();
-         	String currentRoom = currentToken.getRoom().toString();
-    		//Return current room of player
-    		return currentRoom;
-    	} **/
+        //Suspects room that token is in
 	    
         return Names.ROOM_NAMES[0];
     }
